@@ -1,5 +1,8 @@
 package com.diplome.viktory.translater.activities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -12,14 +15,19 @@ import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
+import com.diplome.viktory.translater.activities.services.InternetChecker;
 import com.diplome.viktory.translater.activities.translater.ResultObject;
 import com.diplome.viktory.translater.activities.translater.Translater;
 import com.diplome.viktory.translater.interfaces.YandexTranslateApi;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,10 +35,8 @@ import retrofit2.Response;
 
 public class TranslateActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private YandexTranslateApi yandexTranslateApi;
     private Spinner spinner1, spinner2;
     private ImageView imageViewRight, imageViewLeft;
-    private ResultObject mResultObject;
     private EditText editTextLeft, editTextRight;
     private Map<Integer, String> mLanguageMap;
 
@@ -46,7 +52,6 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         imageViewRight = (ImageView) findViewById(R.id.translate_right);
         editTextLeft = (EditText) findViewById(R.id.edit_left);
         editTextRight = (EditText) findViewById(R.id.edit_right);
-
         mLanguageMap = new HashMap<>();
 
         imageViewRight.setOnClickListener(this);
@@ -93,46 +98,63 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
 
-        Map<String, String> map = new HashMap<>();
-        int firstLanguage = (int) spinner1.getSelectedItemId();
-        int secongLanguage = (int) spinner2.getSelectedItemId();
-
-
-
-
         if (editTextLeft == null)
             return;
 
-        String resultLang = null;
 
-        map.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
+        Map<String, String> map = new HashMap<>();
 
-        Log.d("MY_DEBUG", "OnClick\n" + spinner1.getSelectedItem().toString());
+        InternetChecker internetChecker = new InternetChecker();
+        internetChecker.execute(getApplicationContext());
 
-        switch (v.getId()) {
-            case R.id.translate_left:
-                resultLang = mLanguageMap.get(secongLanguage) + "-" + mLanguageMap.get(firstLanguage) ;
-                map.put("text", editTextRight.getText().toString());
-                break;
-            case R.id.translate_right:
-                resultLang = mLanguageMap.get(firstLanguage) + "-" + mLanguageMap.get(secongLanguage);
-                map.put("text", editTextLeft.getText().toString());
-                break;
+        try {
+            if (internetChecker.get()) {
+
+                String resultLang = null;
+
+                map.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
+
+
+                switch (v.getId()) {
+                    case R.id.translate_left:
+                        resultLang = mLanguageMap.get(spinner2.getSelectedItemId())
+                                + "-" + mLanguageMap.get(spinner2.getSelectedItemId());
+                        map.put("text", editTextRight.getText().toString());
+                        break;
+                    case R.id.translate_right:
+                        resultLang = mLanguageMap.get(spinner2.getSelectedItemId())
+                                + "-" + mLanguageMap.get(spinner2.getSelectedItemId());
+                        map.put("text", editTextLeft.getText().toString());
+                        break;
+                }
+
+                map.put("lang", resultLang);
+
+                getResult(map, v.getId());
+
+
+            } else {
+                Toast.makeText(this, R.string.has_not_internet, Toast.LENGTH_SHORT).show();
+            }
+
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
 
-        Toast.makeText(this, resultLang, Toast.LENGTH_SHORT).show();
 
-        map.put("lang", resultLang);
+    }
 
-
+    public void getResult(Map<String, String> map, int direction) {
         Translater.getApi().getData(map)
                 .enqueue(new Callback<ResultObject>() {
                     @Override
                     public void onResponse(Call<ResultObject> call, Response<ResultObject> response) {
-                        Log.d("MY_DEBUG", "OnResponse\n" + call.toString());
                         if (response.body() != null) {
                             List<String> textList = response.body().getText();
-                            if (v.getId() == R.id.translate_right) {
+                            if (direction == R.id.translate_right) {
                                 editTextRight.setText("");
                                 editTextRight.setText(Arrays.toString(textList.toArray()));
 
@@ -147,8 +169,9 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                     public void onFailure(Call<ResultObject> call, Throwable t) {
                         Log.d("MY_DEBUG", "onFailure\n" + call.toString());
                     }
-                });
 
+
+                });
     }
 
    /* public class MyCustomAdapter extends ArrayAdapter<String> {
