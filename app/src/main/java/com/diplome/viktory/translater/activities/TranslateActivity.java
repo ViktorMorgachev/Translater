@@ -17,6 +17,8 @@ import com.diplome.viktory.translater.activities.translater.ResultObjectContext;
 import com.diplome.viktory.translater.activities.translater.ResultObjectLanguage;
 import com.diplome.viktory.translater.activities.translater.Translater;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -105,26 +107,37 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
                 map.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
                 String resultLang = null;
+                String lang1 = null;
 
-                // Определяемя исходный язык
 
-                String lang1 = getSourceText(getHintLang(mLanguageMap), KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
 
 
                 switch (v.getId()) {
                     case R.id.translate_left:
-                        resultLang = mLanguageMap.get(spinner2.getSelectedItemPosition()
-                                + "-" + lang1);
+                        // Определяем исходный язык, должен вернуть такого формата: en // В асинхронном потоке
+                        lang1 = getSourceText(getHintLang(mLanguageMap),
+                                KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER,
+                                URLEncoder.encode(editTextRight.getText().toString(), "UTF-8"));
+                      
+                        if (lang1 != null)
+                            resultLang = "ru" + "-" + mLanguageMap.get(spinner1.getSelectedItemPosition());
                         map.put("text", editTextRight.getText().toString());
                         break;
                     case R.id.translate_right:
-                        resultLang = mLanguageMap.get(spinner1.getSelectedItemPosition())
-                                + "-" + mLanguageMap.get(spinner2.getSelectedItemPosition());
+                        // Определяем исходный язык, должен вернуть такого формата: en // В асинхронном потоке
+                        lang1 = getSourceText(getHintLang(mLanguageMap),
+                                KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER,
+                                URLEncoder.encode(editTextLeft.getText().toString(), "UTF-8"));
+
+                        if (lang1 != null)
+                            resultLang = "ru" + "-" + mLanguageMap.get(spinner2.getSelectedItemPosition());
+
                         map.put("text", editTextLeft.getText().toString());
                         break;
                 }
-
                 map.put("lang", resultLang);
+
+
 
                 getTextTranstated(map, v.getId());
 
@@ -137,6 +150,8 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
@@ -177,7 +192,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                                 for (int i = 0; i < textList.size(); i++) {
                                     stringBuilder.append(textList.get(i));
                                 }
-                                editTextLeft.setText(Arrays.toString(textList.toArray()));
+                                editTextLeft.setText(stringBuilder);
                             }
                         }
                     }
@@ -191,21 +206,29 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                 });
     }
 
-    private String getSourceText(String hint, String key) {
-        Translater.getApi().getLanguage(hint, key)
+    private String getSourceText(String hint, String key, String text) {
+
+        final String[] result = {""};
+
+        Translater.getApi().getLanguage(hint, key, text )
                 .enqueue(new Callback<ResultObjectLanguage>() {
                     @Override
                     public void onResponse(Call<ResultObjectLanguage> call, Response<ResultObjectLanguage> response) {
-                        Log.d("MY_DEBUG", "onResponse\n" + call.toString());
-
+                        Log.d("MY_DEBUG", "onResponse\n getLanguage " + call.toString());
+                        if (response.body() != null) {
+                            Log.d(KeysInteractor.KeysField.LOG_TAG, response.body().getLang());
+                            result[0] = response.body().getLang();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<ResultObjectLanguage> call, Throwable t) {
-                        Log.d("MY_DEBUG", "onFailure\n" + call.toString());
+                        Log.d("MY_DEBUG", "onFailure\n getLanguage " + call.toString());
                     }
 
                 });
+
+        return result[0];
 
     }
 
