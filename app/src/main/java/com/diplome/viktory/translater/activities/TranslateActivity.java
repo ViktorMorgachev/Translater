@@ -117,13 +117,13 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
                 switch (v.getId()) {
                     case R.id.translate_left:
-                        resultLang = mLanguageMap.get(spinner2.getSelectedItemId())
-                                + "-" + mLanguageMap.get(spinner2.getSelectedItemId());
+                        resultLang = mLanguageMap.get(spinner2.getSelectedItemPosition())
+                                + "-" + mLanguageMap.get(spinner1.getSelectedItemPosition());
                         map.put("text", editTextRight.getText().toString());
                         break;
                     case R.id.translate_right:
-                        resultLang = mLanguageMap.get(spinner2.getSelectedItemId())
-                                + "-" + mLanguageMap.get(spinner2.getSelectedItemId());
+                        resultLang = mLanguageMap.get(spinner1.getSelectedItemPosition())
+                                + "-" + mLanguageMap.get(spinner2.getSelectedItemPosition());
                         map.put("text", editTextLeft.getText().toString());
                         break;
                 }
