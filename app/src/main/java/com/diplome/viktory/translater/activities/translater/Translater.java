@@ -52,12 +52,14 @@ public class Translater extends Application {
         okHttpClient.addInterceptor(logging);
 
         retrofit = new Retrofit.Builder()
-                .baseUrl("https:////translate.yandex.net")
+                .baseUrl("https://translate.yandex.net")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(okHttpClient.build())
                 .build();
 
         yandexTranslateApi = retrofit.create(YandexTranslateApi.class);
+
+
 
     }
 

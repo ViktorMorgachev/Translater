@@ -6,7 +6,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
-public class ResultObject {
+public class ResultObjectContext {
 
     @SerializedName("code")
     @Expose
@@ -21,7 +21,7 @@ public class ResultObject {
     /**
      * No args constructor for use in serialization
      */
-    public ResultObject() {
+    public ResultObjectContext() {
     }
 
     /**
@@ -29,7 +29,7 @@ public class ResultObject {
      * @param code
      * @param lang
      */
-    public ResultObject(Integer code, String lang, List<String> text) {
+    public ResultObjectContext(Integer code, String lang, List<String> text) {
         super();
         this.code = code;
         this.lang = lang;

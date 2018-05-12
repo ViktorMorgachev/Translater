@@ -1,8 +1,5 @@
 package com.diplome.viktory.translater.activities;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -16,13 +13,10 @@ import android.widget.Toast;
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
 import com.diplome.viktory.translater.activities.services.InternetChecker;
-import com.diplome.viktory.translater.activities.translater.ResultObject;
+import com.diplome.viktory.translater.activities.translater.ResultObjectContext;
+import com.diplome.viktory.translater.activities.translater.ResultObjectLanguage;
 import com.diplome.viktory.translater.activities.translater.Translater;
-import com.diplome.viktory.translater.interfaces.YandexTranslateApi;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -98,9 +92,8 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
 
-        if (editTextLeft == null)
+        if (editTextLeft == null && editTextRight == null)
             return;
-
 
         Map<String, String> map = new HashMap<>();
 
@@ -110,15 +103,18 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         try {
             if (internetChecker.get()) {
 
+                map.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
                 String resultLang = null;
 
-                map.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
+                // Определяемя исходный язык
+
+                String lang1 = getSourceText(getHintLang(mLanguageMap), KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
 
 
                 switch (v.getId()) {
                     case R.id.translate_left:
-                        resultLang = mLanguageMap.get(spinner2.getSelectedItemPosition())
-                                + "-" + mLanguageMap.get(spinner1.getSelectedItemPosition());
+                        resultLang = mLanguageMap.get(spinner2.getSelectedItemPosition()
+                                + "-" + lang1);
                         map.put("text", editTextRight.getText().toString());
                         break;
                     case R.id.translate_right:
@@ -130,7 +126,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
                 map.put("lang", resultLang);
 
-                getResult(map, v.getId());
+                getTextTranstated(map, v.getId());
 
 
             } else {
@@ -147,25 +143,38 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-    public void getResult(Map<String, String> map, int direction) {
+
+    private String getHintLang(Map<Integer, String> langsMap) {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < langsMap.size(); i++) {
+            stringBuilder.append(langsMap.get(i) + ",");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
+        Log.d(KeysInteractor.KeysField.LOG_TAG, stringBuilder.toString());
+        return stringBuilder.toString();
+    }
+
+    public void getTextTranstated(Map<String, String> map, int direction) {
         Translater.getApi().getData(map)
-                .enqueue(new Callback<ResultObject>() {
+                .enqueue(new Callback<ResultObjectContext>() {
                     @Override
-                    public void onResponse(Call<ResultObject> call, Response<ResultObject> response) {
+                    public void onResponse(Call<ResultObjectContext> call, Response<ResultObjectContext> response) {
                         Log.d("MY_DEBUG", "onResponse\n" + call.toString());
                         if (response.body() != null) {
                             StringBuilder stringBuilder = new StringBuilder();
                             List<String> textList = response.body().getText();
                             if (direction == R.id.translate_right) {
                                 editTextRight.setText("");
-                                for(int i = 0; i < textList.size(); i++){
+                                for (int i = 0; i < textList.size(); i++) {
                                     stringBuilder.append(textList.get(i));
                                 }
                                 editTextRight.setText(stringBuilder);
 
                             } else {
                                 editTextLeft.setText("");
-                                for(int i = 0; i < textList.size(); i++){
+                                for (int i = 0; i < textList.size(); i++) {
                                     stringBuilder.append(textList.get(i));
                                 }
                                 editTextLeft.setText(Arrays.toString(textList.toArray()));
@@ -174,13 +183,32 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                     }
 
                     @Override
-                    public void onFailure(Call<ResultObject> call, Throwable t) {
+                    public void onFailure(Call<ResultObjectContext> call, Throwable t) {
                         Log.d("MY_DEBUG", "onFailure\n" + call.toString());
                     }
 
 
                 });
     }
+
+    private String getSourceText(String hint, String key) {
+        Translater.getApi().getLanguage(hint, key)
+                .enqueue(new Callback<ResultObjectLanguage>() {
+                    @Override
+                    public void onResponse(Call<ResultObjectLanguage> call, Response<ResultObjectLanguage> response) {
+                        Log.d("MY_DEBUG", "onResponse\n" + call.toString());
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResultObjectLanguage> call, Throwable t) {
+                        Log.d("MY_DEBUG", "onFailure\n" + call.toString());
+                    }
+
+                });
+
+    }
+
 
    /* public class MyCustomAdapter extends ArrayAdapter<String> {
 

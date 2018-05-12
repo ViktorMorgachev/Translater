@@ -1,9 +1,9 @@
 package com.diplome.viktory.translater.interfaces;
 
 
-import com.diplome.viktory.translater.activities.translater.ResultObject;
+import com.diplome.viktory.translater.activities.translater.ResultObjectContext;
+import com.diplome.viktory.translater.activities.translater.ResultObjectLanguage;
 
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -17,7 +17,9 @@ import retrofit2.http.QueryMap;
 
 public interface YandexTranslateApi {
 
-    @POST("https://translate.yandex.net/api/v1.5/tr.json/translate")
-    Call<ResultObject> getData(@QueryMap Map<String, String> map);
+    @POST("/api/v1.5/tr.json/translate")
+    Call<ResultObjectContext> getData(@QueryMap Map<String, String> map);
 
+    @POST("/api/v1.5/tr.json/detect")
+    Call<ResultObjectLanguage> getLanguage(@Query("hint") String hint, @Query("key") String key);
 }
