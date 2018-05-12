@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -42,9 +44,17 @@ public class Translater extends Application {
                 .setPrettyPrinting()
                 .create();
 
+
+        HttpLoggingInterceptor logging = new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+
+        OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
+
+        okHttpClient.addInterceptor(logging);
+
         retrofit = new Retrofit.Builder()
                 .baseUrl("https:////translate.yandex.net")
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient.build())
                 .build();
 
         yandexTranslateApi = retrofit.create(YandexTranslateApi.class);

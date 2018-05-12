@@ -152,14 +152,22 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                 .enqueue(new Callback<ResultObject>() {
                     @Override
                     public void onResponse(Call<ResultObject> call, Response<ResultObject> response) {
+                        Log.d("MY_DEBUG", "onResponse\n" + call.toString());
                         if (response.body() != null) {
+                            StringBuilder stringBuilder = new StringBuilder();
                             List<String> textList = response.body().getText();
                             if (direction == R.id.translate_right) {
                                 editTextRight.setText("");
-                                editTextRight.setText(Arrays.toString(textList.toArray()));
+                                for(int i = 0; i < textList.size(); i++){
+                                    stringBuilder.append(textList.get(i));
+                                }
+                                editTextRight.setText(stringBuilder);
 
                             } else {
                                 editTextLeft.setText("");
+                                for(int i = 0; i < textList.size(); i++){
+                                    stringBuilder.append(textList.get(i));
+                                }
                                 editTextLeft.setText(Arrays.toString(textList.toArray()));
                             }
                         }
