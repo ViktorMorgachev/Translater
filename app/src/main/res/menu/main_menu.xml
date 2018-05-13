@@ -9,7 +9,11 @@
             android:title="@string/enable_language_determinate"
             app:actionLayout="@layout/switch_item"
             app:showAsAction="never" />
+
     </group>
 
-
+    <item
+        android:id="@+id/app_bar_about"
+        android:title="@string/menu_about"
+        app:showAsAction="never" />
 </menu>

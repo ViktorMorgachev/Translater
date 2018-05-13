@@ -1,46 +1,40 @@
-package com.diplome.viktory.translater.activities.translater;
-
-import java.util.List;
+package com.diplome.viktory.translater.logic.translater;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-
-public class ResultObjectContext {
+public class ResultObjectLanguage {
 
     @SerializedName("code")
     @Expose
-    private Integer code;
+    private int code;
     @SerializedName("lang")
     @Expose
     private String lang;
-    @SerializedName("text")
-    @Expose
-    private List<String> text = null;
 
     /**
      * No args constructor for use in serialization
+     *
      */
-    public ResultObjectContext() {
+    public ResultObjectLanguage() {
     }
 
     /**
-     * @param text
+     *
      * @param code
      * @param lang
      */
-    public ResultObjectContext(Integer code, String lang, List<String> text) {
+    public ResultObjectLanguage(int code, String lang) {
         super();
         this.code = code;
         this.lang = lang;
-        this.text = text;
     }
 
-    public Integer getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(int code) {
         this.code = code;
     }
 
@@ -52,11 +46,11 @@ public class ResultObjectContext {
         this.lang = lang;
     }
 
-    public List<String> getText() {
-        return text;
-    }
-
-    public void setText(List<String> text) {
-        this.text = text;
+    @Override
+    public String toString() {
+        return "ResultObjectLanguage{" +
+                "code=" + code +
+                ", lang='" + lang + '\'' +
+                '}';
     }
 }

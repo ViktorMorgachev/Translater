@@ -1,6 +1,11 @@
 package com.diplome.viktory.translater.activities;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,7 +29,7 @@ import java.util.concurrent.ExecutionException;
 
 import retrofit2.Response;
 
-public class TranslateActivity extends AppCompatActivity implements View.OnClickListener, RequestCreatedListener{
+public class TranslateActivity extends AppCompatActivity implements View.OnClickListener, RequestCreatedListener {
 
     private Spinner spinner1, spinner2;
     private ImageView imageViewRight, imageViewLeft;
@@ -32,6 +37,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     private boolean isAutoDeterminate;
     private RequestCreater mRequestCreater;
     private String result;
+    private ServiceConnection mServiceConnection;
 
 
     private String[] languages;
@@ -46,18 +52,29 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         imageViewRight = (ImageView) findViewById(R.id.translate_right);
         editTextLeft = (EditText) findViewById(R.id.edit_left);
         editTextRight = (EditText) findViewById(R.id.edit_right);
+
+        mServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onServiceConnected ");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onServiceDisconnected ");
+            }
+        };
+
         mRequestCreater = new RequestCreater();
         mRequestCreater.setTranslateActivity(this);
 
         imageViewRight.setOnClickListener(this);
         imageViewLeft.setOnClickListener(this);
 
-
         languages = getResources().getStringArray(R.array.languages);
 
-
-
-
+        startService(new Intent(this, RequestCreater.class));
+        bindService(new Intent(this, RequestCreater.class), mServiceConnection, BIND_AUTO_CREATE);
 
       /*  // Подключаем свой шаблон с разными значками
         MyCustomAdapter adapter = new MyCustomAdapter(getContext(),
@@ -77,9 +94,9 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onClick(View v) {
 
-        if (editTextLeft == null && editTextRight == null)
+        if ((editTextLeft.getText().toString() == "") && (editTextRight.getText().toString() == ""))
             return;
-
+        startService(new Intent(this, RequestCreater.class));
 
         InternetChecker internetChecker = new InternetChecker();
         internetChecker.execute(getApplicationContext());
@@ -91,11 +108,12 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                     case R.id.translate_left:
 
                         // Пишем ахренеть какой сложный запрос
-                            mRequestCreater
-                                    .makeResponse(false,
-                                            editTextRight.getText().toString(),
-                                            mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
-                                                    mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
+
+                        mRequestCreater
+                                .makeResponse(false,
+                                        editTextRight.getText().toString(),
+                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
+                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
                         break;
                     case R.id.translate_right:
                         // Пишем ахренеть какой сложный запрос
@@ -122,6 +140,20 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        //stopService(new Intent(this, RequestCreater.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(mServiceConnection);
+        stopService(new Intent(this, RequestCreater.class));
+
+    }
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {

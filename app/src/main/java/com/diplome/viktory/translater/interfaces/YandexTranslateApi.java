@@ -1,14 +1,13 @@
 package com.diplome.viktory.translater.interfaces;
 
 
-import com.diplome.viktory.translater.activities.translater.ResultObjectContext;
-import com.diplome.viktory.translater.activities.translater.ResultObjectLanguage;
+import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
+import com.diplome.viktory.translater.logic.translater.ResultObjectLanguage;
 
 import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 /**

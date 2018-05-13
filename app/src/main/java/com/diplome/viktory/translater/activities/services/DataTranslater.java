@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
-import com.diplome.viktory.translater.activities.translater.Translater;
+import com.diplome.viktory.translater.logic.translater.Translater;
 import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
 
 import java.io.IOException;

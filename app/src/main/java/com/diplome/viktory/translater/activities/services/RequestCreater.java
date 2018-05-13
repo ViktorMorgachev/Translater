@@ -3,6 +3,7 @@ package com.diplome.viktory.translater.activities.services;
 import android.app.Application;
 import android.app.Service;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -39,7 +40,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     private TranslateActivity mTranslateActivity;
 
     public Map<Integer, String> getLanguageMap() {
-        return mLanguageMap;
+        return this.mLanguageMap;
     }
 
     public void setTranslateActivity(TranslateActivity translateActivity) {
@@ -52,6 +53,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     public void onCreate() {
         super.onCreate();
 
+        mLanguageMap = new HashMap<>();
         mLanguageMap.put(0, "ky");
         mLanguageMap.put(1, "ru");
         mLanguageMap.put(2, "en");
@@ -74,12 +76,27 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onBind");
+        throw  new UnsupportedOperationException() ;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStartCommand");
         return super.onStartCommand(intent, flags, startId);
+
+    }
+
+    @Override
+    public void onTaskRemoved(Intent rootIntent) {
+        super.onTaskRemoved(rootIntent);
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onTaskRemoved");
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onDestroy");
     }
 
     public void getTranslatedText(String lang1) {
@@ -93,6 +110,24 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
         }
         mDataTranslater.execute(mRequestMap);
 
+    }
+
+    @Override
+    public void unbindService(ServiceConnection conn) {
+        super.unbindService(conn);
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : unbindService");
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onUnbind");
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onRebind(Intent intent) {
+        super.onRebind(intent);
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onRebind");
     }
 
     public void getTranslatedText(Map<String, String> requestMap) {

@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:name=".activities.translater.Translater">
+        android:name=".logic.translater.Translater">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,8 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
-        <service android:name=".activities.services.RequestCreater"></service>
+        <service android:name=".activities.services.RequestCreater"
+            android:stopWithTask="true"></service>
     </application>
 
 </manifest>

@@ -1,19 +1,11 @@
-package com.diplome.viktory.translater.activities.translater;
+package com.diplome.viktory.translater.logic.translater;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.widget.Toast;
 
-import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
 import com.diplome.viktory.translater.interfaces.YandexTranslateApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
