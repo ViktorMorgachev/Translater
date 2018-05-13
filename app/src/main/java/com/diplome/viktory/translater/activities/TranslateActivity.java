@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,30 +13,26 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
+import com.diplome.viktory.translater.activities.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
 import com.diplome.viktory.translater.activities.services.InternetChecker;
-import com.diplome.viktory.translater.activities.translater.ResultObjectContext;
-import com.diplome.viktory.translater.activities.translater.ResultObjectLanguage;
-import com.diplome.viktory.translater.activities.translater.Translater;
+import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
+import com.diplome.viktory.translater.activities.services.RequestCreater;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TranslateActivity extends AppCompatActivity implements View.OnClickListener {
+public class TranslateActivity extends AppCompatActivity implements View.OnClickListener, RequestCreatedListener{
 
     private Spinner spinner1, spinner2;
     private ImageView imageViewRight, imageViewLeft;
     private EditText editTextLeft, editTextRight;
-    private Map<Integer, String> mLanguageMap;
+    private boolean isAutoDeterminate;
+    private RequestCreater mRequestCreater;
+    private String result;
+
 
     private String[] languages;
 
@@ -48,7 +46,8 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         imageViewRight = (ImageView) findViewById(R.id.translate_right);
         editTextLeft = (EditText) findViewById(R.id.edit_left);
         editTextRight = (EditText) findViewById(R.id.edit_right);
-        mLanguageMap = new HashMap<>();
+        mRequestCreater = new RequestCreater();
+        mRequestCreater.setTranslateActivity(this);
 
         imageViewRight.setOnClickListener(this);
         imageViewLeft.setOnClickListener(this);
@@ -56,22 +55,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
         languages = getResources().getStringArray(R.array.languages);
 
-       /* <item>Русский</item>
-        <item>Английский</item>
-        <item>Французский</item>
-        <item>Итальянский</item>
-        <item>Испанский</item>
-        <item>Немецкий</item>
-        <item>Корейский</item>*/
 
-        mLanguageMap.put(0, "ky");
-        mLanguageMap.put(1, "ru");
-        mLanguageMap.put(2, "en");
-        mLanguageMap.put(3, "fr");
-        mLanguageMap.put(4, "it");
-        mLanguageMap.put(5, "es");
-        mLanguageMap.put(6, "de");
-        mLanguageMap.put(7, "ko");
 
 
 
@@ -90,14 +74,12 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
     }
 
-
     @Override
     public void onClick(View v) {
 
         if (editTextLeft == null && editTextRight == null)
             return;
 
-        Map<String, String> map = new HashMap<>();
 
         InternetChecker internetChecker = new InternetChecker();
         internetChecker.execute(getApplicationContext());
@@ -105,41 +87,25 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         try {
             if (internetChecker.get()) {
 
-                map.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
-                String resultLang = null;
-                String lang1 = null;
-
-
-
-
                 switch (v.getId()) {
                     case R.id.translate_left:
-                        // Определяем исходный язык, должен вернуть такого формата: en // В асинхронном потоке
-                        lang1 = getSourceText(getHintLang(mLanguageMap),
-                                KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER,
-                                URLEncoder.encode(editTextRight.getText().toString(), "UTF-8"));
-                      
-                        if (lang1 != null)
-                            resultLang = "ru" + "-" + mLanguageMap.get(spinner1.getSelectedItemPosition());
-                        map.put("text", editTextRight.getText().toString());
+
+                        // Пишем ахренеть какой сложный запрос
+                            mRequestCreater
+                                    .makeResponse(false,
+                                            editTextRight.getText().toString(),
+                                            mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
+                                                    mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
                         break;
                     case R.id.translate_right:
-                        // Определяем исходный язык, должен вернуть такого формата: en // В асинхронном потоке
-                        lang1 = getSourceText(getHintLang(mLanguageMap),
-                                KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER,
-                                URLEncoder.encode(editTextLeft.getText().toString(), "UTF-8"));
-
-                        if (lang1 != null)
-                            resultLang = "ru" + "-" + mLanguageMap.get(spinner2.getSelectedItemPosition());
-
-                        map.put("text", editTextLeft.getText().toString());
+                        // Пишем ахренеть какой сложный запрос
+                        mRequestCreater
+                                .makeResponse(false,
+                                        editTextRight.getText().toString(),
+                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()),
+                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()), DirectionInteractor.Direction.RIGHT);
                         break;
                 }
-                map.put("lang", resultLang);
-
-
-
-                getTextTranstated(map, v.getId());
 
 
             } else {
@@ -151,85 +117,36 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
             e.printStackTrace();
         } catch (ExecutionException e) {
             e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
         }
 
 
     }
 
 
-    private String getHintLang(Map<Integer, String> langsMap) {
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+        // Нужно тут указать чтобы запускать метод для открытия меню
+    }
 
-        StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < langsMap.size(); i++) {
-            stringBuilder.append(langsMap.get(i) + ",");
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.app_bar_switch) {
+            Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
         }
-        stringBuilder.deleteCharAt(stringBuilder.length() - 1);
-        Log.d(KeysInteractor.KeysField.LOG_TAG, stringBuilder.toString());
-        return stringBuilder.toString();
+        return true;
     }
 
-    public void getTextTranstated(Map<String, String> map, int direction) {
-        Translater.getApi().getData(map)
-                .enqueue(new Callback<ResultObjectContext>() {
-                    @Override
-                    public void onResponse(Call<ResultObjectContext> call, Response<ResultObjectContext> response) {
-                        Log.d("MY_DEBUG", "onResponse\n" + call.toString());
-                        if (response.body() != null) {
-                            StringBuilder stringBuilder = new StringBuilder();
-                            List<String> textList = response.body().getText();
-                            if (direction == R.id.translate_right) {
-                                editTextRight.setText("");
-                                for (int i = 0; i < textList.size(); i++) {
-                                    stringBuilder.append(textList.get(i));
-                                }
-                                editTextRight.setText(stringBuilder);
-
-                            } else {
-                                editTextLeft.setText("");
-                                for (int i = 0; i < textList.size(); i++) {
-                                    stringBuilder.append(textList.get(i));
-                                }
-                                editTextLeft.setText(stringBuilder);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultObjectContext> call, Throwable t) {
-                        Log.d("MY_DEBUG", "onFailure\n" + call.toString());
-                    }
-
-
-                });
-    }
-
-    private String getSourceText(String hint, String key, String text) {
-
-        final String[] result = {""};
-
-        Translater.getApi().getLanguage(hint, key, text )
-                .enqueue(new Callback<ResultObjectLanguage>() {
-                    @Override
-                    public void onResponse(Call<ResultObjectLanguage> call, Response<ResultObjectLanguage> response) {
-                        Log.d("MY_DEBUG", "onResponse\n getLanguage " + call.toString());
-                        if (response.body() != null) {
-                            Log.d(KeysInteractor.KeysField.LOG_TAG, response.body().getLang());
-                            result[0] = response.body().getLang();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResultObjectLanguage> call, Throwable t) {
-                        Log.d("MY_DEBUG", "onFailure\n getLanguage " + call.toString());
-                    }
-
-                });
-
-        return result[0];
-
+    @Override
+    public void onEndedResponseCreated(Response response) {
+        Toast.makeText(this, response.body().toString(), Toast.LENGTH_SHORT).show();
     }
 
 

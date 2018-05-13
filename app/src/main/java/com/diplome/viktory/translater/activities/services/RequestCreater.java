@@ -1,0 +1,142 @@
+package com.diplome.viktory.translater.activities.services;
+
+import android.app.Application;
+import android.app.Service;
+import android.content.Intent;
+import android.os.Build;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
+import android.util.Log;
+
+import com.diplome.viktory.translater.activities.TranslateActivity;
+import com.diplome.viktory.translater.activities.interactors.DirectionInteractor;
+import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
+import com.diplome.viktory.translater.activities.services.DataTranslater;
+import com.diplome.viktory.translater.activities.services.LanguageDeterminanter;
+import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
+import com.diplome.viktory.translater.interfaces.LanguageDeterminaterListener;
+import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
+
+import retrofit2.Response;
+
+public class RequestCreater extends Service implements LanguageDeterminaterListener, DataTranslaterListener {
+
+
+    private LanguageDeterminanter mLanguageDeterminanter;
+    private DataTranslater mDataTranslater;
+    private RequestCreatedListener mRequestCreatedListener;
+    private Map<String, String> mRequestMap;
+    private boolean isDeterminate;
+    private String lang1, lang2;
+    private String text;
+    public Map<Integer, String> mLanguageMap;
+    private TranslateActivity mTranslateActivity;
+
+    public Map<Integer, String> getLanguageMap() {
+        return mLanguageMap;
+    }
+
+    public void setTranslateActivity(TranslateActivity translateActivity) {
+        mTranslateActivity = translateActivity;
+        if(this.mTranslateActivity instanceof RequestCreatedListener)
+            mRequestCreatedListener = this.mTranslateActivity;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        mLanguageMap.put(0, "ky");
+        mLanguageMap.put(1, "ru");
+        mLanguageMap.put(2, "en");
+        mLanguageMap.put(3, "fr");
+        mLanguageMap.put(4, "it");
+        mLanguageMap.put(5, "es");
+        mLanguageMap.put(6, "de");
+        mLanguageMap.put(7, "ko");
+
+
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onCreate");
+
+        mDataTranslater = new DataTranslater(this);
+        mRequestMap = new HashMap<>();
+        mLanguageDeterminanter = new LanguageDeterminanter(this);
+
+        mRequestMap.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    public void getTranslatedText(String lang1) {
+        // тут делаем запрос и отправляем всё в активность
+        mRequestMap.put("langs", lang1 + "-" + this.lang2);
+          mRequestMap.remove("text");
+        try {
+            mRequestMap.put("text",  URLEncoder.encode(this.text, "UTF-8"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        mDataTranslater.execute(mRequestMap);
+
+    }
+
+    public void getTranslatedText(Map<String, String> requestMap) {
+        // тут делаем запрос и отправляем всё в активность
+        mDataTranslater.execute(mRequestMap);
+
+    }
+
+
+    public void makeResponse(Boolean isDeterminate, String text, String lang1, String lang2, @DirectionInteractor.Direction int direction) {
+
+        this.text = text;
+
+        mRequestMap.put("text", this.text);
+
+        if (isDeterminate) {
+            mRequestMap.put("hint", "ky,de,ru,en");
+            mLanguageDeterminanter.execute(mRequestMap);
+        } else {
+            mRequestMap.remove("hint");
+
+            if (direction == DirectionInteractor.Direction.RIGHT)
+                mRequestMap.put("langs", lang1 + "-" + lang2);
+            else mRequestMap.put("langs", lang2 + "-" + lang1);
+
+            getTranslatedText(mRequestMap);
+        }
+
+    }
+
+
+    @Override
+    public void onStopedLanguageDaterminater(String lang1) {
+
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStopedLanguageDaterminater ");
+        getTranslatedText(lang1);
+    }
+
+
+    @Override
+    public void onStopedDataTranslater(Response response) {
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStopedDataTranslater ");
+        if(mRequestCreatedListener != null)
+            mRequestCreatedListener.onEndedResponseCreated(response);
+
+    }
+}

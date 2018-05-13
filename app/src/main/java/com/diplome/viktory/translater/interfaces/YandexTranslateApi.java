@@ -21,5 +21,5 @@ public interface YandexTranslateApi {
     Call<ResultObjectContext> getData(@QueryMap Map<String, String> map);
 
     @POST("/api/v1.5/tr.json/detect")
-    Call<ResultObjectLanguage> getLanguage(@Query("hint") String hint, @Query("key") String key, @Query("text") String text);
+    Call<ResultObjectLanguage> getLanguage(@QueryMap Map<String, String> map);
 }
