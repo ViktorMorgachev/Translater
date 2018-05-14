@@ -126,8 +126,8 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                         mRequestCreater
                                 .makeResponse(false,
                                         editTextRight.getText().toString(),
-                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
-                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
+                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()),
+                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
                         break;
                     case R.id.translate_right:
                         // Пишем ахренеть какой сложный запрос
@@ -135,8 +135,8 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                         mRequestCreater
                                 .makeResponse(false,
                                         editTextRight.getText().toString(),
-                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()),
-                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()), DirectionInteractor.Direction.RIGHT);
+                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
+                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.RIGHT);
                         break;
                 }
 
@@ -202,8 +202,11 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onEndedResponseCreated(Response response) {
+    public void onEndedResponseCreated(Response response, @DirectionInteractor.Direction int direction) {
         Toast.makeText(this, response.body().toString(), Toast.LENGTH_SHORT).show();
+        if(direction == DirectionInteractor.Direction.RIGHT)
+            editTextRight.setText(response.body().toString()); else
+                editTextLeft.setText(response.body().toString());
     }
 
 

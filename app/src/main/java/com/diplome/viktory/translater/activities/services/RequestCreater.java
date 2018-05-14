@@ -36,14 +36,15 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     private boolean isDeterminate;
     private String lang1, lang2;
     private String text;
+    private @DirectionInteractor.Direction int direction;
     public Map<Integer, String> mLanguageMap;
     private TranslateActivity mTranslateActivity;
     private final Binder mBinder = new LocalBinder();
 
     public Map<Integer, String> getLanguageMap() throws NullPointerException {
-        if(this.mLanguageMap != null)
-        return this.mLanguageMap;
-        else  throw new UnsupportedOperationException();
+        if (this.mLanguageMap != null)
+            return this.mLanguageMap;
+        else throw new UnsupportedOperationException();
     }
 
     public void setTranslateActivity(TranslateActivity translateActivity) {
@@ -55,8 +56,8 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
 
     public class LocalBinder extends Binder {
 
-     public RequestCreater getService(){
-            return  RequestCreater.this;
+        public RequestCreater getService() {
+            return RequestCreater.this;
         }
 
     }
@@ -119,7 +120,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-      new DataTranslater(this).execute(mRequestMap);
+        new DataTranslater(this).execute(mRequestMap);
 
     }
 
@@ -143,26 +144,24 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
 
     public void getTranslatedText(Map<String, String> requestMap) {
         // тут делаем запрос и отправляем всё в активность
-        new  DataTranslater(this).execute(mRequestMap);
+        new DataTranslater(this).execute(mRequestMap);
     }
 
 
     public void makeResponse(Boolean isDeterminate, String text, String lang1, String lang2, @DirectionInteractor.Direction int direction) {
 
         this.text = text;
+        this.direction = direction;
 
 
         mRequestMap.put("text", this.text);
 
         if (isDeterminate) {
             mRequestMap.put("hint", "ky,de,ru,en");
-          new LanguageDeterminanter(this).execute(mRequestMap);
+            new LanguageDeterminanter(this).execute(mRequestMap);
         } else {
             mRequestMap.remove("hint");
-
-            if (direction == DirectionInteractor.Direction.RIGHT)
-                mRequestMap.put("lang", lang1 + "-" + lang2);
-            else mRequestMap.put("lang", lang2 + "-" + lang1);
+            mRequestMap.put("lang", lang1 + "-" + lang2);
 
             Log.d(KeysInteractor.KeysField.LOG_TAG, mRequestMap.toString());
             getTranslatedText(mRequestMap);
@@ -183,7 +182,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     public void onStopedDataTranslater(Response response) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStopedDataTranslater ");
         if (mRequestCreatedListener != null)
-            mRequestCreatedListener.onEndedResponseCreated(response);
+            mRequestCreatedListener.onEndedResponseCreated(response, direction);
 
     }
 }
