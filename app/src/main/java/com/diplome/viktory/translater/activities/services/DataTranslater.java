@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
+import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.Translater;
 import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 
 import retrofit2.Response;
 
-public class DataTranslater extends AsyncTask<Map<String, String>, Void, Response > {
+public class DataTranslater extends AsyncTask<Map<String, String>, Void, Response<ResultObjectContext> > {
 
     private RequestCreater mRequestCreater;
     private DataTranslaterListener mDataTranslaterListener;

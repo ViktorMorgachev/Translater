@@ -1,9 +1,11 @@
 package com.diplome.viktory.translater.interfaces;
 
+import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
+
 import retrofit2.Response;
 
 public interface DataTranslaterListener {
 
-    void onStopedDataTranslater(Response response);
+    void onStopedDataTranslater(Response<ResultObjectContext> response);
 
 }

@@ -19,6 +19,7 @@ import com.diplome.viktory.translater.activities.services.LanguageDeterminanter;
 import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
 import com.diplome.viktory.translater.interfaces.LanguageDeterminaterListener;
 import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
+import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -179,7 +180,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
 
 
     @Override
-    public void onStopedDataTranslater(Response response) {
+    public void onStopedDataTranslater(Response<ResultObjectContext> response) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStopedDataTranslater ");
         if (mRequestCreatedListener != null)
             mRequestCreatedListener.onEndedResponseCreated(response, direction);

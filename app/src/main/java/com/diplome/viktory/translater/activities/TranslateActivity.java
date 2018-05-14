@@ -24,7 +24,9 @@ import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
 import com.diplome.viktory.translater.activities.services.InternetChecker;
 import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
 import com.diplome.viktory.translater.activities.services.RequestCreater;
+import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -60,6 +62,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
             public void onServiceConnected(ComponentName name, IBinder service) {
                 RequestCreater.LocalBinder binder = (RequestCreater.LocalBinder) service;
                 mRequestCreater = binder.getService();
+                mRequestCreater.setTranslateActivity(TranslateActivity.this);
                 mBond = true;
                 Log.d(KeysInteractor.KeysField.LOG_TAG, mRequestCreater.getClass().getCanonicalName() + " : onServiceConnected ");
             }
@@ -71,8 +74,6 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                 mRequestCreater = null;
             }
         };
-
-
 
 
         imageViewRight.setOnClickListener(this);
@@ -109,7 +110,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
         if ((editTextLeft.getText().toString() == "") && (editTextRight.getText().toString() == ""))
             return;
-       // startService(new Intent(this, RequestCreater.class));
+        // startService(new Intent(this, RequestCreater.class));
 
         InternetChecker internetChecker = new InternetChecker();
         internetChecker.execute(getApplicationContext());
@@ -122,21 +123,21 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
 
                         // Пишем ахренеть какой сложный запрос
 
-                        if(mRequestCreater!= null)
-                        mRequestCreater
-                                .makeResponse(false,
-                                        editTextRight.getText().toString(),
-                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()),
-                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
+                        if (mRequestCreater != null)
+                            mRequestCreater
+                                    .makeResponse(false,
+                                            editTextRight.getText().toString(),
+                                            mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()),
+                                            mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()), DirectionInteractor.Direction.LEFT);
                         break;
                     case R.id.translate_right:
                         // Пишем ахренеть какой сложный запрос
-                        if(mRequestCreater != null)
-                        mRequestCreater
-                                .makeResponse(false,
-                                        editTextRight.getText().toString(),
-                                        mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
-                                        mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.RIGHT);
+                        if (mRequestCreater != null)
+                            mRequestCreater
+                                    .makeResponse(false,
+                                            editTextLeft.getText().toString(),
+                                            mRequestCreater.getLanguageMap().get(spinner1.getSelectedItemPosition()),
+                                            mRequestCreater.getLanguageMap().get(spinner2.getSelectedItemPosition()), DirectionInteractor.Direction.RIGHT);
                         break;
                 }
 
@@ -202,11 +203,21 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
-    public void onEndedResponseCreated(Response response, @DirectionInteractor.Direction int direction) {
-        Toast.makeText(this, response.body().toString(), Toast.LENGTH_SHORT).show();
-        if(direction == DirectionInteractor.Direction.RIGHT)
-            editTextRight.setText(response.body().toString()); else
-                editTextLeft.setText(response.body().toString());
+    public void onEndedResponseCreated(Response<ResultObjectContext> response, @DirectionInteractor.Direction int direction) {
+        //   Toast.makeText(this, getClass().getCanonicalName() + " : onEndedResponseCreated ", Toast.LENGTH_SHORT).show();
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        List<String> stringList = response.body().getText();
+
+        for (int i = 0; i < stringList.size(); i++) {
+            stringBuilder.append(stringList.get(i));
+        }
+
+        if (direction == DirectionInteractor.Direction.RIGHT)
+            editTextRight.setText(stringBuilder.toString());
+        else
+            editTextLeft.setText(stringBuilder.toString());
     }
 
 
