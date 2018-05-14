@@ -2,8 +2,10 @@ package com.diplome.viktory.translater.activities.services;
 
 import android.app.Application;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Binder;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
@@ -29,8 +31,6 @@ import retrofit2.Response;
 public class RequestCreater extends Service implements LanguageDeterminaterListener, DataTranslaterListener {
 
 
-    private LanguageDeterminanter mLanguageDeterminanter;
-    private DataTranslater mDataTranslater;
     private RequestCreatedListener mRequestCreatedListener;
     private Map<String, String> mRequestMap;
     private boolean isDeterminate;
@@ -38,15 +38,27 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     private String text;
     public Map<Integer, String> mLanguageMap;
     private TranslateActivity mTranslateActivity;
+    private final Binder mBinder = new LocalBinder();
 
-    public Map<Integer, String> getLanguageMap() {
+    public Map<Integer, String> getLanguageMap() throws NullPointerException {
+        if(this.mLanguageMap != null)
         return this.mLanguageMap;
+        else  throw new UnsupportedOperationException();
     }
 
     public void setTranslateActivity(TranslateActivity translateActivity) {
         mTranslateActivity = translateActivity;
-        if(this.mTranslateActivity instanceof RequestCreatedListener)
+        if (this.mTranslateActivity instanceof RequestCreatedListener)
             mRequestCreatedListener = this.mTranslateActivity;
+    }
+
+
+    public class LocalBinder extends Binder {
+
+     public RequestCreater getService(){
+            return  RequestCreater.this;
+        }
+
     }
 
     @Override
@@ -66,9 +78,8 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
 
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onCreate");
 
-        mDataTranslater = new DataTranslater(this);
+
         mRequestMap = new HashMap<>();
-        mLanguageDeterminanter = new LanguageDeterminanter(this);
 
         mRequestMap.put("key", KeysInteractor.KeysField.API_KEY_YANDEX_TRANSLATER);
     }
@@ -77,7 +88,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     @Override
     public IBinder onBind(Intent intent) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onBind");
-        throw  new UnsupportedOperationException() ;
+        return mBinder;
     }
 
     @Override
@@ -102,13 +113,13 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     public void getTranslatedText(String lang1) {
         // тут делаем запрос и отправляем всё в активность
         mRequestMap.put("langs", lang1 + "-" + this.lang2);
-          mRequestMap.remove("text");
+        mRequestMap.remove("text");
         try {
-            mRequestMap.put("text",  URLEncoder.encode(this.text, "UTF-8"));
+            mRequestMap.put("text", URLEncoder.encode(this.text, "UTF-8"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        mDataTranslater.execute(mRequestMap);
+      new DataTranslater(this).execute(mRequestMap);
 
     }
 
@@ -132,8 +143,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
 
     public void getTranslatedText(Map<String, String> requestMap) {
         // тут делаем запрос и отправляем всё в активность
-        mDataTranslater.execute(mRequestMap);
-
+        new  DataTranslater(this).execute(mRequestMap);
     }
 
 
@@ -141,18 +151,20 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
 
         this.text = text;
 
+
         mRequestMap.put("text", this.text);
 
         if (isDeterminate) {
             mRequestMap.put("hint", "ky,de,ru,en");
-            mLanguageDeterminanter.execute(mRequestMap);
+          new LanguageDeterminanter(this).execute(mRequestMap);
         } else {
             mRequestMap.remove("hint");
 
             if (direction == DirectionInteractor.Direction.RIGHT)
-                mRequestMap.put("langs", lang1 + "-" + lang2);
-            else mRequestMap.put("langs", lang2 + "-" + lang1);
+                mRequestMap.put("lang", lang1 + "-" + lang2);
+            else mRequestMap.put("lang", lang2 + "-" + lang1);
 
+            Log.d(KeysInteractor.KeysField.LOG_TAG, mRequestMap.toString());
             getTranslatedText(mRequestMap);
         }
 
@@ -170,7 +182,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     @Override
     public void onStopedDataTranslater(Response response) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStopedDataTranslater ");
-        if(mRequestCreatedListener != null)
+        if (mRequestCreatedListener != null)
             mRequestCreatedListener.onEndedResponseCreated(response);
 
     }

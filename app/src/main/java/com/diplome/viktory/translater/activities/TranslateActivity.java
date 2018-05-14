@@ -1,6 +1,7 @@
 package com.diplome.viktory.translater.activities;
 
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     private RequestCreater mRequestCreater;
     private String result;
     private ServiceConnection mServiceConnection;
+    private boolean mBond = false;
 
 
     private String[] languages;
@@ -56,25 +58,29 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         mServiceConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onServiceConnected ");
+                RequestCreater.LocalBinder binder = (RequestCreater.LocalBinder) service;
+                mRequestCreater = binder.getService();
+                mBond = true;
+                Log.d(KeysInteractor.KeysField.LOG_TAG, mRequestCreater.getClass().getCanonicalName() + " : onServiceConnected ");
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onServiceDisconnected ");
+                mBond = false;
+                mRequestCreater = null;
             }
         };
 
-        mRequestCreater = new RequestCreater();
-        mRequestCreater.setTranslateActivity(this);
+
+
 
         imageViewRight.setOnClickListener(this);
         imageViewLeft.setOnClickListener(this);
 
         languages = getResources().getStringArray(R.array.languages);
 
-        startService(new Intent(this, RequestCreater.class));
-        bindService(new Intent(this, RequestCreater.class), mServiceConnection, BIND_AUTO_CREATE);
+
 
       /*  // Подключаем свой шаблон с разными значками
         MyCustomAdapter adapter = new MyCustomAdapter(getContext(),
@@ -92,23 +98,31 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        startService(new Intent(this, RequestCreater.class));
+        bindService(new Intent(this, RequestCreater.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
     public void onClick(View v) {
 
         if ((editTextLeft.getText().toString() == "") && (editTextRight.getText().toString() == ""))
             return;
-        startService(new Intent(this, RequestCreater.class));
+       // startService(new Intent(this, RequestCreater.class));
 
         InternetChecker internetChecker = new InternetChecker();
         internetChecker.execute(getApplicationContext());
 
         try {
-            if (internetChecker.get()) {
+            if ((internetChecker.get()) && mBond) {
 
                 switch (v.getId()) {
                     case R.id.translate_left:
 
                         // Пишем ахренеть какой сложный запрос
 
+                        if(mRequestCreater!= null)
                         mRequestCreater
                                 .makeResponse(false,
                                         editTextRight.getText().toString(),
@@ -117,6 +131,7 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
                         break;
                     case R.id.translate_right:
                         // Пишем ахренеть какой сложный запрос
+                        if(mRequestCreater != null)
                         mRequestCreater
                                 .makeResponse(false,
                                         editTextRight.getText().toString(),
@@ -145,6 +160,16 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         super.onPause();
 
         //stopService(new Intent(this, RequestCreater.class));
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mBond) {
+            unbindService(mServiceConnection);
+            stopService(new Intent(this, RequestCreater.class));
+            mBond = false;
+        }
     }
 
     @Override
