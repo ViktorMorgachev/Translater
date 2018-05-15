@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.diplome.viktory.translater.activities.TranslateActivity;
+import com.diplome.viktory.translater.fragments.TranslateFragment;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
@@ -33,7 +34,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     private String text;
     private @DirectionInteractor.Direction int direction;
     public Map<Integer, String> mLanguageMap;
-    private TranslateActivity mTranslateActivity;
+    private TranslateFragment mTranslateFragment;
     private final Binder mBinder = new LocalBinder();
 
     public Map<Integer, String> getLanguageMap() throws NullPointerException {
@@ -42,10 +43,10 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
         else throw new UnsupportedOperationException();
     }
 
-    public void setTranslateActivity(TranslateActivity translateActivity) {
-        mTranslateActivity = translateActivity;
-        if (this.mTranslateActivity instanceof RequestCreatedListener)
-            mRequestCreatedListener = this.mTranslateActivity;
+    public void setTranslateFragment(TranslateFragment translateFragment) {
+        mTranslateFragment = translateFragment;
+        if (this.mTranslateFragment instanceof RequestCreatedListener)
+            mRequestCreatedListener = this.mTranslateFragment;
     }
 
 
