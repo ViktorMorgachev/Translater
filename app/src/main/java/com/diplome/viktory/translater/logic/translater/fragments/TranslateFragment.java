@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.fragments;
+package com.diplome.viktory.translater.logic.translater.fragments;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -18,10 +18,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
-import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
+import com.diplome.viktory.translater.logic.translater.interfaces.RequestCreatedListener;
 import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 import com.diplome.viktory.translater.services.InternetChecker;
 import com.diplome.viktory.translater.services.RequestCreater;

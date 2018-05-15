@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.translater.Translater;
-import com.diplome.viktory.translater.interfaces.LanguageDeterminaterListener;
+import com.diplome.viktory.translater.logic.translater.interfaces.LanguageDeterminaterListener;
 
 import java.io.IOException;
 import java.util.Map;

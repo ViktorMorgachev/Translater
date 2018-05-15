@@ -8,13 +8,12 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.diplome.viktory.translater.activities.TranslateActivity;
-import com.diplome.viktory.translater.fragments.TranslateFragment;
+import com.diplome.viktory.translater.logic.translater.fragments.TranslateFragment;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
-import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
-import com.diplome.viktory.translater.interfaces.LanguageDeterminaterListener;
-import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
+import com.diplome.viktory.translater.logic.translater.interfaces.DataTranslaterListener;
+import com.diplome.viktory.translater.logic.translater.interfaces.LanguageDeterminaterListener;
+import com.diplome.viktory.translater.logic.translater.interfaces.RequestCreatedListener;
 import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 
 import java.io.UnsupportedEncodingException;

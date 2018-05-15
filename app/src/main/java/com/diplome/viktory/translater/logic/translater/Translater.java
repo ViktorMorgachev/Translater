@@ -3,7 +3,7 @@ package com.diplome.viktory.translater.logic.translater;
 import android.app.Application;
 import android.content.Context;
 
-import com.diplome.viktory.translater.interfaces.YandexTranslateApi;
+import com.diplome.viktory.translater.logic.translater.interfaces.YandexTranslateApi;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
