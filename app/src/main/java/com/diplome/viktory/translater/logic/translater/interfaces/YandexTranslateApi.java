@@ -1,8 +1,8 @@
 package com.diplome.viktory.translater.logic.translater.interfaces;
 
 
-import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
-import com.diplome.viktory.translater.logic.translater.ResultObjectLanguage;
+import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
+import com.diplome.viktory.translater.logic.translater.data.ResultObjectLanguage;
 
 import java.util.Map;
 

@@ -1,9 +1,7 @@
-package com.diplome.viktory.translater.fragments;
+package com.diplome.viktory.translater.logic.menu.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,8 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.activities.MenuActivity;
-import com.diplome.viktory.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 
 public class MenuFragment extends Fragment implements View.OnClickListener {
@@ -46,6 +42,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         btnTranslater.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
+        btnGuide.setOnClickListener(this);
 
 
         return view;

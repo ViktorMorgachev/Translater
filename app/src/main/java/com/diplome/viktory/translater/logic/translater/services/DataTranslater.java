@@ -1,10 +1,10 @@
-package com.diplome.viktory.translater.services;
+package com.diplome.viktory.translater.logic.translater.services;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.diplome.viktory.translater.interactors.KeysInteractor;
-import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
+import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.Translater;
 import com.diplome.viktory.translater.logic.translater.interfaces.DataTranslaterListener;
 

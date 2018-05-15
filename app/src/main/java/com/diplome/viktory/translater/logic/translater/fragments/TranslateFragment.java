@@ -1,7 +1,6 @@
 package com.diplome.viktory.translater.logic.translater.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,18 +10,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.fragments.MenuFragment;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
-import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
-import com.diplome.viktory.translater.services.InternetChecker;
-import com.diplome.viktory.translater.services.RequestCreater;
+import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Response;
 

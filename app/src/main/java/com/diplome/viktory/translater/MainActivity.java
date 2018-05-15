@@ -5,13 +5,11 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.diplome.viktory.translater.activities.MenuActivity;
-import com.diplome.viktory.translater.activities.TranslateActivity;
+import com.diplome.viktory.translater.logic.menu.activities.MenuActivity;
 
 import java.io.IOException;
 import java.io.InputStream;

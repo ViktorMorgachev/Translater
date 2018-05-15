@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.interfaces;
+package com.diplome.viktory.translater.logic.menu.interfaces;
 
 import android.app.Activity;
 

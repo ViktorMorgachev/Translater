@@ -1,23 +1,18 @@
-package com.diplome.viktory.translater.activities;
-
+package com.diplome.viktory.translater.logic.guide.activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.fragments.MenuFragment;
-import com.diplome.viktory.translater.logic.ModuleInteractor;
+import com.diplome.viktory.translater.logic.guide.fragments.GuideFragmentLanguages;
 
-public class MenuActivity extends AppCompatActivity implements MenuFragment.OnButtonClickListener {
+public class GuideActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment mFragment;
-    private final ModuleInteractor mModuleInteractor = new ModuleInteractor();
 
 
     @Override
@@ -27,7 +22,7 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
 
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
         if (mFragment == null) {
-            mFragment = new MenuFragment();
+            mFragment = new GuideFragmentLanguages();
             mFragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, mFragment)
                     .commit();
@@ -36,14 +31,4 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
 
     }
 
-    @Override
-    public void onButtonPressed(View view) {
-
-        switch (view.getId()){
-            case R.id.btn_translater:
-                mModuleInteractor.startTranslaterActivity(this);
-                break;
-        }
-
-    }
 }

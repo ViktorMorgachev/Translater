@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.activities;
+package com.diplome.viktory.translater.logic.translater.activities;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,17 +12,16 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
-import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
+import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.fragments.TranslateFragment;
 import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
-import com.diplome.viktory.translater.services.InternetChecker;
-import com.diplome.viktory.translater.services.RequestCreater;
+import com.diplome.viktory.translater.logic.translater.services.InternetChecker;
+import com.diplome.viktory.translater.logic.translater.services.RequestCreater;
 
 import java.util.concurrent.ExecutionException;
 

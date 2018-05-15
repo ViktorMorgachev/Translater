@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.services;
+package com.diplome.viktory.translater.logic.translater.services;
 
 import android.app.Activity;
 import android.app.Service;
@@ -14,7 +14,7 @@ import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.translater.interfaces.DataTranslaterListener;
 import com.diplome.viktory.translater.logic.translater.interfaces.LanguageDeterminaterListener;
 import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
-import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
+import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

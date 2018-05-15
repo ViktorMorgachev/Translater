@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.services;
+package com.diplome.viktory.translater.logic.translater.services;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

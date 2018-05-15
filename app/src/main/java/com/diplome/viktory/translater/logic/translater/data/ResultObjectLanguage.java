@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.logic.translater;
+package com.diplome.viktory.translater.logic.translater.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

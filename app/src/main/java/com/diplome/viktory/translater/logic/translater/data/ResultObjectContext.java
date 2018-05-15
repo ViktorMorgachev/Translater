@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.logic.translater;
+package com.diplome.viktory.translater.logic.translater.data;
 
 import java.util.List;
 
