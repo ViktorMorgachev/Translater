@@ -163,22 +163,16 @@ public class TranslateActivity extends AppCompatActivity implements View.OnClick
         //stopService(new Intent(this, RequestCreater.class));
     }
 
+
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         if (mBond) {
             unbindService(mServiceConnection);
             stopService(new Intent(this, RequestCreater.class));
             mBond = false;
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        unbindService(mServiceConnection);
         stopService(new Intent(this, RequestCreater.class));
-
     }
 
     @Override
