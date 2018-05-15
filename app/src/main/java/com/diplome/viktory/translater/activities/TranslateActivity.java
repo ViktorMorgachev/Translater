@@ -18,13 +18,17 @@ import android.widget.Toast;
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.fragments.TranslateFragment;
+import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
 import com.diplome.viktory.translater.services.InternetChecker;
 import com.diplome.viktory.translater.services.RequestCreater;
 
 import java.util.concurrent.ExecutionException;
 
-public class TranslateActivity extends AppCompatActivity implements TranslateFragment.OnButtonClickListener{
+import retrofit2.Response;
+
+public class TranslateActivity extends AppCompatActivity implements TranslateFragment.OnButtonClickListener, OnRequestCreatedListener{
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment mFragment;
@@ -127,6 +131,11 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onEndedResponseCreated(Response<ResultObjectContext> response, int direction) {
+        Toast.makeText(this, response.body().getText().toString(), Toast.LENGTH_SHORT).show();
     }
 
 
