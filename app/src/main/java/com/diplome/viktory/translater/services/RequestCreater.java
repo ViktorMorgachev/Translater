@@ -1,21 +1,16 @@
-package com.diplome.viktory.translater.activities.services;
+package com.diplome.viktory.translater.services;
 
-import android.app.Application;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Binder;
-import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.diplome.viktory.translater.activities.TranslateActivity;
-import com.diplome.viktory.translater.activities.interactors.DirectionInteractor;
-import com.diplome.viktory.translater.activities.interactors.KeysInteractor;
-import com.diplome.viktory.translater.activities.services.DataTranslater;
-import com.diplome.viktory.translater.activities.services.LanguageDeterminanter;
+import com.diplome.viktory.translater.interactors.DirectionInteractor;
+import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.interfaces.DataTranslaterListener;
 import com.diplome.viktory.translater.interfaces.LanguageDeterminaterListener;
 import com.diplome.viktory.translater.interfaces.RequestCreatedListener;
@@ -25,7 +20,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
 import retrofit2.Response;
 

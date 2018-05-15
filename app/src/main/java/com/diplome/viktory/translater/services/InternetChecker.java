@@ -1,13 +1,9 @@
-package com.diplome.viktory.translater.activities.services;
+package com.diplome.viktory.translater.services;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.IOException;

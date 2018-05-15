@@ -25,7 +25,12 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
-        <service android:name=".activities.services.RequestCreater"
+        <activity android:name=".activities.MenuActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
+        <service android:name=".services.RequestCreater"
             android:stopWithTask="true"></service>
     </application>
 

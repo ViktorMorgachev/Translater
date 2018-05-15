@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.diplome.viktory.translater.activities.MenuActivity;
 import com.diplome.viktory.translater.activities.TranslateActivity;
 
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            startActivity(new Intent(MainActivity.this, TranslateActivity.class));
+            startActivity(new Intent(MainActivity.this, MenuActivity.class));
         }
 
         @Override

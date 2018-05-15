@@ -1,4 +1,4 @@
-package com.diplome.viktory.translater.activities.interactors;
+package com.diplome.viktory.translater.interactors;
 
 import android.support.annotation.StringDef;
 

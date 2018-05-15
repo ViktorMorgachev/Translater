@@ -5,6 +5,11 @@
     <string name="has_not_internet">Отсутствует соединение с интернетом</string>
     <string name="enable_language_determinate">Автоопределение</string>
     <string name="menu_about">О программе</string>
+    <string name="btn_guide">Справочник</string>
+    <string name="btn_learn">Учить</string>
+    <string name="btn_translater">Переводчик</string>
+    <string name="btn_exit">Выход</string>
+    <string name="btn_about">О Программе</string>
     <string-array name="languages">
         <item>Кыргызский</item>
         <item>Русский</item>
