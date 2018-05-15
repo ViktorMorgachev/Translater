@@ -17,7 +17,7 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment mFragment;
-    private ModuleInteractor mModuleInteractor;
+    private final ModuleInteractor mModuleInteractor = new ModuleInteractor();
 
 
     @Override
