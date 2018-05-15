@@ -1,5 +1,6 @@
 package com.diplome.viktory.translater.services;
 
+import android.app.Activity;
 import android.app.Service;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -8,12 +9,11 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
-import com.diplome.viktory.translater.logic.translater.fragments.TranslateFragment;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.translater.interfaces.DataTranslaterListener;
 import com.diplome.viktory.translater.logic.translater.interfaces.LanguageDeterminaterListener;
-import com.diplome.viktory.translater.logic.translater.interfaces.RequestCreatedListener;
+import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
 import com.diplome.viktory.translater.logic.translater.ResultObjectContext;
 
 import java.io.UnsupportedEncodingException;
@@ -26,14 +26,13 @@ import retrofit2.Response;
 public class RequestCreater extends Service implements LanguageDeterminaterListener, DataTranslaterListener {
 
 
-    private RequestCreatedListener mRequestCreatedListener;
+    private OnRequestCreatedListener mCallBack;
     private Map<String, String> mRequestMap;
     private boolean isDeterminate;
     private String lang1, lang2;
     private String text;
     private @DirectionInteractor.Direction int direction;
     public Map<Integer, String> mLanguageMap;
-    private TranslateFragment mTranslateFragment;
     private final Binder mBinder = new LocalBinder();
 
     public Map<Integer, String> getLanguageMap() throws NullPointerException {
@@ -42,10 +41,13 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
         else throw new UnsupportedOperationException();
     }
 
-    public void setTranslateFragment(TranslateFragment translateFragment) {
-        mTranslateFragment = translateFragment;
-        if (this.mTranslateFragment instanceof RequestCreatedListener)
-            mRequestCreatedListener = this.mTranslateFragment;
+    public void setActivity(Activity activity) { ;
+        try {
+            mCallBack = (OnRequestCreatedListener) activity;
+        } catch (ClassCastException e){
+            throw new ClassCastException(activity.toString()
+                    + " must implement OnRequestCreatedListener");
+        }
     }
 
 
@@ -176,8 +178,8 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     @Override
     public void onStopedDataTranslater(Response<ResultObjectContext> response) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onStopedDataTranslater ");
-        if (mRequestCreatedListener != null)
-            mRequestCreatedListener.onEndedResponseCreated(response, direction);
+        if (mCallBack != null)
+            mCallBack.onEndedResponseCreated(response, direction);
 
     }
 }
