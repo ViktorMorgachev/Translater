@@ -34,6 +34,13 @@ public class GuideActivity extends AppCompatActivity {
     private List<View> mViewList;
     private TittlesStorage mTittlesStorage;
 
+    public String getKey() {
+        return Key;
+    }
+
+    // Временно
+    private String Key;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,10 +48,11 @@ public class GuideActivity extends AppCompatActivity {
 
         mTittlesStorage = new TittlesStorage();
 
-        mStringList = mTittlesStorage.getTitlesMap(getIntent()
-                .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY));
-        mViewList = mTittlesStorage.getLayotsMap(getIntent()
-                .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY));
+        Key = getIntent()
+                .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY);
+
+        mStringList = mTittlesStorage.getTitlesMap(Key);
+        mViewList = mTittlesStorage.getLayotsMap(Key);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
@@ -80,7 +88,7 @@ public class GuideActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            return GuideFragment.newInstance(position);
+            return GuideFragment.newInstance(position, mViewList.get(position));
         }
 
         @Nullable

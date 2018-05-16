@@ -17,9 +17,9 @@ import java.util.List;
 public class GuideFragment extends Fragment {
 
     static final String ARGUMENT_TITTLE_NAME = "arg_page_number";
-    private GuideActivity.TittlesStorage mTittlesStorage;
 
-    public static GuideFragment newInstance(int position){
+    public static GuideFragment newInstance(int position, View view) {
+        // Уcё, вопросов нет, осталcя один вопрос, как сохранить View
         GuideFragment pageFragment = new GuideFragment();
         Bundle arguments = new Bundle();
         arguments.putInt(ARGUMENT_TITTLE_NAME, position);
