@@ -25,6 +25,11 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
+        <activity android:name=".logic.guide.SelectLanguageActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
         <activity android:name=".logic.menu.activities.MenuActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"></category>

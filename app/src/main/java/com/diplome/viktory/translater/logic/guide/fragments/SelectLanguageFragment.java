@@ -1,5 +1,6 @@
 package com.diplome.viktory.translater.logic.guide.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.UserManager;
 import android.support.annotation.NonNull;
@@ -14,14 +15,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
+import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
+import com.diplome.viktory.translater.logic.menu.fragments.MenuFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-public class GuideFragmentLanguages extends Fragment {
+public class SelectLanguageFragment extends Fragment {
 
+    private OnButtonClickListener mCallBackClickListener;
     private RecyclerView mRecyclerView;
     private LanguageAdapter mAdapter;
 
@@ -33,6 +37,8 @@ public class GuideFragmentLanguages extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_languages_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+
+
         updateUI();
 
         return view;
@@ -41,12 +47,23 @@ public class GuideFragmentLanguages extends Fragment {
 
     private void updateUI() {
         List<String> languageList = new ArrayList<>();
-        languageList.add("Русский");
-        languageList.add("Кыргызский");
-                languageList.add("Английский");
+        languageList.add(LanguagesInteractor.KeysField.RUSSIAN);
+        languageList.add(LanguagesInteractor.KeysField.KYRGUZS);
+                languageList.add(LanguagesInteractor.KeysField.ENGLISH);
         //languageList = Arrays.asList(getResources().getStringArray(R.array.languages));
         mAdapter = new LanguageAdapter(languageList);
         mRecyclerView.setAdapter(mAdapter);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallBackClickListener = (OnButtonClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnButtonClickListener");
+        }
     }
 
     private class LanguageHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -66,9 +83,7 @@ public class GuideFragmentLanguages extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(getActivity(),
-                    language + " clicked!", Toast.LENGTH_SHORT)
-                    .show();
+           mCallBackClickListener.onButtonPressed(v);
         }
     }
 
@@ -97,4 +112,10 @@ public class GuideFragmentLanguages extends Fragment {
             this.mLanguagesList = languages;
         }
     }
+
+    public interface OnButtonClickListener {
+        void onButtonPressed(View view);
+    }
+
+
 }

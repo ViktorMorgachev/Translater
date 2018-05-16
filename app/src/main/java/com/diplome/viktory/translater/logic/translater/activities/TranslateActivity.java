@@ -15,8 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.DirectionInteractor;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.*;
 import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.fragments.TranslateFragment;
 import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;

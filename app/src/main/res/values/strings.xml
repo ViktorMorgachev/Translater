@@ -11,6 +11,8 @@
     <string name="btn_exit">Выход</string>
     <string name="btn_about">О Программе</string>
     <string name="select_language">Выберите язык</string>
+    <string name="verbs">Глаголы</string>
+    <string name="nouns">Существительное</string>
     <string-array name="languages">
         <item>Кыргызский</item>
         <item>Русский</item>

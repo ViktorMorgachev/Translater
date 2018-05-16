@@ -1,10 +1,10 @@
-package com.diplome.viktory.translater;
+package com.diplome.viktory.translater.logic;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-import com.diplome.viktory.translater.logic.guide.activities.GuideActivity;
+import com.diplome.viktory.translater.logic.guide.SelectLanguageActivity;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartGuideActivityListener;
 import com.diplome.viktory.translater.logic.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
@@ -22,6 +22,6 @@ public class ModuleInteractor implements
     @Override
     public void startGuideActivity(Activity activity) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startGuideActivity ");
-        activity.startActivity(new Intent(activity, GuideActivity.class));
+        activity.startActivity(new Intent(activity, SelectLanguageActivity.class));
     }
 }

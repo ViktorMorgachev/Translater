@@ -1,22 +1,23 @@
-package com.diplome.viktory.translater.logic.menu.activities;
+package com.diplome.viktory.translater.logic.guide;
 
-
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.logic.menu.fragments.MenuFragment;
-import com.diplome.viktory.translater.logic.ModuleInteractor;
+import com.diplome.viktory.translater.logic.guide.activities.GuideActivity;
+import com.diplome.viktory.translater.logic.guide.fragments.SelectLanguageFragment;
+import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
 
-public class MenuActivity extends AppCompatActivity implements MenuFragment.OnButtonClickListener {
+public class SelectLanguageActivity extends AppCompatActivity implements SelectLanguageFragment.OnButtonClickListener {
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment mFragment;
-    private final ModuleInteractor mModuleInteractor = new ModuleInteractor();
 
 
     @Override
@@ -26,27 +27,22 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
 
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
         if (mFragment == null) {
-            mFragment = new MenuFragment();
+            mFragment = new SelectLanguageFragment();
             mFragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, mFragment)
                     .commit();
         }
-
 
     }
 
     @Override
     public void onButtonPressed(View view) {
 
-        switch (view.getId()){
-            case R.id.btn_translater:
-                mModuleInteractor.startTranslaterActivity(this);
-                break;
-            case R.id.btn_guide:
-                mModuleInteractor.startGuideActivity(this);
-                break;
-
-        }
+        TextView textView = (TextView) view;
+        Intent intent = new Intent(SelectLanguageActivity.this, GuideActivity.class);
+        intent.putExtra(LanguagesInteractor.KeysField.EXTRA_KEY, textView.getText().toString());
+        startActivity(intent);
 
     }
 }
+
