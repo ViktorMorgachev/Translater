@@ -38,7 +38,6 @@ public class GuideActivity extends AppCompatActivity {
         return Key;
     }
 
-    // Временно
     private String Key;
 
     @Override
