@@ -11,7 +11,19 @@ import android.view.ViewGroup;
 
 import com.diplome.viktory.translater.R;
 
-public class EnglishVerbsFragment extends Fragment {
+import java.util.List;
+
+public class GuideFragment extends Fragment {
+
+    static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
+
+    public static GuideFragment newInstance(int pageNumber){
+        GuideFragment pageFragment = new GuideFragment();
+        Bundle arguments = new Bundle();
+        arguments.putInt(ARGUMENT_PAGE_NUMBER, pageNumber);
+        pageFragment.setArguments(arguments);
+        return pageFragment;
+    }
 
     @Nullable
     @Override
@@ -20,7 +32,10 @@ public class EnglishVerbsFragment extends Fragment {
         View view = inflater.inflate(R.layout.menu_fragment_layout, null);
 
         return view;
-
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 }
