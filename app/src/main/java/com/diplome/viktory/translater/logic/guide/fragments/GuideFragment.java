@@ -10,17 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.diplome.viktory.translater.R;
+import com.diplome.viktory.translater.logic.guide.activities.GuideActivity;
 
 import java.util.List;
 
 public class GuideFragment extends Fragment {
 
-    static final String ARGUMENT_PAGE_NUMBER = "arg_page_number";
+    static final String ARGUMENT_TITTLE_NAME = "arg_page_number";
+    private GuideActivity.TittlesStorage mTittlesStorage;
 
-    public static GuideFragment newInstance(int pageNumber){
+    public static GuideFragment newInstance(int position){
         GuideFragment pageFragment = new GuideFragment();
         Bundle arguments = new Bundle();
-        arguments.putInt(ARGUMENT_PAGE_NUMBER, pageNumber);
+        arguments.putInt(ARGUMENT_TITTLE_NAME, position);
         pageFragment.setArguments(arguments);
         return pageFragment;
     }
@@ -29,7 +31,7 @@ public class GuideFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.menu_fragment_layout, null);
+        View view = inflater.inflate(R.layout.englsih_verbs_fragment_layout, null);
 
         return view;
     }
