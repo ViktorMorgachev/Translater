@@ -31,7 +31,7 @@ public class GuideActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
     private List<String> mStringList;
-    private List<View> mViewList;
+    private List<Integer> mViewList;
     private TittlesStorage mTittlesStorage;
 
     public String getKey() {
@@ -87,6 +87,7 @@ public class GuideActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
+            Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : getItem, position = " + position);
             return GuideFragment.newInstance(position, mViewList.get(position));
         }
 
@@ -103,8 +104,8 @@ public class GuideActivity extends AppCompatActivity {
     }
 
    public class TittlesStorage {
-
-        private Map<String, List<View>> mLayoutsListMap;
+        // Integer для того чтобы передавать информацию во фрагмент
+        private Map<String, List<Integer>> mLayoutsListMap;
         // Ключ - раздел языка (Английский, Кыргызский, Русский), а список соответственно названия разделов
         private Map<String, List<String>> mTitleListMap;
 
@@ -118,19 +119,15 @@ public class GuideActivity extends AppCompatActivity {
 
             mLayoutsListMap = new HashMap<>();
 
-            List<View> layouts = new ArrayList<>();
+            List<Integer> layouts = new ArrayList<>();
 
-            layouts.addAll(Arrays.asList(LayoutInflater.from(getApplicationContext())
-                            .inflate(R.layout.englsih_adjectives_fragment_layout, null),
-                    LayoutInflater.from(getApplicationContext())
-                            .inflate(R.layout.englsih_nouns_fragment_layout, null),
-                    LayoutInflater.from(getApplicationContext())
-                            .inflate(R.layout.englsih_verbs_fragment_layout, null),
-                    LayoutInflater.from(getApplicationContext())
-                            .inflate(R.layout.englsih_pronouns_fragment_layout, null)));
+            layouts.addAll(Arrays.asList(R.layout.englsih_adjectives_fragment_layout,
+                    R.layout.englsih_nouns_fragment_layout,
+                    R.layout.englsih_verbs_fragment_layout,
+                    R.layout.englsih_pronouns_fragment_layout));
 
             mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
-            layouts.clear();
+            //layouts.clear();
         }
 
         private void mapAutoInitialize() {
@@ -161,7 +158,7 @@ public class GuideActivity extends AppCompatActivity {
             return mTitleListMap.get(key);
         }
 
-        List<View> getLayotsMap(String key) {
+        List<Integer> getLayotsMap(String key) {
             return mLayoutsListMap.get(key);
         }
     }
