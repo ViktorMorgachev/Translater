@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +56,7 @@ public class GuideActivity extends AppCompatActivity {
 
     }
 
-    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
+    private class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
 
         public MyFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -100,10 +100,44 @@ public class GuideActivity extends AppCompatActivity {
                     tittlesInitKyrgyz();
                     layoutsInitKyrgyz();
                     break;
+                case LanguagesInteractor.KeysField.RUSSIAN:
+                    layoutsInitRussian();
+                    tittlesInitRussian();
+                    break;
             }
 
-            //layoutsInitRussian();
-            // tittlesInitRussian();
+
+        }
+
+        private void tittlesInitRussian() {
+
+            mTitleListMap = new HashMap<>();
+
+            List<String> tittles = new ArrayList<>();
+
+            tittles.addAll(Arrays.asList(
+                    GuideActivity.this.getResources().getString(R.string.adjectives),
+                    GuideActivity.this.getResources().getString(R.string.enumeration),
+                    GuideActivity.this.getResources().getString(R.string.nouns),
+                    GuideActivity.this.getResources().getString(R.string.pronouns),
+                    GuideActivity.this.getResources().getString(R.string.verbs)));
+            mTitleListMap.put(LanguagesInteractor.KeysField.RUSSIAN, tittles);
+
+        }
+
+        private void layoutsInitRussian() {
+
+            mLayoutsListMap = new HashMap<>();
+
+            List<Integer> layouts = new ArrayList<>();
+
+            layouts.addAll(Arrays.asList(R.layout.russian_adjectives_fragment_layout,
+                    R.layout.russian_enumerations_fragment_layout,
+                    R.layout.russian_nouns_times_fragment_layout,
+                    R.layout.russian_pronouns_times_fragment_layout,
+                    R.layout.russian_verbs_fragment_layout));
+            mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
+
         }
 
         private void tittlesInitEnglish() {
