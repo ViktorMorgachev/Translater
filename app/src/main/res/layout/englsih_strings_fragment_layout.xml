@@ -15,7 +15,14 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/eng_adjectives"/>
+            android:src="@drawable/eng_string1"/>
+        <ImageView
+            android:id="@+id/iv_item1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/eng_string2"/>
 
     </LinearLayout>
 

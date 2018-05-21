@@ -8,10 +8,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Layout;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
@@ -24,7 +21,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observer;
 
 public class GuideActivity extends AppCompatActivity {
 
@@ -51,6 +47,9 @@ public class GuideActivity extends AppCompatActivity {
                 .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY);
 
         mStringList = mTittlesStorage.getTitlesMap(Key);
+
+        // mStringList = new ArrayList<>();
+
         mViewList = mTittlesStorage.getLayotsMap(Key);
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
@@ -75,8 +74,7 @@ public class GuideActivity extends AppCompatActivity {
 
 
         });
-
-        Toast.makeText(this, getIntent().getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY), Toast.LENGTH_SHORT).show();
+        
     }
 
     private class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
@@ -103,7 +101,7 @@ public class GuideActivity extends AppCompatActivity {
         }
     }
 
-   public class TittlesStorage {
+    public class TittlesStorage {
         // Integer для того чтобы передавать информацию во фрагмент
         private Map<String, List<Integer>> mLayoutsListMap;
         // Ключ - раздел языка (Английский, Кыргызский, Русский), а список соответственно названия разделов
@@ -111,11 +109,12 @@ public class GuideActivity extends AppCompatActivity {
 
 
         public TittlesStorage() {
-            mapAutoInitialize();
-            layoutsAutoIntitialize();
+            // В зависимости от параметров, загружается либо на рууском, либо на кыргызскоом, либо на английском языке
+            mapAutoInitializeForRussian();
+            layoutsAutoIntitializeForRussian();
         }
 
-        private void layoutsAutoIntitialize() {
+        private void layoutsAutoIntitializeForRussian() {
 
             mLayoutsListMap = new HashMap<>();
 
@@ -124,13 +123,15 @@ public class GuideActivity extends AppCompatActivity {
             layouts.addAll(Arrays.asList(R.layout.englsih_adjectives_fragment_layout,
                     R.layout.englsih_nouns_fragment_layout,
                     R.layout.englsih_verbs_fragment_layout,
-                    R.layout.englsih_pronouns_fragment_layout));
+                    R.layout.englsih_pronouns_fragment_layout,
+                   R.layout.englsih_strings_fragment_layout));
+              //    R.layout.englsih_verb_times_fragment_layout));
 
             mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
             //layouts.clear();
         }
 
-        private void mapAutoInitialize() {
+        private void mapAutoInitializeForRussian() {
 
             mTitleListMap = new HashMap<>();
 
@@ -138,18 +139,13 @@ public class GuideActivity extends AppCompatActivity {
 
             tittles.addAll(Arrays.asList(GuideActivity.this.getResources().getString(R.string.adjectives),
                     GuideActivity.this.getResources().getString(R.string.nouns),
-                    //  GuideActivity.this.getResources().getString(R.string.pronouns),
-                    GuideActivity.this.getResources().getString(R.string.verbs)));
+                    GuideActivity.this.getResources().getString(R.string.verbs),
+                    GuideActivity.this.getResources().getString(R.string.pronouns),
+                   GuideActivity.this.getResources().getString(R.string.strings)));
+                  // GuideActivity.this.getResources().getString(R.string.verbs_times)));
 
             mTitleListMap.put(LanguagesInteractor.KeysField.ENGLISH, tittles);
-            tittles.clear();
-
-            tittles.addAll(Arrays.asList(GuideActivity.this.getResources().getString(R.string.adjectives),
-                    GuideActivity.this.getResources().getString(R.string.nouns),
-                    GuideActivity.this.getResources().getString(R.string.pronouns),
-                    GuideActivity.this.getResources().getString(R.string.verbs)));
-
-            mTitleListMap.put(LanguagesInteractor.KeysField.RUSSIAN, tittles);
+            //   tittles.clear();
 
 
         }
