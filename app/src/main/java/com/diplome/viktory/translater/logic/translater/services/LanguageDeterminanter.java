@@ -19,7 +19,7 @@ public class LanguageDeterminanter extends AsyncTask<Map<String, String>, Void, 
         mRequestCreater = requestCreater;
     }
 
-    // Связали обьект к интерефейсом
+    // Связали сервис и поток через интерефейс
     @Override
     protected void onPreExecute() {
         super.onPreExecute();

@@ -12,20 +12,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.*;
-import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.fragments.TranslateFragment;
-import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
 import com.diplome.viktory.translater.logic.translater.services.InternetChecker;
 import com.diplome.viktory.translater.logic.translater.services.RequestCreater;
 
 import java.util.concurrent.ExecutionException;
-
-import retrofit2.Response;
 
 public class TranslateActivity extends AppCompatActivity implements TranslateFragment.OnButtonClickListener{
 
@@ -62,7 +57,7 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
             public void onServiceConnected(ComponentName name, IBinder service) {
                 RequestCreater.LocalBinder binder = (RequestCreater.LocalBinder) service;
                 mRequestCreater = binder.getService();
-                mRequestCreater.setActivity(TranslateActivity.this);
+                mRequestCreater.setFragmentListener(mFragment);
                 mBond = true;
                 Log.d(KeysInteractor.KeysField.LOG_TAG, mRequestCreater.getClass().getCanonicalName() + " : onServiceConnected ");
             }
@@ -77,9 +72,6 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
 
     }
 
-    public interface OnTranslateActivityListener {
-        void onActivityDataListener(String string);
-    }
 
     @Override
     protected void onStart() {

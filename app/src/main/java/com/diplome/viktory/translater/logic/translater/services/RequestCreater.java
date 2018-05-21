@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.Binder;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
@@ -41,11 +42,11 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
         else throw new UnsupportedOperationException();
     }
 
-    public void setActivity(Activity activity) { ;
+    public void setFragmentListener(Fragment fragment) { ;
         try {
-            mCallBack = (OnRequestCreatedListener) activity;
+            mCallBack = (OnRequestCreatedListener) fragment;
         } catch (ClassCastException e){
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(fragment.toString()
                     + " must implement OnRequestCreatedListener");
         }
     }
