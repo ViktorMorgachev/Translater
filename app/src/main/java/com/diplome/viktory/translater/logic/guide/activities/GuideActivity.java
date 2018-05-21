@@ -5,12 +5,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
@@ -42,14 +40,12 @@ public class GuideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.guide_fragment_container);
 
-        mTittlesStorage = new TittlesStorage();
 
         Key = getIntent()
                 .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY);
+        mTittlesStorage = new TittlesStorage(Key);
 
         mStringList = mTittlesStorage.getTitlesMap(Key);
-
-        // mStringList = new ArrayList<>();
 
         mViewList = mTittlesStorage.getLayotsMap(Key);
 
@@ -91,43 +87,26 @@ public class GuideActivity extends AppCompatActivity {
         private Map<String, List<String>> mTitleListMap;
 
 
-        public TittlesStorage() {
-            // В зависимости от параметров, загружается либо на рууском, либо на кыргызскоом, либо на английском языке
-            mapAutoInitializeForRussian();
-            layoutsAutoIntitializeForRussian();
-        }
-        
+        public TittlesStorage(String key) {
+            // В зависимости от параметров, загружается либо на руском, либо на кыргызскоом, либо на английском языке
 
-        private void layoutsAutoIntitializeForRussian() {
+            // Буду разделять и проводить инициализацию карт только по нужному ключу
+            switch (key) {
+                case LanguagesInteractor.KeysField.ENGLISH:
+                     tittlesInitEnglish();
+                     layoutsInitEnglish();
+                    break;
+                case LanguagesInteractor.KeysField.KYRGUZS:
+                    tittlesInitKyrgyz();
+                    layoutsInitKyrgyz();
+                    break;
+            }
 
-            mLayoutsListMap = new HashMap<>();
-
-            List<Integer> layouts = new ArrayList<>();
-
-            layouts.addAll(Arrays.asList(R.layout.kyrgyz_songs_fragment_layout,
-                    //   R.layout.englsih_nouns_fragment_layout,
-                    //    R.layout.englsih_verbs_fragment_layout,
-                    //     R.layout.englsih_pronouns_fragment_layout,
-                    R.layout.kyrgyz_adjectives_fragment_layout,
-                    R.layout.kyrgyz_nouns_fragment_layout,
-                    R.layout.kyrgyz_pronouns_fragment_layout,
-                    R.layout.kyrgyz_phonetic_fragment_layout,
-                    R.layout.kyrgyz_enumeration_fragment_layout));
-            mLayoutsListMap.put(LanguagesInteractor.KeysField.KYRGUZS, layouts);
-
-
-            layouts = new ArrayList<>();
-            layouts.addAll(Arrays.asList(R.layout.englsih_adjectives_fragment_layout,
-                    R.layout.englsih_nouns_fragment_layout,
-                    R.layout.englsih_verbs_fragment_layout,
-                    R.layout.englsih_pronouns_fragment_layout,
-                    R.layout.englsih_strings_fragment_layout));
-            mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
-
-            //layouts.clear();
+            //layoutsInitRussian();
+            // tittlesInitRussian();
         }
 
-        private void mapAutoInitializeForRussian() {
+        private void tittlesInitEnglish() {
 
             mTitleListMap = new HashMap<>();
 
@@ -140,9 +119,13 @@ public class GuideActivity extends AppCompatActivity {
                     GuideActivity.this.getResources().getString(R.string.pronouns),
                     GuideActivity.this.getResources().getString(R.string.strings)));
             mTitleListMap.put(LanguagesInteractor.KeysField.ENGLISH, tittles);
-            //   tittles.clear();
 
-            tittles = new ArrayList<>();
+        }
+
+        private void tittlesInitKyrgyz() {
+            mTitleListMap = new HashMap<>();
+
+            List<String> tittles = new ArrayList<>();
 
             tittles.addAll(Arrays.asList(
                     GuideActivity.this.getResources().getString(R.string.songs),
@@ -154,6 +137,39 @@ public class GuideActivity extends AppCompatActivity {
             mTitleListMap.put(LanguagesInteractor.KeysField.KYRGUZS, tittles);
 
         }
+
+        private void layoutsInitEnglish() {
+
+            mLayoutsListMap = new HashMap<>();
+
+            List<Integer> layouts = new ArrayList<>();
+
+            layouts.addAll(Arrays.asList(R.layout.englsih_adjectives_fragment_layout,
+                    R.layout.englsih_nouns_fragment_layout,
+                    R.layout.englsih_verbs_fragment_layout,
+                    R.layout.englsih_pronouns_fragment_layout,
+                    R.layout.englsih_strings_fragment_layout));
+            mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
+
+        }
+
+        private void layoutsInitKyrgyz() {
+
+            mLayoutsListMap = new HashMap<>();
+
+            List<Integer> layouts = new ArrayList<>();
+
+            layouts.addAll(Arrays.asList(R.layout.kyrgyz_songs_fragment_layout,
+                    R.layout.kyrgyz_adjectives_fragment_layout,
+                    R.layout.kyrgyz_nouns_fragment_layout,
+                    R.layout.kyrgyz_pronouns_fragment_layout,
+                    R.layout.kyrgyz_phonetic_fragment_layout,
+                    R.layout.kyrgyz_enumeration_fragment_layout));
+            mLayoutsListMap.put(LanguagesInteractor.KeysField.KYRGUZS, layouts);
+
+
+        }
+
 
         List<String> getTitlesMap(String key) {
             return mTitleListMap.get(key);
