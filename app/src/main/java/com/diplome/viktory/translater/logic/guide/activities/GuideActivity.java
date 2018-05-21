@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -56,28 +57,10 @@ public class GuideActivity extends AppCompatActivity {
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mPagerAdapter);
 
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-
-
-        });
 
     }
 
-    private class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {
+    private class MyFragmentPagerAdapter extends FragmentPagerAdapter {
 
         public MyFragmentPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -120,14 +103,23 @@ public class GuideActivity extends AppCompatActivity {
 
             List<Integer> layouts = new ArrayList<>();
 
+            layouts.addAll(Arrays.asList(R.layout.kyrgyz_songs_fragment_layout,
+                    //   R.layout.englsih_nouns_fragment_layout,
+                    //    R.layout.englsih_verbs_fragment_layout,
+                    //     R.layout.englsih_pronouns_fragment_layout,
+                    //  R.layout.englsih_strings_fragment_layout));
+                    R.layout.kyrgyz_pronouns_fragment_layout));
+            mLayoutsListMap.put(LanguagesInteractor.KeysField.KYRGUZS, layouts);
+
+
+            layouts = new ArrayList<>();
             layouts.addAll(Arrays.asList(R.layout.englsih_adjectives_fragment_layout,
                     R.layout.englsih_nouns_fragment_layout,
                     R.layout.englsih_verbs_fragment_layout,
                     R.layout.englsih_pronouns_fragment_layout,
-                   R.layout.englsih_strings_fragment_layout));
-              //    R.layout.englsih_verb_times_fragment_layout));
-
+                    R.layout.englsih_strings_fragment_layout));
             mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
+
             //layouts.clear();
         }
 
@@ -137,15 +129,21 @@ public class GuideActivity extends AppCompatActivity {
 
             List<String> tittles = new ArrayList<>();
 
-            tittles.addAll(Arrays.asList(GuideActivity.this.getResources().getString(R.string.adjectives),
+            tittles.addAll(Arrays.asList(
+                    GuideActivity.this.getResources().getString(R.string.adjectives),
                     GuideActivity.this.getResources().getString(R.string.nouns),
                     GuideActivity.this.getResources().getString(R.string.verbs),
                     GuideActivity.this.getResources().getString(R.string.pronouns),
-                   GuideActivity.this.getResources().getString(R.string.strings)));
-                  // GuideActivity.this.getResources().getString(R.string.verbs_times)));
-
+                    GuideActivity.this.getResources().getString(R.string.strings)));
             mTitleListMap.put(LanguagesInteractor.KeysField.ENGLISH, tittles);
             //   tittles.clear();
+
+            tittles = new ArrayList<>();
+
+            tittles.addAll(Arrays.asList(
+                    GuideActivity.this.getResources().getString(R.string.songs),
+                    GuideActivity.this.getResources().getString(R.string.pronouns)));
+            mTitleListMap.put(LanguagesInteractor.KeysField.KYRGUZS, tittles);
 
 
         }
