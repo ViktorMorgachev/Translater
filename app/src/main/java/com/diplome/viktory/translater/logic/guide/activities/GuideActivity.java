@@ -136,7 +136,7 @@ public class GuideActivity extends AppCompatActivity {
                     R.layout.russian_nouns_times_fragment_layout,
                     R.layout.russian_pronouns_times_fragment_layout,
                     R.layout.russian_verbs_fragment_layout));
-            mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
+            mLayoutsListMap.put(LanguagesInteractor.KeysField.RUSSIAN, layouts);
 
         }
 
