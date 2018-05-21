@@ -22,6 +22,7 @@
     <string name="songs">Звуки</string>
     <string name="phonetics">Фонетика</string>
     <string name="numeral">Числительное</string>
+    <string name="enumeration">Числительное</string>
     <string-array name="languages">
         <item>Кыргызский</item>
         <item>Русский</item>

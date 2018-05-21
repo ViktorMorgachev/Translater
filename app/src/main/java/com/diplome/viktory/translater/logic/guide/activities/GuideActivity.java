@@ -96,6 +96,7 @@ public class GuideActivity extends AppCompatActivity {
             mapAutoInitializeForRussian();
             layoutsAutoIntitializeForRussian();
         }
+        
 
         private void layoutsAutoIntitializeForRussian() {
 
@@ -107,8 +108,11 @@ public class GuideActivity extends AppCompatActivity {
                     //   R.layout.englsih_nouns_fragment_layout,
                     //    R.layout.englsih_verbs_fragment_layout,
                     //     R.layout.englsih_pronouns_fragment_layout,
-                    //  R.layout.englsih_strings_fragment_layout));
-                    R.layout.kyrgyz_pronouns_fragment_layout));
+                    R.layout.kyrgyz_adjectives_fragment_layout,
+                    R.layout.kyrgyz_nouns_fragment_layout,
+                    R.layout.kyrgyz_pronouns_fragment_layout,
+                    R.layout.kyrgyz_phonetic_fragment_layout,
+                    R.layout.kyrgyz_enumeration_fragment_layout));
             mLayoutsListMap.put(LanguagesInteractor.KeysField.KYRGUZS, layouts);
 
 
@@ -142,9 +146,12 @@ public class GuideActivity extends AppCompatActivity {
 
             tittles.addAll(Arrays.asList(
                     GuideActivity.this.getResources().getString(R.string.songs),
-                    GuideActivity.this.getResources().getString(R.string.pronouns)));
+                    GuideActivity.this.getResources().getString(R.string.adjectives),
+                    GuideActivity.this.getResources().getString(R.string.nouns),
+                    GuideActivity.this.getResources().getString(R.string.pronouns),
+                    GuideActivity.this.getResources().getString(R.string.phonetics),
+                    GuideActivity.this.getResources().getString(R.string.enumeration)));
             mTitleListMap.put(LanguagesInteractor.KeysField.KYRGUZS, tittles);
-
 
         }
 
