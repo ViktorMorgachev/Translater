@@ -74,7 +74,7 @@ public class GuideActivity extends AppCompatActivity {
 
 
         });
-        
+
     }
 
     private class MyFragmentPagerAdapter extends FragmentStatePagerAdapter {

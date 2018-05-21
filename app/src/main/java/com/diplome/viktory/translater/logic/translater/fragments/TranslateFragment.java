@@ -13,6 +13,7 @@ import android.widget.Spinner;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
+import com.diplome.viktory.translater.logic.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
 import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 
@@ -32,6 +33,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
 
 
     private String[] languages;
+
 
     public interface OnButtonClickListener{
         void onButtonPressed(View view, String textLeft, String textRight, int spinner1Position, int spinner2Position);
@@ -116,12 +118,13 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
         List<String> stringList = response.body().getText();
 
         for (int i = 0; i < stringList.size(); i++) {
-            stringBuilder.append(stringList.get(i));
+            result = stringList.get(i);
+            stringBuilder.append(result);
         }
 
         if (direction == DirectionInteractor.Direction.RIGHT)
-            editTextRight.setText(stringBuilder.toString());
+            editTextRight.setText(result);
         else
-            editTextLeft.setText(stringBuilder.toString());
+            editTextLeft.setText(result);
     }
 }

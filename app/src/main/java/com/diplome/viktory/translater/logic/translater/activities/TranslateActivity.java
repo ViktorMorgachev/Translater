@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
@@ -26,7 +27,7 @@ import java.util.concurrent.ExecutionException;
 
 import retrofit2.Response;
 
-public class TranslateActivity extends AppCompatActivity implements TranslateFragment.OnButtonClickListener, OnRequestCreatedListener{
+public class TranslateActivity extends AppCompatActivity implements TranslateFragment.OnButtonClickListener{
 
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Fragment mFragment;
@@ -41,11 +42,15 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
         setContentView(R.layout.simple_fragment_container);
 
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
+
+
         if(mFragment == null){
             mFragment = new TranslateFragment();
             mFragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, mFragment)
                     .commit();
+
+
         }
 
 
@@ -70,6 +75,10 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
             }
         };
 
+    }
+
+    public interface OnTranslateActivityListener {
+        void onActivityDataListener(String string);
     }
 
     @Override
@@ -131,10 +140,6 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
         }
     }
 
-    @Override
-    public void onEndedResponseCreated(Response<ResultObjectContext> response, int direction) {
-        Toast.makeText(this, response.body().getText().toString(), Toast.LENGTH_SHORT).show();
-    }
 
 
     /* public class MyCustomAdapter extends ArrayAdapter<String> {
