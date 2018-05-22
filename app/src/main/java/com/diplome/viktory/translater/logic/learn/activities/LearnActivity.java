@@ -12,8 +12,9 @@ import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
+import com.diplome.viktory.translater.logic.learn.fragments.LearnStandartFragment;
 
-public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsFragment.OnButtonClickListener{
+public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsFragment.OnButtonClickListener, LearnStandartFragment.OnButtonClickListener{
     // For analize this Activity working is first time
     private static boolean isStarted;
     private Fragment mFragment;
@@ -52,8 +53,18 @@ public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsF
         Toast.makeText(this,((Button) view).getText().toString() + " нажали", Toast.LENGTH_SHORT).show();
 
         switch (view.getId()){
+            case R.id.iv_go:
+                Toast.makeText(this, "Нажали на Go", Toast.LENGTH_SHORT).show();
+                break;
             case R.id.btn_colors:
                 Toast.makeText(this, "Будем учить цвета", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btn_sport:
+                if(mFragment == null || isStarted){
+                    mFragment = new LearnStandartFragment();
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container, mFragment).commit();
+                }
                 break;
         }
     }
