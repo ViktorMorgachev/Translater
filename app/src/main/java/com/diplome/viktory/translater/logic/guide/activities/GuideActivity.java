@@ -93,8 +93,8 @@ public class GuideActivity extends AppCompatActivity {
             // Буду разделять и проводить инициализацию карт только по нужному ключу
             switch (key) {
                 case LanguagesInteractor.KeysField.ENGLISH:
-                     tittlesInitEnglish();
-                     layoutsInitEnglish();
+                    tittlesInitEnglish();
+                    layoutsInitEnglish();
                     break;
                 case LanguagesInteractor.KeysField.KYRGUZS:
                     tittlesInitKyrgyz();
@@ -149,9 +149,9 @@ public class GuideActivity extends AppCompatActivity {
             tittles.addAll(Arrays.asList(
                     GuideActivity.this.getResources().getString(R.string.adjectives),
                     GuideActivity.this.getResources().getString(R.string.nouns),
-                    GuideActivity.this.getResources().getString(R.string.verbs),
                     GuideActivity.this.getResources().getString(R.string.pronouns),
-                    GuideActivity.this.getResources().getString(R.string.strings)));
+                    GuideActivity.this.getResources().getString(R.string.strings),
+                    GuideActivity.this.getResources().getString(R.string.verbs)));
             mTitleListMap.put(LanguagesInteractor.KeysField.ENGLISH, tittles);
 
         }
@@ -180,9 +180,9 @@ public class GuideActivity extends AppCompatActivity {
 
             layouts.addAll(Arrays.asList(R.layout.englsih_adjectives_fragment_layout,
                     R.layout.englsih_nouns_fragment_layout,
-                    R.layout.englsih_verbs_fragment_layout,
                     R.layout.englsih_pronouns_fragment_layout,
-                    R.layout.englsih_strings_fragment_layout));
+                    R.layout.englsih_strings_fragment_layout,
+                    R.layout.englsih_verbs_fragment_layout));
             mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, layouts);
 
         }
