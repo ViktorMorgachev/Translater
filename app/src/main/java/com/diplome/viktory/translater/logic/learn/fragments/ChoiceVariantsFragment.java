@@ -23,15 +23,15 @@ public class ChoiceVariantsFragment extends Fragment implements View.OnClickList
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.learn_fragment_layout, null);
         mButtonColors = view.findViewById(R.id.btn_colors);
-        mButtonFruits = view.findViewById(R.id.btn_guide);
-        mButtonSports = view.findViewById(R.id.btn_vegetables);
+        mButtonFruits = view.findViewById(R.id.btn_fruits);
+        mButtonSports = view.findViewById(R.id.btn_sport);
+        mButtonVegetables = view.findViewById(R.id.btn_vegetables);
 
 
         mButtonSports.setOnClickListener(this);
         mButtonFruits.setOnClickListener(this);
         mButtonColors.setOnClickListener(this);
         mButtonVegetables.setOnClickListener(this);
-
 
         return view;
     }

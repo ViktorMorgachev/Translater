@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
@@ -48,7 +49,7 @@ public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsF
     @Override
     public void onButtonPressed(View view) {
 
-        Toast.makeText(this, view.getTransitionName().toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,((Button) view).getText().toString() + " нажали", Toast.LENGTH_SHORT).show();
 
         switch (view.getId()){
             case R.id.btn_colors:

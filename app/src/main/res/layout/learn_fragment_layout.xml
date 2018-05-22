@@ -43,6 +43,7 @@
         android:text="@string/animals" />
 
     <Button
+        android:id="@+id/btn_sport"
         style="@style/menu_button"
         android:text="@string/sports" />
 

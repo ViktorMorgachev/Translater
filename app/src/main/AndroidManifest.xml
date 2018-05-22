@@ -30,6 +30,11 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
+        <activity android:name=".logic.learn.activities.LearnActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
         <activity android:name=".logic.menu.activities.MenuActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"></category>

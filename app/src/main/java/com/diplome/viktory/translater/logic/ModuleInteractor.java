@@ -5,13 +5,15 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.diplome.viktory.translater.logic.guide.SelectLanguageActivity;
+import com.diplome.viktory.translater.logic.learn.activities.LearnActivity;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartGuideActivityListener;
+import com.diplome.viktory.translater.logic.menu.interfaces.OnStartLearnActivityListener;
 import com.diplome.viktory.translater.logic.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartTranslaterActivityListener;
 
 public class ModuleInteractor implements
-        OnStartTranslaterActivityListener, OnStartGuideActivityListener {
+        OnStartTranslaterActivityListener, OnStartGuideActivityListener, OnStartLearnActivityListener {
 
     @Override
     public  void startTranslaterActivity(Activity activity) {
@@ -23,5 +25,12 @@ public class ModuleInteractor implements
     public void startGuideActivity(Activity activity) {
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startGuideActivity ");
         activity.startActivity(new Intent(activity, SelectLanguageActivity.class));
+    }
+
+    @Override
+    public void startLearnActivity(Activity activity) {
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startLearnActivity ");
+        activity.startActivity(new Intent(activity, LearnActivity.class));
+
     }
 }
