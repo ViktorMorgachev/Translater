@@ -23,6 +23,13 @@
     <string name="phonetics">Фонетика</string>
     <string name="numeral">Числительное</string>
     <string name="enumeration">Числительное</string>
+    <string name="colors">Цвета</string>
+    <string name="vegetables">Овощи</string>
+    <string name="clothes">Одежда</string>
+    <string name="questions">Вопросы</string>
+    <string name="fruits">Фрукты</string>
+    <string name="animals">Животные</string>
+    <string name="sports">Спорт</string>
     <string-array name="languages">
         <item>Кыргызский</item>
         <item>Русский</item>
