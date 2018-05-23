@@ -24,6 +24,7 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
     private TextView mTextView;
 
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,13 +34,14 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
         mEditText = (EditText) view.findViewById(R.id.edit_text);
         mTextView = (TextView) view.findViewById(R.id.text_view);
 
-        mTextView.setText(savedInstanceState.getString(KEY_FIRST));
-        mEditText.setText(savedInstanceState.getString(KEY_SECOND));
+        mTextView.setText(getArguments().getString(KEY_FIRST));
+        mEditText.setText(getArguments().getString(KEY_SECOND));
 
         mImageViewGo.setOnClickListener(this);
 
         return view;
     }
+
 
     // Передам позицию и ссылку на вьюшку в виде строки
     public static LearnStandartFragment newInstance(String source, String usersInput) {

@@ -14,7 +14,6 @@ public class DataBaseWorker implements SportInitialize{
     public void SportsImagesInit(Context context) {
         throw new UnsupportedOperationException();
     }
-
     @Override
     public void /*List<SportObject> */ SportObjectsInit(Context context, Realm realm) {
         realm.beginTransaction();
@@ -34,5 +33,6 @@ public class DataBaseWorker implements SportInitialize{
 
         if(realm.where(SportObject.class).findAll().size() > 0)
             Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : doInBackGroung " + "realm isn't empty");
+
     }
 }

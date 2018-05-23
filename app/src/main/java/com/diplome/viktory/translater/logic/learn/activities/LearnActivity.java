@@ -12,9 +12,14 @@ import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
+import com.diplome.viktory.translater.logic.learn.database.SportObject;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
 import com.diplome.viktory.translater.logic.learn.fragments.LearnStandartFragment;
 import com.diplome.viktory.translater.logic.learn.interfaces.SportInitialize;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -28,8 +33,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Realm mRealm;
     private SportInitialize mSportInialize;
-    private RealmResults<RealmObject> mRealmObjects;
-
+    private List<SportObject> mSportObjects = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,8 +49,9 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
             mFragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, mFragment).commit();
         }
-
     }
+
+
 
     @Override
     protected void onDestroy() {
@@ -69,19 +74,36 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
 
         switch (view.getId()) {
             case R.id.iv_go:
+                mSportObjects.remove(mSportObjects.size()-1);
+                if(mSportObjects.size() == 1)
+                    return;
+                if (mFragment == null || isStarted) {
+                    mFragment = LearnStandartFragment.newInstance(mSportObjects.get(mSportObjects.size()-1).getLearnLanguage(),
+                            mSportObjects.get(mSportObjects.size()-1).getNativeLanguage());
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container, mFragment).commit();
+                }
                 Toast.makeText(this, "Нажали на Go", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_colors:
                 Toast.makeText(this, "Будем учить цвета", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_sport:
+
                 mSportInialize.SportObjectsInit(this, mRealm);
+                mSportObjects.addAll(mRealm.where(SportObject.class).findAll());
                 if (mFragment == null || isStarted) {
-                    mFragment = new LearnStandartFragment();
+
+                    mFragment = LearnStandartFragment.newInstance(mSportObjects.get(mSportObjects.size()-1).getLearnLanguage(),
+                            mSportObjects.get(mSportObjects.size()-1).getNativeLanguage());
+
+
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
                 }
                 break;
         }
     }
+
+
 }

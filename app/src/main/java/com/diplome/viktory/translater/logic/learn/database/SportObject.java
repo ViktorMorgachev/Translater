@@ -11,6 +11,15 @@ public class SportObject extends RealmObject {
     @Required
     private String eng_name;
 
+    public String getNativeLanguage() {
+        // Получаем из setup preferences данные и по ним определяем нативный и язык какой язык мы учим
+        return getRus_name();
+    }
+
+    public String getLearnLanguage() {
+        // Получаем из setup preferences данные и по ним определяем нативный и язык какой язык мы учим
+        return getEng_name();
+    }
 
     public String getKyrg_name() {
         return kyrg_name;
