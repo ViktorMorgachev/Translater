@@ -3,7 +3,7 @@ package com.diplome.viktory.translater.logic.learn.database;
 import io.realm.RealmObject;
 import io.realm.annotations.Required;
 
-public class Sport extends RealmObject {
+public class SportObject extends RealmObject {
     @Required
     private String kyrg_name;
     @Required

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -27,10 +29,13 @@ public class Translater extends Application {
 
     private static YandexTranslateApi yandexTranslateApi;
     private Retrofit retrofit;
+    private RealmConfiguration mRealmConfiguration;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        realmInit();
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -52,6 +57,13 @@ public class Translater extends Application {
         yandexTranslateApi = retrofit.create(YandexTranslateApi.class);
 
 
+
+    }
+
+    private void realmInit() {
+        Realm.init(this);
+        mRealmConfiguration = new RealmConfiguration.Builder().name("myrealm.realm").build();
+        Realm.setDefaultConfiguration(mRealmConfiguration);
 
     }
 

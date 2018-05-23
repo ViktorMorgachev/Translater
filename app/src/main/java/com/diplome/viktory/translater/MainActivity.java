@@ -14,6 +14,8 @@ import com.diplome.viktory.translater.logic.menu.activities.MenuActivity;
 import java.io.IOException;
 import java.io.InputStream;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageView mImageView;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview_layout);
+
 
         mImageView = (ImageView) findViewById(R.id.im_photo_id);
         mImageView.setImageResource(R.drawable.photo_id);

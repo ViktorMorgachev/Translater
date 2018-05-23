@@ -11,14 +11,25 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
+import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
 import com.diplome.viktory.translater.logic.learn.fragments.LearnStandartFragment;
+import com.diplome.viktory.translater.logic.learn.interfaces.SportInitialize;
 
-public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsFragment.OnButtonClickListener, LearnStandartFragment.OnButtonClickListener{
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
+import io.realm.RealmResults;
+
+public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFragment.OnButtonClickListener, LearnStandartFragment.OnButtonClickListener {
     // For analize this Activity working is first time
     private static boolean isStarted;
     private Fragment mFragment;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
+    private Realm mRealm;
+    private SportInitialize mSportInialize;
+    private RealmResults<RealmObject> mRealmObjects;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,8 +37,10 @@ public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsF
         setContentView(R.layout.simple_fragment_container);
         isStarted = true;
 
+        mSportInialize = new DataBaseWorker();
+
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
-        if(mFragment == null || !isStarted){
+        if (mFragment == null || !isStarted) {
             mFragment = new ChoiceVariantsFragment();
             mFragmentManager.beginTransaction()
                     .add(R.id.main_fragment_container, mFragment).commit();
@@ -38,21 +51,23 @@ public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsF
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        mRealm.close();
         isStarted = false;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        mRealm = Realm.getDefaultInstance();
         isStarted = true;
     }
 
     @Override
     public void onButtonPressed(View view) {
 
-        Toast.makeText(this,((Button) view).getText().toString() + " нажали", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this,((Button) view).getText().toString() + " нажали", Toast.LENGTH_SHORT).show();
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.iv_go:
                 Toast.makeText(this, "Нажали на Go", Toast.LENGTH_SHORT).show();
                 break;
@@ -60,7 +75,8 @@ public class LearnActivity extends AppCompatActivity  implements ChoiceVariantsF
                 Toast.makeText(this, "Будем учить цвета", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_sport:
-                if(mFragment == null || isStarted){
+                mSportInialize.SportObjectsInit(this, mRealm);
+                if (mFragment == null || isStarted) {
                     mFragment = new LearnStandartFragment();
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();

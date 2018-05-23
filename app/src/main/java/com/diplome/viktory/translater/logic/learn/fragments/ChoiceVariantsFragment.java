@@ -21,7 +21,7 @@ public class ChoiceVariantsFragment extends Fragment implements View.OnClickList
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.learn_fragment_layout, null);
+        View view = inflater.inflate(R.layout.learn_select_variant_layout, null);
         mButtonColors = view.findViewById(R.id.btn_colors);
         mButtonFruits = view.findViewById(R.id.btn_fruits);
         mButtonSports = view.findViewById(R.id.btn_sport);
