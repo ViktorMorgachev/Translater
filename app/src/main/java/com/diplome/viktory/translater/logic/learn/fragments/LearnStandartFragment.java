@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 
@@ -18,11 +19,17 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
 
     private ImageView mImageViewGo;
     static final String KEY_FIRST = "Source text";
-    static final String KEY_SECOND= "Users input";
+    static final String KEY_SECOND = "Users input";
+    static final String KEY_IMAGE =  "Image";
     private OnButtonClickListener mCallBackClickListener;
     private EditText mEditText;
     private TextView mTextView;
-
+    private ImageView mImageView;
+    private TextView mTextViewTrue;
+    private TextView mTextViewFalse;
+    private ImageView mImageViewShowResult;
+    private static int countOfTrueAnswers;
+    private static int countOfFalseAnswers;
 
 
     @Nullable
@@ -33,22 +40,31 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
         mImageViewGo = (ImageView) view.findViewById(R.id.iv_go);
         mEditText = (EditText) view.findViewById(R.id.edit_text);
         mTextView = (TextView) view.findViewById(R.id.text_view);
+        mImageView = (ImageView) view.findViewById(R.id.iv_picture);
+        mTextViewFalse = (TextView) view.findViewById(R.id.tv_false_count);
+        mTextViewTrue = (TextView) view.findViewById(R.id.tv_true_count);
+        mImageViewShowResult = (ImageView) view.findViewById(R.id.iv_show_result);
 
         mTextView.setText(getArguments().getString(KEY_FIRST));
-        mEditText.setText(getArguments().getString(KEY_SECOND));
+        mEditText.setText("");
+        mImageView.setImageResource(getArguments().getInt(KEY_IMAGE));
+        mTextViewTrue.setText(getResources().getString(R.string.True) + " : " + countOfTrueAnswers);
+        mTextViewFalse.setText(getResources().getString(R.string.False) + " : " + countOfFalseAnswers);
 
         mImageViewGo.setOnClickListener(this);
+        mImageViewShowResult.setOnClickListener(this);
 
         return view;
     }
 
 
-    // Передам позицию и ссылку на вьюшку в виде строки
-    public static LearnStandartFragment newInstance(String source, String usersInput) {
+
+    public static LearnStandartFragment newInstance(String learnText, String usersInput, int imageID) {
         // Уcё, вопросов нет, осталcя один вопрос, как сохранить view
         LearnStandartFragment pageFragment = new LearnStandartFragment();
         Bundle arguments = new Bundle();
-        arguments.putString(KEY_FIRST, source);
+        arguments.putString(KEY_FIRST, learnText);
+        arguments.putInt(KEY_IMAGE, imageID);
         arguments.putString(KEY_SECOND, usersInput);
         pageFragment.setArguments(arguments);
         return pageFragment;
@@ -56,11 +72,24 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        mCallBackClickListener.onButtonPressed(v);
+
+        if(mEditText.getText().toString().equals(""))
+            Toast.makeText(getContext(), "Введите значение в поле ввода", Toast.LENGTH_SHORT).show();
+
+        if(!getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()) ||
+                (v.getId() == R.id.iv_show_result))
+            countOfFalseAnswers++;
+         else
+            countOfTrueAnswers++;
+
+
+
+        mCallBackClickListener.onButtonPressed(v,
+                getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()));
     }
 
     public interface OnButtonClickListener {
-        void onButtonPressed(View view);
+        void onButtonPressed(View view, boolean trueFalse);
     }
 
     @Override

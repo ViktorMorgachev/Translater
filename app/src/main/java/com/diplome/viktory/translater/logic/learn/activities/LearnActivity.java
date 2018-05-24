@@ -4,27 +4,24 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
-import com.diplome.viktory.translater.logic.learn.database.SportObject;
+import com.diplome.viktory.translater.logic.learn.database.SimpleRealmObject;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
 import com.diplome.viktory.translater.logic.learn.fragments.LearnStandartFragment;
+import com.diplome.viktory.translater.logic.learn.fragments.ResultFragment;
+import com.diplome.viktory.translater.logic.learn.interfaces.FruitsInitialize;
+import com.diplome.viktory.translater.logic.learn.interfaces.HobbyInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.SportInitialize;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
-import io.realm.RealmObject;
-import io.realm.RealmResults;
 
 public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFragment.OnButtonClickListener, LearnStandartFragment.OnButtonClickListener {
     // For analize this Activity working is first time
@@ -33,7 +30,13 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     private Realm mRealm;
     private SportInitialize mSportInialize;
-    private List<SportObject> mSportObjects = new ArrayList<>();
+    private HobbyInitialize mHobbyInitialize;
+    private FruitsInitialize mFruitsInitialize;
+    private int countOfObject;
+    private int countOfTrueAnswers;
+    private int countOfFalseAnswers;
+    private List<SimpleRealmObject> mRealmObjects = new ArrayList<>();
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +45,8 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
         isStarted = true;
 
         mSportInialize = new DataBaseWorker();
+        mHobbyInitialize = new DataBaseWorker();
+        mFruitsInitialize = new DataBaseWorker();
 
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
         if (mFragment == null || !isStarted) {
@@ -50,7 +55,6 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                     .add(R.id.main_fragment_container, mFragment).commit();
         }
     }
-
 
 
     @Override
@@ -68,42 +72,119 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     }
 
     @Override
-    public void onButtonPressed(View view) {
+    public void onButtonPressed(View view, boolean trueFalse) {
 
-        // Toast.makeText(this,((Button) view).getText().toString() + " нажали", Toast.LENGTH_SHORT).show();
+        if(trueFalse)
+            countOfTrueAnswers++;
+        else countOfFalseAnswers++;
 
         switch (view.getId()) {
             case R.id.iv_go:
-                mSportObjects.remove(mSportObjects.size()-1);
-                if(mSportObjects.size() == 1)
+                if (mRealmObjects.size() == 1) {
+                    showResult();
                     return;
+                }
+                mRealmObjects.remove(mRealmObjects.size() - 1);
+
                 if (mFragment == null || isStarted) {
-                    mFragment = LearnStandartFragment.newInstance(mSportObjects.get(mSportObjects.size()-1).getLearnLanguage(),
-                            mSportObjects.get(mSportObjects.size()-1).getNativeLanguage());
+                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
                 }
                 Toast.makeText(this, "Нажали на Go", Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.iv_show_result:
+                Toast.makeText(this, mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(), Toast.LENGTH_LONG).show();
+                if (mRealmObjects.size() == 1) {
+                    showResult();
+                    return;
+                }
+                mRealmObjects.remove(mRealmObjects.size() - 1);
+
+                if (mFragment == null || isStarted) {
+                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container, mFragment).commit();
+                }
+                Toast.makeText(this, "Нажали на Go", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+    }
+
+    private void showResult() {
+
+        if (mFragment == null || isStarted) {
+            // Отправить в него полученные результаты
+            mFragment = ResultFragment.newInstance(countOfTrueAnswers, countOfFalseAnswers);
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, mFragment).commit();
+        }
+    }
+
+
+    // Обработка для выбота типа обучения
+    @Override
+    public void onButtonPressed(View view) {
+
+        switch (view.getId()) {
             case R.id.btn_colors:
                 Toast.makeText(this, "Будем учить цвета", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_sport:
+                countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
 
-                mSportInialize.SportObjectsInit(this, mRealm);
-                mSportObjects.addAll(mRealm.where(SportObject.class).findAll());
+                mSportInialize.SportInit(this, mRealm);
+                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
+                countOfObject = mRealmObjects.size();
+
                 if (mFragment == null || isStarted) {
 
-                    mFragment = LearnStandartFragment.newInstance(mSportObjects.get(mSportObjects.size()-1).getLearnLanguage(),
-                            mSportObjects.get(mSportObjects.size()-1).getNativeLanguage());
-
+                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
                 }
                 break;
+            case R.id.btn_hobby:
+                countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
+                mHobbyInitialize.HobbyInit(this, mRealm);
+                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
+                countOfObject = mRealmObjects.size();
+
+                if (mFragment == null || isStarted) {
+
+                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container, mFragment).commit();
+                }
+                break;
+            case R.id.btn_fruits:
+                countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
+                mFruitsInitialize.FruitsInit(this, mRealm);
+                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
+                countOfObject = mRealmObjects.size();
+
+                if (mFragment == null || isStarted) {
+
+                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+
+                    mFragmentManager.beginTransaction()
+                            .replace(R.id.main_fragment_container, mFragment).commit();
+                }
+                break;
+
+
         }
     }
-
-
 }

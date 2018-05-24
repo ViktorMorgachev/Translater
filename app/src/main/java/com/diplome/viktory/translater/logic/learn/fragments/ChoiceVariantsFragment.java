@@ -16,7 +16,7 @@ import com.diplome.viktory.translater.logic.menu.fragments.MenuFragment;
 public class ChoiceVariantsFragment extends Fragment implements View.OnClickListener {
 
     private OnButtonClickListener mCallBackClickListener;
-    private Button mButtonColors, mButtonFruits, mButtonVegetables, mButtonSports;
+    private Button mButtonColors, mButtonFruits, mButtonVegetables, mButtonSports, mButtonHobby;
 
     @Nullable
     @Override
@@ -25,12 +25,14 @@ public class ChoiceVariantsFragment extends Fragment implements View.OnClickList
         mButtonColors = view.findViewById(R.id.btn_colors);
         mButtonFruits = view.findViewById(R.id.btn_fruits);
         mButtonSports = view.findViewById(R.id.btn_sport);
+        mButtonHobby = view.findViewById(R.id.btn_hobby);
         mButtonVegetables = view.findViewById(R.id.btn_vegetables);
 
 
         mButtonSports.setOnClickListener(this);
         mButtonFruits.setOnClickListener(this);
         mButtonColors.setOnClickListener(this);
+        mButtonHobby.setOnClickListener(this);
         mButtonVegetables.setOnClickListener(this);
 
         return view;

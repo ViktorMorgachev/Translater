@@ -4,8 +4,7 @@ import android.content.Context;
 
 import io.realm.Realm;
 
-public interface SportInitialize {
+public interface HobbyInitialize {
 
-
-    public void SportInit(Context context, Realm realm);
+    public void HobbyInit(Context context, Realm realm);
 }

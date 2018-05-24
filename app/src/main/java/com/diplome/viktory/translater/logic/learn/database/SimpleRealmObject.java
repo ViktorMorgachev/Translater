@@ -3,13 +3,23 @@ package com.diplome.viktory.translater.logic.learn.database;
 import io.realm.RealmObject;
 import io.realm.annotations.Required;
 
-public class SportObject extends RealmObject {
+public class SimpleRealmObject extends RealmObject {
     @Required
     private String kyrg_name;
     @Required
     private String rus_name;
     @Required
     private String eng_name;
+
+    private int image;
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
+    }
 
     public String getNativeLanguage() {
         // Получаем из setup preferences данные и по ним определяем нативный и язык какой язык мы учим
