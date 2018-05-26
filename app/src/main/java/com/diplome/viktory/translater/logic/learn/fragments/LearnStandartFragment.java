@@ -21,6 +21,8 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
     static final String KEY_FIRST = "Source text";
     static final String KEY_SECOND = "Users input";
     static final String KEY_IMAGE =  "Image";
+    static final String KEY_COUNT_TRUE = "Count of true answers";
+    static final String KEY_COUNT_FALSE = "Count of false answers";
     private OnButtonClickListener mCallBackClickListener;
     private EditText mEditText;
     private TextView mTextView;
@@ -28,8 +30,8 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
     private TextView mTextViewTrue;
     private TextView mTextViewFalse;
     private ImageView mImageViewShowResult;
-    private static int countOfTrueAnswers;
-    private static int countOfFalseAnswers;
+    private int countOfTrueAnswers;
+    private int countOfFalseAnswers;
 
 
     @Nullable
@@ -48,8 +50,8 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
         mTextView.setText(getArguments().getString(KEY_FIRST));
         mEditText.setText("");
         mImageView.setImageResource(getArguments().getInt(KEY_IMAGE));
-        mTextViewTrue.setText(getResources().getString(R.string.True) + " : " + countOfTrueAnswers);
-        mTextViewFalse.setText(getResources().getString(R.string.False) + " : " + countOfFalseAnswers);
+        mTextViewTrue.setText(getResources().getString(R.string.True) + " : " + getArguments().getInt(KEY_COUNT_TRUE));
+        mTextViewFalse.setText(getResources().getString(R.string.False) + " : " + getArguments().getInt(KEY_COUNT_FALSE));
 
         mImageViewGo.setOnClickListener(this);
         mImageViewShowResult.setOnClickListener(this);
@@ -59,12 +61,14 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
 
 
 
-    public static LearnStandartFragment newInstance(String learnText, String usersInput, int imageID) {
+    public static LearnStandartFragment newInstance(String learnText, String usersInput, int imageID, int countOfTrueAnswers, int countOfFalseAnswers) {
         // Уcё, вопросов нет, осталcя один вопрос, как сохранить view
         LearnStandartFragment pageFragment = new LearnStandartFragment();
         Bundle arguments = new Bundle();
         arguments.putString(KEY_FIRST, learnText);
         arguments.putInt(KEY_IMAGE, imageID);
+        arguments.putInt(KEY_COUNT_TRUE, countOfTrueAnswers);
+        arguments.putInt(KEY_COUNT_FALSE, countOfFalseAnswers);
         arguments.putString(KEY_SECOND, usersInput);
         pageFragment.setArguments(arguments);
         return pageFragment;

@@ -88,4 +88,10 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
         }
 
     }
+
+    @Override
+    public void onShowImageCheched(boolean isChecked) {
+        mSharedPreferences.edit().putBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE,
+                isChecked).commit();
+    }
 }

@@ -95,7 +95,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
                             mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
@@ -112,7 +112,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
                             mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
@@ -142,6 +142,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 Toast.makeText(this, "Будем учить цвета", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_sport:
+                // Обнуляем счётчики
                 countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
 
                 mSportInialize.SportInit(this, mRealm);
@@ -151,7 +152,8 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
 
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
@@ -166,7 +168,8 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
 
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
@@ -181,7 +184,8 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
 
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
@@ -196,7 +200,8 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
 
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();
@@ -211,7 +216,8 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 if (mFragment == null || isStarted) {
 
                     mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), mRealmObjects.get(mRealmObjects.size() - 1).getImage());
+                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
+                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
 
                     mFragmentManager.beginTransaction()
                             .replace(R.id.main_fragment_container, mFragment).commit();

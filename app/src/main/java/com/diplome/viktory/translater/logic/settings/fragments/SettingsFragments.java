@@ -12,20 +12,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
 
-public class SettingsFragments extends Fragment implements View.OnClickListener {
+public class SettingsFragments extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private OnButtonClickListener mCallBackClickListener;
     private Spinner mSpinnerNativeLanguage;
     private Spinner mSpinnerLearnLanguage;
     private SharedPreferences mSharedPreferences;
     private Button mButtonBack;
+    private Switch mSwitch;
 
 
     @Nullable
@@ -35,6 +38,7 @@ public class SettingsFragments extends Fragment implements View.OnClickListener 
         mSpinnerLearnLanguage = (Spinner) view.findViewById(R.id.sp_learn_language);
         mSpinnerNativeLanguage = (Spinner) view.findViewById(R.id.sp_native_laguage);
         mButtonBack = (Button) view.findViewById(R.id.btn_back);
+        mSwitch = (Switch) view.findViewById(R.id.sw_show_image);
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -46,8 +50,11 @@ public class SettingsFragments extends Fragment implements View.OnClickListener 
 
         spinerLearnSetPosition();
         spinerNativeSetPosition();
+        swithShowImageSetPosition();
 
         mButtonBack.setOnClickListener(this);
+
+        mSwitch.setOnCheckedChangeListener(this);
 
         mSpinnerNativeLanguage.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -78,7 +85,12 @@ public class SettingsFragments extends Fragment implements View.OnClickListener 
         return view;
     }
 
+    private void swithShowImageSetPosition() {
+        mSwitch.setChecked(mSharedPreferences.getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true));
+    }
+
     private void spinerLearnSetPosition() {
+
         switch (mSharedPreferences.getString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE, LanguagesInteractor.KeysField.ENGLISH)){
             case LanguagesInteractor.KeysField.ENGLISH:
                 mSpinnerLearnLanguage.setSelection(2);
@@ -112,12 +124,19 @@ public class SettingsFragments extends Fragment implements View.OnClickListener 
         mCallBackClickListener.onButtonPressed(v);
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        mCallBackClickListener.onShowImageCheched(isChecked);
+    }
+
     public interface OnButtonClickListener {
         void onNativeLanguageSelected(int id);
 
         void onLearnLanguageSelected(int id);
 
         void onButtonPressed(View view);
+
+        void onShowImageCheched(boolean isChecked);
     }
 
     @Override
