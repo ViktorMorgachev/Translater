@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 
 public class MenuFragment extends Fragment implements View.OnClickListener {
 
@@ -54,7 +54,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
 
-        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onClick ");
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onClick ");
         mCallBackClickListener.onButtonPressed(v);
     }
 

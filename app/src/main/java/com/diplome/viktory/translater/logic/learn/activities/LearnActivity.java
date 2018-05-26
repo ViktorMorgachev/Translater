@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
 import com.diplome.viktory.translater.logic.learn.database.SimpleRealmObject;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
@@ -22,6 +22,7 @@ import com.diplome.viktory.translater.logic.learn.interfaces.FruitsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.HobbyInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.SportInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.VegetablesInitialize;
+import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +50,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     protected void onResume() {
         super.onResume();
         isShowImage = PreferenceManager.getDefaultSharedPreferences(this).
-                getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true);
+                getBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE, true);
     }
 
     private List<SimpleRealmObject> mRealmObjects = new ArrayList<>();
@@ -61,7 +62,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
         setContentView(R.layout.simple_fragment_container);
         isStarted = true;
         isShowImage = PreferenceManager.getDefaultSharedPreferences(this).
-                getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true);
+                getBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE, true);
 
 
         mSportInialize = new DataBaseWorker();

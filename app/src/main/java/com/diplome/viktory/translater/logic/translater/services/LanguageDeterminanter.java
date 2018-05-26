@@ -3,7 +3,7 @@ package com.diplome.viktory.translater.logic.translater.services;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.translater.Translater;
 import com.diplome.viktory.translater.logic.translater.interfaces.LanguageDeterminaterListener;
 
@@ -33,7 +33,7 @@ public class LanguageDeterminanter extends AsyncTask<Map<String, String>, Void, 
     @Override
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
-        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onPostExecute");
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onPostExecute");
         mLanguageDeterminaterListener.onStopedLanguageDaterminater(result);
 
     }

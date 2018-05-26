@@ -17,9 +17,9 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
-import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
+import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
 public class SettingsFragments extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -86,12 +86,12 @@ public class SettingsFragments extends Fragment implements View.OnClickListener,
     }
 
     private void swithShowImageSetPosition() {
-        mSwitch.setChecked(mSharedPreferences.getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true));
+        mSwitch.setChecked(mSharedPreferences.getBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE, true));
     }
 
     private void spinerLearnSetPosition() {
 
-        switch (mSharedPreferences.getString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE, LanguagesInteractor.KeysField.ENGLISH)){
+        switch (mSharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_LEARN_LANGUAGE, LanguagesInteractor.KeysField.ENGLISH)){
             case LanguagesInteractor.KeysField.ENGLISH:
                 mSpinnerLearnLanguage.setSelection(2);
                 break;
@@ -106,7 +106,7 @@ public class SettingsFragments extends Fragment implements View.OnClickListener,
 
     private void spinerNativeSetPosition() {
 
-        switch (mSharedPreferences.getString(KeysInteractor.KeysField.KEY_NATIVE_LANGUAGE, LanguagesInteractor.KeysField.RUSSIAN)){
+        switch (mSharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE, LanguagesInteractor.KeysField.RUSSIAN)){
             case LanguagesInteractor.KeysField.ENGLISH:
                 mSpinnerNativeLanguage.setSelection(2);
                 break;

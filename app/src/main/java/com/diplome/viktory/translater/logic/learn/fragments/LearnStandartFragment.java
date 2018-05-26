@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
+import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
-import static com.diplome.viktory.translater.interactors.KeysInteractor.KeysField.KEY_SHOW_IMAGE;
-import static com.diplome.viktory.translater.interactors.KeysInteractor.KeysField.LOG_TAG;
 
 public class LearnStandartFragment extends Fragment implements View.OnClickListener {
 
@@ -59,7 +57,7 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
         mTextViewTrue = (TextView) view.findViewById(R.id.tv_true_count);
         mImageViewShowResult = (ImageView) view.findViewById(R.id.iv_show_result);
 
-        if(!sSharedPreferences.getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true)) {
+        if(!sSharedPreferences.getBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE, true)) {
             mImageView.setImageResource(R.drawable.no_image);
         } else {
             mImageView.setImageResource(getArguments().getInt(KEY_IMAGE));

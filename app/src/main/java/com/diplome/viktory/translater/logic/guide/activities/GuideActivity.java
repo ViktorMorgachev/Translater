@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.guide.fragments.GuideFragment;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
 
@@ -64,7 +64,7 @@ public class GuideActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : getItem, position = " + position);
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : getItem, position = " + position);
             return GuideFragment.newInstance(position, mViewList.get(position));
         }
 

@@ -13,12 +13,10 @@ import android.view.View;
 
 import com.diplome.viktory.translater.MainActivity;
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
-import com.diplome.viktory.translater.logic.learn.activities.LearnActivity;
-import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
-import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
 import com.diplome.viktory.translater.logic.settings.fragments.SettingsFragments;
+import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
 public class SettingsActivity extends AppCompatActivity implements SettingsFragments.OnButtonClickListener {
 
@@ -46,15 +44,15 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 
         switch (id) {
             case 0:
-                mSharedPreferences.edit().putString(KeysInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+                mSharedPreferences.edit().putString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                         LanguagesInteractor.KeysField.KYRGUZS).commit();
                 break;
             case 1:
-                mSharedPreferences.edit().putString(KeysInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+                mSharedPreferences.edit().putString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                         LanguagesInteractor.KeysField.RUSSIAN).commit();
                 break;
             case 2:
-                mSharedPreferences.edit().putString(KeysInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+                mSharedPreferences.edit().putString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                         LanguagesInteractor.KeysField.ENGLISH).commit();
                 break;
         }
@@ -65,15 +63,15 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
     public void onLearnLanguageSelected(int id) {
         switch (id) {
             case 0:
-                mSharedPreferences.edit().putString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE,
+                mSharedPreferences.edit().putString(KeysSettingsInteractor.KeysField.KEY_LEARN_LANGUAGE,
                         LanguagesInteractor.KeysField.KYRGUZS).commit();
                 break;
             case 1:
-                mSharedPreferences.edit().putString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE,
+                mSharedPreferences.edit().putString(KeysSettingsInteractor.KeysField.KEY_LEARN_LANGUAGE,
                         LanguagesInteractor.KeysField.RUSSIAN).commit();
                 break;
             case 2:
-                mSharedPreferences.edit().putString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE,
+                mSharedPreferences.edit().putString(KeysSettingsInteractor.KeysField.KEY_LEARN_LANGUAGE,
                         LanguagesInteractor.KeysField.ENGLISH).commit();
                 break;
         }
@@ -83,7 +81,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
     public void onButtonPressed(View view) {
         // Надо тут будет пофиксить
         if (view.getId() == R.id.btn_back) {
-            Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onButtonPressed ");
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onButtonPressed ");
             startActivity(new Intent(this, MainActivity.class));
         }
 
@@ -91,7 +89,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
 
     @Override
     public void onShowImageCheched(boolean isChecked) {
-        mSharedPreferences.edit().putBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE,
+        mSharedPreferences.edit().putBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE,
                 isChecked).commit();
     }
 }

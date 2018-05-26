@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.learn.interfaces.AnimalsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.ClothesInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.FruitsInitialize;
@@ -147,7 +147,7 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
 
 
         if (realm.where(SimpleRealmObject.class).findAll().size() > 0)
-            Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : doInBackGroung " + "realm isn't empty");
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : doInBackGroung " + "realm isn't empty");
 
     }
 

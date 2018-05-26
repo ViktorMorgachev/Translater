@@ -4,8 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
+import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
 import io.realm.RealmObject;
 import io.realm.annotations.Required;
@@ -33,7 +34,7 @@ public class SimpleRealmObject extends RealmObject {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
 
 
-        String nativeLanguage = sharedPreferences.getString(KeysInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+        String nativeLanguage = sharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                 LanguagesInteractor.KeysField.RUSSIAN);
 
         switch (nativeLanguage){
@@ -52,7 +53,7 @@ public class SimpleRealmObject extends RealmObject {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         // Получаем из setup preferences данные и по ним определяем нативный и язык какой язык мы учим
 
-        String learnLanguage = sharedPreferences.getString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE,
+        String learnLanguage = sharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_LEARN_LANGUAGE,
                 LanguagesInteractor.KeysField.ENGLISH);
 
         switch (learnLanguage){

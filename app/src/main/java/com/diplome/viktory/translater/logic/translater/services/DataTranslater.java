@@ -3,7 +3,7 @@ package com.diplome.viktory.translater.logic.translater.services;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 import com.diplome.viktory.translater.logic.translater.Translater;
 import com.diplome.viktory.translater.logic.translater.interfaces.DataTranslaterListener;
@@ -42,7 +42,7 @@ public class DataTranslater extends AsyncTask<Map<String, String>, Void, Respons
     @Override
     protected void onPostExecute(Response response) {
         super.onPostExecute(response);
-        Log.d(KeysInteractor.KeysField.LOG_TAG,
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG,
                 getClass().getCanonicalName() + " : Response  = "  +  response.body().toString());
         mDataTranslaterListener.onStopedDataTranslater(response);
     }

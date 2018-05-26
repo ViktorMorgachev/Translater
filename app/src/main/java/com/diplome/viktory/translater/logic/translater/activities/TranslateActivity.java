@@ -59,12 +59,12 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
                 mRequestCreater = binder.getService();
                 mRequestCreater.setFragmentListener(mFragment);
                 mBond = true;
-                Log.d(KeysInteractor.KeysField.LOG_TAG, mRequestCreater.getClass().getCanonicalName() + " : onServiceConnected ");
+                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, mRequestCreater.getClass().getCanonicalName() + " : onServiceConnected ");
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
-                Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onServiceDisconnected ");
+                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onServiceDisconnected ");
                 mBond = false;
                 mRequestCreater = null;
             }

@@ -11,7 +11,7 @@ import com.diplome.viktory.translater.logic.menu.interfaces.OnStartLearnActivity
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartSettingsActivityListener;
 import com.diplome.viktory.translater.logic.settings.activities.SettingsActivity;
 import com.diplome.viktory.translater.logic.translater.activities.TranslateActivity;
-import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartTranslaterActivityListener;
 
 public class ModuleInteractor implements
@@ -19,26 +19,26 @@ public class ModuleInteractor implements
 
     @Override
     public  void startTranslaterActivity(Activity activity) {
-        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startTranslaterActivity ");
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startTranslaterActivity ");
         activity.startActivity(new Intent(activity, TranslateActivity.class));
     }
 
     @Override
     public void startGuideActivity(Activity activity) {
-        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startGuideActivity ");
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startGuideActivity ");
         activity.startActivity(new Intent(activity, SelectLanguageActivity.class));
     }
 
     @Override
     public void startLearnActivity(Activity activity) {
-        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startLearnActivity ");
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startLearnActivity ");
         activity.startActivity(new Intent(activity, LearnActivity.class));
 
     }
 
     @Override
     public void startSettingsActivity(Activity activity) {
-        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startSettingsActivity ");
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startSettingsActivity ");
         activity.startActivity(new Intent(activity, SettingsActivity.class));
     }
 }
