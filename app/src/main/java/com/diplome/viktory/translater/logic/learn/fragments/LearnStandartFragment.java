@@ -73,19 +73,27 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        if(mEditText.getText().toString().equals(""))
-            Toast.makeText(getContext(), "Введите значение в поле ввода", Toast.LENGTH_SHORT).show();
-
-        if(!getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()) ||
-                (v.getId() == R.id.iv_show_result))
+        if (v.getId() == R.id.iv_show_result) {
             countOfFalseAnswers++;
-         else
-            countOfTrueAnswers++;
+            mCallBackClickListener.onButtonPressed(v,
+                    getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()));
+            return;
+        }
+
+        if (mEditText.getText().toString().equals("")) {
+            Toast.makeText(getContext(), "Введите значение в поле ввода", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+            if (!getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()))
+                countOfFalseAnswers++;
+            else
+                countOfTrueAnswers++;
 
 
+            mCallBackClickListener.onButtonPressed(v,
+                    getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()));
 
-        mCallBackClickListener.onButtonPressed(v,
-                getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()));
     }
 
     public interface OnButtonClickListener {

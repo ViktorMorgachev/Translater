@@ -21,6 +21,7 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
     private Button btnTranslater;
     private Button btnLearn;
     private Button btnGuide;
+    private Button btnSettings;
 
 
     public interface OnButtonClickListener {
@@ -37,12 +38,14 @@ public class MenuFragment extends Fragment implements View.OnClickListener {
         btnLearn = (Button) view.findViewById(R.id.btn_learn);
         btnTranslater = (Button) view.findViewById(R.id.btn_translater);
         btnGuide = (Button) view.findViewById(R.id.btn_guide);
+        btnSettings = (Button) view.findViewById(R.id.btn_setup);
 
         btnLearn.setOnClickListener(this);
         btnTranslater.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         btnAbout.setOnClickListener(this);
         btnGuide.setOnClickListener(this);
+        btnSettings.setOnClickListener(this);
 
 
         return view;

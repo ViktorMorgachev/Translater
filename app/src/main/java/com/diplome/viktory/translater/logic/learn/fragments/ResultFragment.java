@@ -33,10 +33,10 @@ public class ResultFragment extends Fragment {
         mTextViewTrue.setText(getResources().getString(R.string.True) + ": " + getArguments().getInt(KEY_TRUE_INFO));
         mTextViewFalse.setText(getResources().getString(R.string.False) + ": " + getArguments().getInt(KEY_FALSE_INFO));
 
-        double degree = ((double)getArguments().getInt(KEY_TRUE_INFO)) / ((double) getArguments().getInt(KEY_FALSE_INFO));
-       if (degree >= 3){
+        int difference = getArguments().getInt(KEY_TRUE_INFO) - getArguments().getInt(KEY_FALSE_INFO);
+       if (difference >= 10){
             mImageViewResult.setImageResource(R.drawable.false_smile);
-        } if( degree >= 1.5)
+        } if(difference >= 5)
             mImageViewResult.setImageResource(R.drawable.normal_smile); else
                 mImageViewResult.setImageResource(R.drawable.true_smile);
 

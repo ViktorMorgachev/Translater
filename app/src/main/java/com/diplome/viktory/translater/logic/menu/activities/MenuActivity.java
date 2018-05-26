@@ -48,7 +48,9 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
             case R.id.btn_learn:
                 mModuleInteractor.startLearnActivity(this);
                 break;
-
+            case R.id.btn_setup:
+                mModuleInteractor.startSettingsActivity(this);
+                break;
         }
 
     }

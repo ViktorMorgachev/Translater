@@ -1,5 +1,12 @@
 package com.diplome.viktory.translater.logic.learn.database;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
+import com.diplome.viktory.translater.interactors.KeysInteractor;
+import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
+
 import io.realm.RealmObject;
 import io.realm.annotations.Required;
 
@@ -21,14 +28,44 @@ public class SimpleRealmObject extends RealmObject {
         this.image = image;
     }
 
-    public String getNativeLanguage() {
+    public String getNativeLanguage(Context context) {
         // Получаем из setup preferences данные и по ним определяем нативный и язык какой язык мы учим
-        return getRus_name();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+
+        String nativeLanguage = sharedPreferences.getString(KeysInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+                LanguagesInteractor.KeysField.RUSSIAN);
+
+        switch (nativeLanguage){
+            case LanguagesInteractor.KeysField.ENGLISH:
+                return getEng_name();
+            case LanguagesInteractor.KeysField.KYRGUZS:
+                return getKyrg_name();
+            case LanguagesInteractor.KeysField.RUSSIAN:
+                return getRus_name();
+        }
+
+        return getEng_name();
     }
 
-    public String getLearnLanguage() {
+    public String getLearnLanguage(Context context) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         // Получаем из setup preferences данные и по ним определяем нативный и язык какой язык мы учим
+
+        String learnLanguage = sharedPreferences.getString(KeysInteractor.KeysField.KEY_LEARN_LANGUAGE,
+                LanguagesInteractor.KeysField.ENGLISH);
+
+        switch (learnLanguage){
+            case LanguagesInteractor.KeysField.ENGLISH:
+                return getEng_name();
+            case LanguagesInteractor.KeysField.KYRGUZS:
+                return getKyrg_name();
+            case LanguagesInteractor.KeysField.RUSSIAN:
+                return getRus_name();
+        }
+
         return getEng_name();
+
     }
 
     public String getKyrg_name() {

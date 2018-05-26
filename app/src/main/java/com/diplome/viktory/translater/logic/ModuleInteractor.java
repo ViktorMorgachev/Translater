@@ -8,12 +8,14 @@ import com.diplome.viktory.translater.logic.guide.SelectLanguageActivity;
 import com.diplome.viktory.translater.logic.learn.activities.LearnActivity;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartGuideActivityListener;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartLearnActivityListener;
+import com.diplome.viktory.translater.logic.menu.interfaces.OnStartSettingsActivityListener;
+import com.diplome.viktory.translater.logic.settings.activities.SettingsActivity;
 import com.diplome.viktory.translater.logic.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartTranslaterActivityListener;
 
 public class ModuleInteractor implements
-        OnStartTranslaterActivityListener, OnStartGuideActivityListener, OnStartLearnActivityListener {
+        OnStartTranslaterActivityListener, OnStartGuideActivityListener, OnStartLearnActivityListener, OnStartSettingsActivityListener {
 
     @Override
     public  void startTranslaterActivity(Activity activity) {
@@ -32,5 +34,11 @@ public class ModuleInteractor implements
         Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startLearnActivity ");
         activity.startActivity(new Intent(activity, LearnActivity.class));
 
+    }
+
+    @Override
+    public void startSettingsActivity(Activity activity) {
+        Log.d(KeysInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startSettingsActivity ");
+        activity.startActivity(new Intent(activity, SettingsActivity.class));
     }
 }
