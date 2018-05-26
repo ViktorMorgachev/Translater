@@ -6,6 +6,7 @@ import android.util.Log;
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.learn.interfaces.AnimalsInitialize;
+import com.diplome.viktory.translater.logic.learn.interfaces.ClothesInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.FruitsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.HobbyInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.SportInitialize;
@@ -13,8 +14,9 @@ import com.diplome.viktory.translater.logic.learn.interfaces.VegetablesInitializ
 
 import io.realm.Realm;
 
-public class DataBaseWorker implements SportInitialize,
-        HobbyInitialize, FruitsInitialize, VegetablesInitialize, AnimalsInitialize {
+public class DataBaseWorker implements SportInitialize, HobbyInitialize,
+        FruitsInitialize, VegetablesInitialize,
+        AnimalsInitialize, ClothesInitialize {
 
     @Override
     public void SportInit(Context context, Realm realm) {
@@ -524,128 +526,273 @@ public class DataBaseWorker implements SportInitialize,
         realm.commitTransaction();
 
         realm.beginTransaction();
-        SimpleRealmObject vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("leopard");
-        vegetableObject.setKyrg_name("леопард");
-        vegetableObject.setRus_name("леопард");
-        vegetableObject.setImage(R.drawable.leopard);
+        SimpleRealmObject animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("leopard");
+        animalObject.setKyrg_name("леопард");
+        animalObject.setRus_name("леопард");
+        animalObject.setImage(R.drawable.leopard);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("snake");
-        vegetableObject.setKyrg_name("жылан");
-        vegetableObject.setRus_name("змея");
-        vegetableObject.setImage(R.drawable.snake);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("snake");
+        animalObject.setKyrg_name("жылан");
+        animalObject.setRus_name("змея");
+        animalObject.setImage(R.drawable.snake);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("rabbit");
-        vegetableObject.setKyrg_name("коен");
-        vegetableObject.setRus_name("кролик");
-        vegetableObject.setImage(R.drawable.rabbit);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("rabbit");
+        animalObject.setKyrg_name("коен");
+        animalObject.setRus_name("кролик");
+        animalObject.setImage(R.drawable.rabbit);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("goat");
-        vegetableObject.setKyrg_name("теке");
-        vegetableObject.setRus_name("козёл");
-        vegetableObject.setImage(R.drawable.goat);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("goat");
+        animalObject.setKyrg_name("теке");
+        animalObject.setRus_name("козёл");
+        animalObject.setImage(R.drawable.goat);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("cow");
-        vegetableObject.setKyrg_name("уй");
-        vegetableObject.setRus_name("корова");
-        vegetableObject.setImage(R.drawable.cow);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("cow");
+        animalObject.setKyrg_name("уй");
+        animalObject.setRus_name("корова");
+        animalObject.setImage(R.drawable.cow);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("crocodile");
-        vegetableObject.setKyrg_name("крокодил");
-        vegetableObject.setRus_name("крокодил");
-        vegetableObject.setImage(R.drawable.crocodile);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("crocodile");
+        animalObject.setKyrg_name("крокодил");
+        animalObject.setRus_name("крокодил");
+        animalObject.setImage(R.drawable.crocodile);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("cat");
-        vegetableObject.setKyrg_name("мышык");
-        vegetableObject.setRus_name("кошка");
-        vegetableObject.setImage(R.drawable.cat);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("cat");
+        animalObject.setKyrg_name("мышык");
+        animalObject.setRus_name("кошка");
+        animalObject.setImage(R.drawable.cat);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("horse");
-        vegetableObject.setKyrg_name("ат");
-        vegetableObject.setRus_name("лошадь");
-        vegetableObject.setImage(R.drawable.horse);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("horse");
+        animalObject.setKyrg_name("ат");
+        animalObject.setRus_name("лошадь");
+        animalObject.setImage(R.drawable.horse);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("mouse");
-        vegetableObject.setKyrg_name("чычкан");
-        vegetableObject.setRus_name("мышь");
-        vegetableObject.setImage(R.drawable.mouse);
-        realm.commitTransaction();
-
-
-
-        realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("donkey");
-        vegetableObject.setKyrg_name("эшек");
-        vegetableObject.setRus_name("осёл");
-        vegetableObject.setImage(R.drawable.donkey);
-        realm.commitTransaction();
-
-
-        realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("fish");
-        vegetableObject.setKyrg_name("балык");
-        vegetableObject.setRus_name("рыба");
-        vegetableObject.setImage(R.drawable.fish);
-        realm.commitTransaction();
-
-        realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("pig");
-        vegetableObject.setKyrg_name("чочко");
-        vegetableObject.setRus_name("свинья");
-        vegetableObject.setImage(R.drawable.pig);
-        realm.commitTransaction();
-
-        realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("dog");
-        vegetableObject.setKyrg_name("ит");
-        vegetableObject.setRus_name("собака");
-        vegetableObject.setImage(R.drawable.dog);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("mouse");
+        animalObject.setKyrg_name("чычкан");
+        animalObject.setRus_name("мышь");
+        animalObject.setImage(R.drawable.mouse);
         realm.commitTransaction();
 
 
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("tiger");
-        vegetableObject.setKyrg_name("жолборс");
-        vegetableObject.setRus_name("тигр");
-        vegetableObject.setImage(R.drawable.tiger);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("donkey");
+        animalObject.setKyrg_name("эшек");
+        animalObject.setRus_name("осёл");
+        animalObject.setImage(R.drawable.donkey);
+        realm.commitTransaction();
+
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("fish");
+        animalObject.setKyrg_name("балык");
+        animalObject.setRus_name("рыба");
+        animalObject.setImage(R.drawable.fish);
         realm.commitTransaction();
 
         realm.beginTransaction();
-        vegetableObject = realm.createObject(SimpleRealmObject.class);
-        vegetableObject.setEng_name("duck");
-        vegetableObject.setKyrg_name("өрдөк");
-        vegetableObject.setRus_name("утка");
-        vegetableObject.setImage(R.drawable.duck);
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("pig");
+        animalObject.setKyrg_name("чочко");
+        animalObject.setRus_name("свинья");
+        animalObject.setImage(R.drawable.pig);
         realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("dog");
+        animalObject.setKyrg_name("ит");
+        animalObject.setRus_name("собака");
+        animalObject.setImage(R.drawable.dog);
+        realm.commitTransaction();
+
+
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("tiger");
+        animalObject.setKyrg_name("жолборс");
+        animalObject.setRus_name("тигр");
+        animalObject.setImage(R.drawable.tiger);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("duck");
+        animalObject.setKyrg_name("өрдөк");
+        animalObject.setRus_name("утка");
+        animalObject.setImage(R.drawable.duck);
+        realm.commitTransaction();
+    }
+
+    @Override
+    public void ClosesInit(Context context, Realm realm) {
+
+        realm.beginTransaction();
+        realm.deleteAll();
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        SimpleRealmObject animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("socks");
+        animalObject.setKyrg_name("байпак");
+        animalObject.setRus_name("носки");
+        animalObject.setImage(R.drawable.leopard);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("jacket");
+        animalObject.setKyrg_name("кемсел");
+        animalObject.setRus_name("куртка");
+        animalObject.setImage(R.drawable.jacket);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("pants");
+        animalObject.setKyrg_name("дамбал");
+        animalObject.setRus_name("штаны");
+        animalObject.setImage(R.drawable.rabbit);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("footwear");
+        animalObject.setKyrg_name("бут кийим");
+        animalObject.setRus_name("обувь");
+        animalObject.setImage(R.drawable.goat);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("shirt");
+        animalObject.setKyrg_name("көйнөк");
+        animalObject.setRus_name("рубашка");
+        animalObject.setImage(R.drawable.shirt);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("T-shirt");
+        animalObject.setKyrg_name("T-рубашка");
+        animalObject.setRus_name("футболка");
+        animalObject.setImage(R.drawable.t_shirt);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("cap");
+        animalObject.setKyrg_name("капкак");
+        animalObject.setRus_name("кепка");
+        animalObject.setImage(R.drawable.cap);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("sweater");
+        animalObject.setKyrg_name("свитер");
+        animalObject.setRus_name("свитер");
+        animalObject.setImage(R.drawable.sweater);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("jeans");
+        animalObject.setKyrg_name("джинсы");
+        animalObject.setRus_name("джинсы");
+        animalObject.setImage(R.drawable.jeans);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("pants");
+        animalObject.setKyrg_name("шым");
+        animalObject.setRus_name("брюки");
+        animalObject.setImage(R.drawable.pants);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("slippers");
+        animalObject.setKyrg_name("тапки");
+        animalObject.setRus_name("тапки");
+        animalObject.setImage(R.drawable.slippers);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("suit");
+        animalObject.setKyrg_name("туура келүү");
+        animalObject.setRus_name("костюм");
+        animalObject.setImage(R.drawable.suit);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("coat");
+        animalObject.setKyrg_name("жүн");
+        animalObject.setRus_name("пальто");
+        animalObject.setImage(R.drawable.coat);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("pajamas");
+        animalObject.setKyrg_name("пижама");
+        animalObject.setRus_name("пижама");
+        animalObject.setImage(R.drawable.pajamas);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("bathrobe");
+        animalObject.setKyrg_name("халат");
+        animalObject.setRus_name("халат");
+        animalObject.setImage(R.drawable.bathrobe);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("hat");
+        animalObject.setKyrg_name("калпак");
+        animalObject.setRus_name("шляпа");
+        animalObject.setImage(R.drawable.hat);
+        realm.commitTransaction();
+
+        realm.beginTransaction();
+        animalObject = realm.createObject(SimpleRealmObject.class);
+        animalObject.setEng_name("bag");
+        animalObject.setKyrg_name("сумка");
+        animalObject.setRus_name("сумка");
+        animalObject.setImage(R.drawable.bag);
+        realm.commitTransaction();
+
     }
 }

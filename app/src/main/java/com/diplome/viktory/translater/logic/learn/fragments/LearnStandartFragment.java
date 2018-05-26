@@ -1,10 +1,13 @@
 package com.diplome.viktory.translater.logic.learn.fragments;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
+import com.diplome.viktory.translater.interactors.KeysInteractor;
+
+import static com.diplome.viktory.translater.interactors.KeysInteractor.KeysField.KEY_SHOW_IMAGE;
+import static com.diplome.viktory.translater.interactors.KeysInteractor.KeysField.LOG_TAG;
 
 public class LearnStandartFragment extends Fragment implements View.OnClickListener {
 
@@ -32,12 +39,17 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
     private ImageView mImageViewShowResult;
     private int countOfTrueAnswers;
     private int countOfFalseAnswers;
+    private static SharedPreferences sSharedPreferences;
+
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.learn_simple_fragment_layout, null);
+
+        // Получаем информацию показывать или нет картинку
+
 
         mImageViewGo = (ImageView) view.findViewById(R.id.iv_go);
         mEditText = (EditText) view.findViewById(R.id.edit_text);
@@ -47,9 +59,13 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
         mTextViewTrue = (TextView) view.findViewById(R.id.tv_true_count);
         mImageViewShowResult = (ImageView) view.findViewById(R.id.iv_show_result);
 
+        if(!sSharedPreferences.getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true)) {
+            mImageView.setImageResource(R.drawable.no_image);
+        } else {
+            mImageView.setImageResource(getArguments().getInt(KEY_IMAGE));
+        }
+
         mTextView.setText(getArguments().getString(KEY_FIRST));
-        mEditText.setText("");
-        mImageView.setImageResource(getArguments().getInt(KEY_IMAGE));
         mTextViewTrue.setText(getResources().getString(R.string.True) + " : " + getArguments().getInt(KEY_COUNT_TRUE));
         mTextViewFalse.setText(getResources().getString(R.string.False) + " : " + getArguments().getInt(KEY_COUNT_FALSE));
 
@@ -61,7 +77,8 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
 
 
 
-    public static LearnStandartFragment newInstance(String learnText, String usersInput, int imageID, int countOfTrueAnswers, int countOfFalseAnswers) {
+    public static LearnStandartFragment newInstance(String learnText, String usersInput,
+                                                    int imageID, int countOfTrueAnswers, int countOfFalseAnswers) {
         // Уcё, вопросов нет, осталcя один вопрос, как сохранить view
         LearnStandartFragment pageFragment = new LearnStandartFragment();
         Bundle arguments = new Bundle();
@@ -118,7 +135,7 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        sSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.diplome.viktory.translater.logic.learn.activities;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,12 +10,14 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
+import com.diplome.viktory.translater.interactors.KeysInteractor;
 import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
 import com.diplome.viktory.translater.logic.learn.database.SimpleRealmObject;
 import com.diplome.viktory.translater.logic.learn.fragments.ChoiceVariantsFragment;
 import com.diplome.viktory.translater.logic.learn.fragments.LearnStandartFragment;
 import com.diplome.viktory.translater.logic.learn.fragments.ResultFragment;
 import com.diplome.viktory.translater.logic.learn.interfaces.AnimalsInitialize;
+import com.diplome.viktory.translater.logic.learn.interfaces.ClothesInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.FruitsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.HobbyInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.SportInitialize;
@@ -34,11 +37,21 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     private SportInitialize mSportInialize;
     private HobbyInitialize mHobbyInitialize;
     private FruitsInitialize mFruitsInitialize;
-    private VegetablesInitialize mVegetablesInitialize;
     private AnimalsInitialize mAnimalsInitialize;
-    private int countOfObject;
+    private ClothesInitialize mClothesInitialize;
+    private VegetablesInitialize mVegetablesInitialize;
     private int countOfTrueAnswers;
+    private boolean isShowImage;
     private int countOfFalseAnswers;
+    private int countOfObject;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isShowImage = PreferenceManager.getDefaultSharedPreferences(this).
+                getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true);
+    }
+
     private List<SimpleRealmObject> mRealmObjects = new ArrayList<>();
 
 
@@ -47,12 +60,16 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.simple_fragment_container);
         isStarted = true;
+        isShowImage = PreferenceManager.getDefaultSharedPreferences(this).
+                getBoolean(KeysInteractor.KeysField.KEY_SHOW_IMAGE, true);
+
 
         mSportInialize = new DataBaseWorker();
         mHobbyInitialize = new DataBaseWorker();
         mFruitsInitialize = new DataBaseWorker();
         mVegetablesInitialize = new DataBaseWorker();
         mAnimalsInitialize = new DataBaseWorker();
+        mClothesInitialize = new DataBaseWorker();
 
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
         if (mFragment == null || !isStarted) {
@@ -80,7 +97,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     @Override
     public void onButtonPressed(View view, boolean trueFalse) {
 
-        if(trueFalse)
+        if (trueFalse)
             countOfTrueAnswers++;
         else countOfFalseAnswers++;
 
@@ -146,85 +163,55 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
 
                 mSportInialize.SportInit(this, mRealm);
-                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
-                countOfObject = mRealmObjects.size();
-
-                if (mFragment == null || isStarted) {
-
-                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
-
-                    mFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container, mFragment).commit();
-                }
+                // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
+                initilizeRealmAndCreatedFragment();
                 break;
             case R.id.btn_hobby:
                 countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
                 mHobbyInitialize.HobbyInit(this, mRealm);
-                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
-                countOfObject = mRealmObjects.size();
-
-                if (mFragment == null || isStarted) {
-
-                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
-
-                    mFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container, mFragment).commit();
-                }
+                // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
+                initilizeRealmAndCreatedFragment();
                 break;
             case R.id.btn_vegetables:
                 countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
                 mVegetablesInitialize.VegetableInit(this, mRealm);
-                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
-                countOfObject = mRealmObjects.size();
-
-                if (mFragment == null || isStarted) {
-
-                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
-
-                    mFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container, mFragment).commit();
-                }
+                // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
+                initilizeRealmAndCreatedFragment();
                 break;
             case R.id.btn_fruits:
                 countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
                 mFruitsInitialize.FruitsInit(this, mRealm);
-                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
-                countOfObject = mRealmObjects.size();
-
-                if (mFragment == null || isStarted) {
-
-                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
-
-                    mFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container, mFragment).commit();
-                }
+                // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
+                initilizeRealmAndCreatedFragment();
                 break;
             case R.id.btn_animals:
                 countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
                 mAnimalsInitialize.AnimalsInit(this, mRealm);
-                mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
-                countOfObject = mRealmObjects.size();
-
-                if (mFragment == null || isStarted) {
-
-                    mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
-                            mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
-
-                    mFragmentManager.beginTransaction()
-                            .replace(R.id.main_fragment_container, mFragment).commit();
-                }
+                // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
+                initilizeRealmAndCreatedFragment();
+                break;
+            case R.id.btn_clothes:
+                countOfTrueAnswers = (countOfFalseAnswers - countOfFalseAnswers);
+                mClothesInitialize.ClosesInit(this, mRealm);
+                // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
+                initilizeRealmAndCreatedFragment();
                 break;
 
+        }
+    }
 
+    private void initilizeRealmAndCreatedFragment() {
+        mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
+        countOfObject = mRealmObjects.size();
+
+        if (mFragment == null || isStarted) {
+
+            mFragment = LearnStandartFragment.newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getLearnLanguage(getApplicationContext()),
+                    mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()),
+                    mRealmObjects.get(mRealmObjects.size() - 1).getImage(), countOfTrueAnswers, countOfFalseAnswers);
+
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, mFragment).commit();
         }
     }
 }

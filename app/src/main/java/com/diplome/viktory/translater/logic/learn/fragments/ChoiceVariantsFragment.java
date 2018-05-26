@@ -18,7 +18,7 @@ public class ChoiceVariantsFragment extends Fragment implements View.OnClickList
     private OnButtonClickListener mCallBackClickListener;
     private Button mButtonColors, mButtonFruits,
             mButtonVegetables, mButtonSports,
-            mButtonHobby, mButtonAnimals;
+            mButtonHobby, mButtonAnimals, mButtonClothes;
 
     @Nullable
     @Override
@@ -30,8 +30,10 @@ public class ChoiceVariantsFragment extends Fragment implements View.OnClickList
         mButtonHobby = view.findViewById(R.id.btn_hobby);
         mButtonVegetables = view.findViewById(R.id.btn_vegetables);
         mButtonAnimals = view.findViewById(R.id.btn_animals);
+        mButtonClothes = view.findViewById(R.id.btn_clothes);
 
 
+        mButtonClothes.setOnClickListener(this);
         mButtonSports.setOnClickListener(this);
         mButtonFruits.setOnClickListener(this);
         mButtonColors.setOnClickListener(this);
