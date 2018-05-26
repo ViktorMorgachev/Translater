@@ -2,6 +2,7 @@ package com.diplome.viktory.translater.logic.settings.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -20,6 +21,8 @@ import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
 import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
+
+import java.util.Locale;
 
 public class SettingsFragments extends Fragment implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
@@ -103,6 +106,9 @@ public class SettingsFragments extends Fragment implements View.OnClickListener,
                 break;
         }
     }
+
+
+
 
     private void spinerNativeSetPosition() {
 
