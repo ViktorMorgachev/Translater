@@ -1,5 +1,6 @@
 package com.diplome.viktory.translater.logic.learn.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
@@ -32,19 +33,20 @@ import io.realm.Realm;
 public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFragment.OnButtonClickListener, LearnStandartFragment.OnButtonClickListener {
     // For analize this Activity working is first time
     private static boolean isStarted;
-    private Fragment mFragment;
-    private FragmentManager mFragmentManager = getSupportFragmentManager();
-    private Realm mRealm;
+    protected Fragment mFragment;
+    protected FragmentManager mFragmentManager = getSupportFragmentManager();
+    protected Realm mRealm;
     private SportInitialize mSportInialize;
     private HobbyInitialize mHobbyInitialize;
     private FruitsInitialize mFruitsInitialize;
     private AnimalsInitialize mAnimalsInitialize;
     private ClothesInitialize mClothesInitialize;
     private VegetablesInitialize mVegetablesInitialize;
-    private int countOfTrueAnswers;
-    private boolean isShowImage;
-    private int countOfFalseAnswers;
-    private int countOfObject;
+    protected int countOfTrueAnswers;
+    protected boolean isShowImage;
+    protected int countOfFalseAnswers;
+    protected int countOfObject;
+    private List<SimpleRealmObject> mRealmObjects = new ArrayList<>();
 
     @Override
     protected void onResume() {
@@ -53,7 +55,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 getBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE, true);
     }
 
-    private List<SimpleRealmObject> mRealmObjects = new ArrayList<>();
+
 
 
     @Override
@@ -156,8 +158,11 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     public void onButtonPressed(View view) {
 
         switch (view.getId()) {
+            case R.id.btn_questions:
+                startActivity(new Intent(this, LeanVariantsActivity.class));
+                break;
             case R.id.btn_colors:
-                Toast.makeText(this, "Будем учить цвета", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, LeanVariantsActivity.class));
                 break;
             case R.id.btn_sport:
                 // Обнуляем счётчики
@@ -197,6 +202,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 // Инициализацию и создания фрагмента делаем в отдельной функции, дабы избежать дублирования кода
                 initilizeRealmAndCreatedFragment();
                 break;
+
 
         }
     }
