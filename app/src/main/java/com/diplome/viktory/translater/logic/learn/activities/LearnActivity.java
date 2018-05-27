@@ -51,6 +51,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     @Override
     protected void onResume() {
         super.onResume();
+        mRealm = Realm.getDefaultInstance();
         isShowImage = PreferenceManager.getDefaultSharedPreferences(this).
                 getBoolean(KeysSettingsInteractor.KeysField.KEY_SHOW_IMAGE, true);
     }
@@ -93,8 +94,13 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
     @Override
     protected void onStart() {
         super.onStart();
-        mRealm = Realm.getDefaultInstance();
         isStarted = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mRealm.close();
     }
 
     @Override
@@ -142,7 +148,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
         }
     }
 
-    private void showResult() {
+    protected void showResult() {
 
         if (mFragment == null || isStarted) {
             // Отправить в него полученные результаты

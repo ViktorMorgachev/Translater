@@ -133,10 +133,10 @@ public class LearnVariantsFragment extends Fragment implements View.OnClickListe
         mTextViewFalse = (TextView) view.findViewById(R.id.tv_false_count);
         mTextViewTrue = (TextView) view.findViewById(R.id.tv_true_count);
         // Теперь бегаем по коллекции и вытаскиваем элементы
-        mButtonRighTop.setText(stringList.get(1));
-        mButtonRightBottom.setText(stringList.get(2));
-        mButtonLeftTop.setText(stringList.get(3));
-        mButtonLeftBottom.setText(stringList.get(4));
+        mButtonRighTop.setText(stringList.get(0));
+        mButtonRightBottom.setText(stringList.get(1));
+        mButtonLeftTop.setText(stringList.get(2));
+        mButtonLeftBottom.setText(stringList.get(3));
 
 
         mTextViewTrue.setText(getResources().getString(R.string.True) + " : " + getArguments().getInt(KEY_COUNT_TRUE));
@@ -167,6 +167,8 @@ public class LearnVariantsFragment extends Fragment implements View.OnClickListe
         } else {
             mCallBackClickListener.onButtonPressed(v, false);
         }
+
+
 
     }
 

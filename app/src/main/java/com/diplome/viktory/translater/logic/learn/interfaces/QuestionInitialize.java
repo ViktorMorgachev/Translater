@@ -6,5 +6,5 @@ import io.realm.Realm;
 
 public interface QuestionInitialize {
 
-    public void QuestionInitialize(Context context, Realm realm);
+    public void QuestionInit(Context context, Realm realm);
 }

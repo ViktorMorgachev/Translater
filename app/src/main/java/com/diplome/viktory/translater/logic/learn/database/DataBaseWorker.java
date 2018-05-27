@@ -795,7 +795,7 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
     }
 
     @Override
-    public void QuestionInitialize(Context context, Realm realm) {
+    public void QuestionInit(Context context, Realm realm) {
 
         realm.beginTransaction();
         realm.deleteAll();
@@ -836,13 +836,12 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
 
         realm.beginTransaction();
         questionInitialize = realm.createObject(ExtendedRealmObject.class);
-        questionInitialize.setEng_answer("Eurasia");
-        questionInitialize.setKyrg_answer("евразия");
-        questionInitialize.setRus_answer("евразия");
-        questionInitialize.setEng_question("The largest continent");
-        questionInitialize.setKyrg_question("Ири континент");
-        questionInitialize.setRus_question("Самая крупный материк");
-        questionInitialize.setImageId(R.drawable.continent);
+        questionInitialize.setEng_answer("Australia");
+        questionInitialize.setKyrg_answer("Австралия");
+        questionInitialize.setRus_answer("Австралия");
+        questionInitialize.setEng_question("The smallest continent");
+        questionInitialize.setKyrg_question("Эн кичинекей материк");
+        questionInitialize.setRus_question("Самая маленький материк");
         realm.commitTransaction();
 
     }
