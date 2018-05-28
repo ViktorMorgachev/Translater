@@ -3,28 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="10dp">
+    android:background="@drawable/front">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="@string/tv_diplome_discribe1" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="40dp"
+    <Button
+        android:id="@+id/btn_enter"
+        android:layout_marginTop="470dp"
         android:layout_gravity="center_horizontal"
-        android:text="@string/tv_diplome_discribe2" />
-
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="@string/tv_diplome_discribe" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_enter"
+        android:elevation="20dp"
+        android:background="@drawable/btn_rounded_corner_green"/>
 
 </LinearLayout>

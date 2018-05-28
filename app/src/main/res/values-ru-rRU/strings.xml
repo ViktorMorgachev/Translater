@@ -44,6 +44,7 @@
     <string name="show_image">Показывать изображение</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="btn_enter">Войти</string>
     <string-array name="languages">
         <item>Кыргызский</item>
         <item>Русский</item>

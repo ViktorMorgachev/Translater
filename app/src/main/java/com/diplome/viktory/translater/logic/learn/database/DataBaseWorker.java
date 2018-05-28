@@ -7,6 +7,7 @@ import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.learn.interfaces.AnimalsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.ClothesInitialize;
+import com.diplome.viktory.translater.logic.learn.interfaces.ColorsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.FruitsInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.HobbyInitialize;
 import com.diplome.viktory.translater.logic.learn.interfaces.QuestionInitialize;
@@ -17,7 +18,8 @@ import io.realm.Realm;
 
 public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         FruitsInitialize, VegetablesInitialize,
-        AnimalsInitialize, ClothesInitialize, QuestionInitialize {
+        AnimalsInitialize, ClothesInitialize,
+        QuestionInitialize, ColorsInitialize {
 
     @Override
     public void SportInit(Context context, Realm realm) {
@@ -899,7 +901,69 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         questionInitialize.setEng_question("The smallest continent");
         questionInitialize.setKyrg_question("Эн кичинекей материк");
         questionInitialize.setRus_question("Самая маленький материк");
+        questionInitialize.setImageId(R.drawable.continent);
         realm.commitTransaction();
+
+
+
+        realm.beginTransaction();
+        questionInitialize = realm.createObject(ExtendedRealmObject.class);
+        questionInitialize.setEng_answer("Baikal");
+        questionInitialize.setKyrg_answer("Байкал");
+        questionInitialize.setRus_answer("Байкал");
+
+        questionInitialize.setEng_question_wrong1("Issyk-Kul");
+        questionInitialize.setEng_question_wrong2("Aral");
+        questionInitialize.setEng_question_wrong3("Caspian");
+
+        questionInitialize.setKyrg_question_wrong1("Ысык-Көл");
+        questionInitialize.setKyrg_question_wrong2("Аральское");
+        questionInitialize.setKyrg_question_wrong3("Каспийское");
+
+        questionInitialize.setRus_question_wrong1("Иссык-куль");
+        questionInitialize.setRus_question_wrong2("Аральское");
+        questionInitialize.setRus_question_wrong3("Каспийское");
+
+
+        questionInitialize.setEng_question("The deepest lake");
+        questionInitialize.setKyrg_question("Терендиги");
+        questionInitialize.setRus_question("Самое глубокое озеро");
+        questionInitialize.setImageId(R.drawable.lake);
+        realm.commitTransaction();
+
+
+        realm.beginTransaction();
+        questionInitialize = realm.createObject(ExtendedRealmObject.class);
+        questionInitialize.setEng_answer("sequoia");
+        questionInitialize.setKyrg_answer("секвоя");
+        questionInitialize.setRus_answer("секвоя");
+
+        questionInitialize.setEng_question_wrong1("Poplar");
+        questionInitialize.setEng_question_wrong2("Oak");
+        questionInitialize.setEng_question_wrong3("Birch");
+
+        questionInitialize.setKyrg_question_wrong1("терек");
+        questionInitialize.setKyrg_question_wrong2("Дуб");
+        questionInitialize.setKyrg_question_wrong3("кайын");
+
+        questionInitialize.setRus_question_wrong1("Тополь");
+        questionInitialize.setRus_question_wrong2("Дуб");
+        questionInitialize.setRus_question_wrong3("Берёза");
+
+
+        questionInitialize.setEng_question("The tallest tree");
+        questionInitialize.setKyrg_question("Бийик дарак");
+        questionInitialize.setRus_question("Самое высокое дерево");
+        questionInitialize.setImageId(R.drawable.tree);
+        realm.commitTransaction();
+
+
+
+
+    }
+
+    @Override
+    public void ColorsInitialize(Context context, Realm realm) {
 
     }
 }

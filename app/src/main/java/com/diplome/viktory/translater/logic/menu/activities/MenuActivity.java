@@ -1,6 +1,7 @@
 package com.diplome.viktory.translater.logic.menu.activities;
 
 
+import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,9 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
                 break;
             case R.id.btn_setup:
                 mModuleInteractor.startSettingsActivity(this);
+                break;
+            case R.id.btn_exit:
+                System.exit(0);
                 break;
         }
 

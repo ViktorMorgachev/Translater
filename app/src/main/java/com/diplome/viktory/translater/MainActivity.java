@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
@@ -26,22 +28,19 @@ import io.realm.Realm;
 
 import static com.diplome.viktory.translater.interactors.KeysCommonInteractor.KeysField.LOG_TAG;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private ImageView mImageView;
+    private Button mButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.preview_layout);
 
+        mButton = (Button) findViewById(R.id.btn_enter);
 
-        mImageView = (ImageView) findViewById(R.id.im_photo_id);
-        mImageView.setImageResource(R.drawable.photo_id);
-     //   mImageView.setImageBitmap(getBitmapFromAssets("photo_id.jpg"));
+        mButton.setOnClickListener(this);
 
         setDefaultLocale();
-        startActivity(new Intent(this, MenuActivity.class));
-
     }
 
     private void setDefaultLocale() {
@@ -84,5 +83,10 @@ public class MainActivity extends AppCompatActivity {
         }
         Bitmap bitmap = BitmapFactory.decodeStream(is);
         return bitmap;
+    }
+
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(this, MenuActivity.class));
     }
 }

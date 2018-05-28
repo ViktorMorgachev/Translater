@@ -46,6 +46,7 @@
     <string name="no">Нет</string>
     <string name="tv_diplome_discribe1">ЫГУ Государственный Университет\nим Тыныстанова</string>
     <string name="tv_diplome_discribe2">Выпускная дипломная работа</string>
+    <string name="btn_enter">Войти</string>
     <string-array name="languages">
         <item>Кыргызский</item>
         <item>Русский</item>
