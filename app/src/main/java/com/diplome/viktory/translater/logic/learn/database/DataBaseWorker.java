@@ -806,9 +806,23 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         questionInitialize.setEng_answer("Everest");
         questionInitialize.setKyrg_answer("Эверест");
         questionInitialize.setRus_answer("Эверест");
+
+        questionInitialize.setEng_question_wrong1("Viktory");
+        questionInitialize.setEng_question_wrong2("Elbrus");
+        questionInitialize.setEng_question_wrong3("Khan-Tengri");
+
+        questionInitialize.setKyrg_question_wrong1("Победа");
+        questionInitialize.setKyrg_question_wrong2("Эльбрус");
+        questionInitialize.setKyrg_question_wrong3("Хан-Тенгри");
+
+        questionInitialize.setRus_question_wrong1("Победа");
+        questionInitialize.setRus_question_wrong2("Эльбрус");
+        questionInitialize.setRus_question_wrong3("Хан-Тенгри");
+
         questionInitialize.setEng_question("The highest mountain");
         questionInitialize.setKyrg_question("Бийик тоо");
         questionInitialize.setRus_question("Самая высокая гора");
+
         questionInitialize.setImageId(R.drawable.mountain);
         realm.commitTransaction();
 
@@ -817,6 +831,20 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         questionInitialize.setEng_answer("Amazon");
         questionInitialize.setKyrg_answer("Амазонка");
         questionInitialize.setRus_answer("Амазонка");
+
+
+        questionInitialize.setEng_question_wrong1("Dnieper");
+        questionInitialize.setEng_question_wrong2("Colorado");
+        questionInitialize.setEng_question_wrong3("Mississippi");
+
+        questionInitialize.setKyrg_question_wrong1("Днепр");
+        questionInitialize.setKyrg_question_wrong2("Колорадо");
+        questionInitialize.setKyrg_question_wrong3("Миссисипи");
+
+        questionInitialize.setRus_question_wrong1("Днепр");
+        questionInitialize.setRus_question_wrong2("Колорадо");
+        questionInitialize.setRus_question_wrong3("Миссисипи");
+
         questionInitialize.setEng_question("The longest river");
         questionInitialize.setKyrg_question("Узун дарыя");
         questionInitialize.setRus_question("Самая длинная река");
@@ -828,6 +856,21 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         questionInitialize.setEng_answer("Eurasia");
         questionInitialize.setKyrg_answer("евразия");
         questionInitialize.setRus_answer("евразия");
+
+
+        questionInitialize.setEng_question_wrong1("Africa");
+        questionInitialize.setEng_question_wrong2("Australia");
+        questionInitialize.setEng_question_wrong3("South America");
+
+        questionInitialize.setKyrg_question_wrong1("Африка");
+        questionInitialize.setKyrg_question_wrong2("Австралия");
+        questionInitialize.setKyrg_question_wrong3("Южная Америка");
+
+        questionInitialize.setRus_question_wrong1("Африка");
+        questionInitialize.setRus_question_wrong2("Австралия");
+        questionInitialize.setRus_question_wrong3("Южная Америка");
+
+
         questionInitialize.setEng_question("The largest continent");
         questionInitialize.setKyrg_question("Ири континент");
         questionInitialize.setRus_question("Самая крупный материк");
@@ -839,6 +882,20 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         questionInitialize.setEng_answer("Australia");
         questionInitialize.setKyrg_answer("Австралия");
         questionInitialize.setRus_answer("Австралия");
+
+        questionInitialize.setEng_question_wrong1("Africa");
+        questionInitialize.setEng_question_wrong2("Eurasia");
+        questionInitialize.setEng_question_wrong3("South America");
+
+        questionInitialize.setKyrg_question_wrong1("Африка");
+        questionInitialize.setKyrg_question_wrong2("евразия");
+        questionInitialize.setKyrg_question_wrong3("Южная Америка");
+
+        questionInitialize.setRus_question_wrong1("Африка");
+        questionInitialize.setRus_question_wrong2("евразия");
+        questionInitialize.setRus_question_wrong3("Южная Америка");
+
+
         questionInitialize.setEng_question("The smallest continent");
         questionInitialize.setKyrg_question("Эн кичинекей материк");
         questionInitialize.setRus_question("Самая маленький материк");

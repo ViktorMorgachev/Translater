@@ -1,9 +1,14 @@
 package com.diplome.viktory.translater.logic.learn.activities;
 
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +16,7 @@ import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.logic.learn.database.DataBaseWorker;
 import com.diplome.viktory.translater.logic.learn.database.ExtendedRealmObject;
 import com.diplome.viktory.translater.logic.learn.fragments.LearnVariantsFragment;
+import com.diplome.viktory.translater.logic.learn.fragments.ResultFragment;
 import com.diplome.viktory.translater.logic.learn.interfaces.QuestionInitialize;
 import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
@@ -23,32 +29,34 @@ import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 
-public class LeanVariantsActivity extends LearnActivity
+public class LearnVariantsActivity extends AppCompatActivity
         implements LearnVariantsFragment.OnButtonClickListener {
 
     private List<ExtendedRealmObject> mRealmObjects = new ArrayList<>();
     private QuestionInitialize mQuestionInitialize;
-    private List<ExtendedRealmObject> mConstQuestionInitialize;
+    protected int countOfTrueAnswers;
+    protected boolean isShowImage;
+    protected Fragment mFragment;
+    protected FragmentManager mFragmentManager = getSupportFragmentManager();
+    protected Realm mRealm;
+    protected int countOfFalseAnswers;
+    protected int countOfObject;
 
     @Override
     public void onButtonPressed(View view, boolean trueFalse) {
-        if (trueFalse)
+        if (trueFalse) {
             ((Button) view).setBackgroundColor(Color.GREEN);
-        else
+            countOfTrueAnswers++;
+        }
+        else {
             ((Button) view).setBackgroundColor(Color.RED);
-        try {
-            TimeUnit.MILLISECONDS.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            countOfFalseAnswers++;
         }
 
-        if (mRealmObjects.size() == 1) {
-            showResult();
-            return;
-        }
+        new MyAsyncTask().execute();
 
-        mRealmObjects.remove(mRealmObjects.size() - 1);
-        replaceFragment();
+
+
     }
 
 
@@ -65,6 +73,33 @@ public class LeanVariantsActivity extends LearnActivity
         mRealm.close();
     }
 
+    protected void showResult() {
+            // Отправить в него полученные результаты
+            mFragment = ResultFragment.newInstance(countOfTrueAnswers, countOfFalseAnswers);
+            mFragmentManager.beginTransaction()
+                    .replace(R.id.main_fragment_container, mFragment).commit();
+    }
+
+    private class MyAsyncTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            SystemClock.sleep(1000);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (mRealmObjects.size() == 1) {
+                showResult();
+                return;
+            } else {
+                mRealmObjects.remove(mRealmObjects.size() - 1);
+                replaceFragment();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -77,8 +112,6 @@ public class LeanVariantsActivity extends LearnActivity
         mQuestionInitialize = new DataBaseWorker();
 
         initializeRealm();
-       // replaceFragment();
-        mConstQuestionInitialize = new ArrayList<>(mRealmObjects);
 
         mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
         if (mFragment == null) {
@@ -99,30 +132,17 @@ public class LeanVariantsActivity extends LearnActivity
     }
 
     private List<String> getRemainingStrings() {
-
-
-        List<String> stringList = new ArrayList<>();
-        Collections.shuffle(mConstQuestionInitialize);
-        mConstQuestionInitialize.remove(mRealmObjects.get(mRealmObjects.size() - 1));
-
-        for (int i = 0; i < 3; i++) {
-            stringList.add(mConstQuestionInitialize.get(i).getAnswer(this));
-        }
-
-        return stringList;
-
-
+        return mRealmObjects.get(mRealmObjects.size()-1).getWrongAnswers(this);
     }
 
 
     private void replaceFragment() {
 
-        if (mFragment == null) {
             mFragment = new LearnVariantsFragment().newInstance(mRealmObjects.get(mRealmObjects.size() - 1).getQuestion(this),
                     mRealmObjects.get(mRealmObjects.size() - 1).getAnswer(this),
                     countOfTrueAnswers, countOfFalseAnswers, getRemainingStrings());
             mFragmentManager.beginTransaction()
                     .replace(R.id.main_fragment_container, mFragment).commit();
-        }
+
     }
 }

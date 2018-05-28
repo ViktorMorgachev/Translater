@@ -21,6 +21,7 @@ public class ResultFragment extends Fragment {
     static final String KEY_FALSE_INFO = "False_Key";
     private ImageView mImageViewResult;
     private TextView mTextViewTrue, mTextViewFalse;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,10 +34,11 @@ public class ResultFragment extends Fragment {
         mTextViewTrue.setText(getResources().getString(R.string.True) + ": " + getArguments().getInt(KEY_TRUE_INFO));
         mTextViewFalse.setText(getResources().getString(R.string.False) + ": " + getArguments().getInt(KEY_FALSE_INFO));
 
-        int difference = getArguments().getInt(KEY_TRUE_INFO) - getArguments().getInt(KEY_FALSE_INFO);
-       if (difference >= 10){
+        int result = (getArguments().getInt(KEY_FALSE_INFO) * 100) / getArguments().getInt(KEY_TRUE_INFO);
+
+       if (result >= 70){
             mImageViewResult.setImageResource(R.drawable.true_smile);
-        } if(difference >= 7)
+        } if(result >= 50)
             mImageViewResult.setImageResource(R.drawable.normal_smile); else
                 mImageViewResult.setImageResource(R.drawable.false_smile);
 

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -150,7 +151,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
 
     protected void showResult() {
 
-        if (mFragment == null || isStarted) {
+        if (isStarted) {
             // Отправить в него полученные результаты
             mFragment = ResultFragment.newInstance(countOfTrueAnswers, countOfFalseAnswers);
             mFragmentManager.beginTransaction()
@@ -165,10 +166,13 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
 
         switch (view.getId()) {
             case R.id.btn_questions:
-                startActivity(new Intent(this, LeanVariantsActivity.class));
+
+                //mFragmentManager.beginTransaction().attach(mFragment).commit();
+                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onButtonPressed ");
+                startActivity(new Intent(this, LearnVariantsActivity.class));
                 break;
             case R.id.btn_colors:
-                startActivity(new Intent(this, LeanVariantsActivity.class));
+                startActivity(new Intent(this, LearnVariantsActivity.class));
                 break;
             case R.id.btn_sport:
                 // Обнуляем счётчики

@@ -27,16 +27,16 @@
         android:text="@string/btn_translater" />
 
     <Button
-        android:id="@+id/btn_about"
-        style="@style/menu_button"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/btn_about" />
-
-    <Button
         android:id="@+id/btn_setup"
         style="@style/menu_button"
         android:layout_gravity="center_horizontal"
         android:text="@string/btn_setup" />
+
+    <Button
+        android:id="@+id/btn_about"
+        style="@style/menu_button"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/btn_about" />
 
     <Button
         android:id="@+id/btn_exit"
