@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp">
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +16,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/english_tv_1"/>
+            android:text="@string/english_tv_verbs_1"/>
 
         <android.support.v7.widget.CardView
             app:cardCornerRadius="10dp"
@@ -31,7 +33,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv1_1"/>
+                    android:text="@string/english_verbs_cv1_1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -41,28 +43,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/car"/>
+                    android:text="@string/to_sing"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv1_2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" - "/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/book"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/english_cv1_3"/>
+                    android:text="@string/english_cv_verbs_1_2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,13 +59,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/cat"/>
-
+                    android:text="@string/to_draw"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv1_4"/>
+                    android:text="@string/english_cv_verbs_1_3"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -88,7 +74,23 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/human"/>
+                    android:text="@string/to_exit"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english_cv_verbs_1_4"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/to_stand"/>
 
 
 
@@ -101,7 +103,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/english_tv_2"/>
+            android:text="@string/english_tv_verbs_2"/>
 
         <android.support.v7.widget.CardView
             app:cardCornerRadius="10dp"
@@ -118,7 +120,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv2_1"/>
+                    android:text="@string/english_cv_verbs2_1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -128,28 +130,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/home"/>
+                    android:text="@string/walk"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv2_2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" - "/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dog"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/english_cv2_3"/>
+                    android:text="@string/english_cv_verbs2_2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -159,7 +146,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sky"/>
+                    android:text="@string/play"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english_cv_verbs2_3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eat"/>
 
             </GridLayout>
 
@@ -169,7 +171,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/english_tv_3"/>
+            android:text="@string/english_tv_verbs_3"/>
 
         <android.support.v7.widget.CardView
             app:cardCornerRadius="10dp"
@@ -186,7 +188,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv3_1"/>
+                    android:text="@string/english_cv_verbs3_1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -196,28 +198,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/friendship"/>
+                    android:text="@string/replay"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv3_2"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" - "/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/richness"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/english_cv3_3"/>
+                    android:text="@string/english_cv_verbs3_2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -227,7 +214,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/teacher"/>
+                    android:text="@string/unload"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english_cv_verbs3_3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reread"/>
 
             </GridLayout>
 
@@ -237,7 +239,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/english_tv_4"/>
+            android:text="@string/english_tv_verbs_4"/>
 
         <android.support.v7.widget.CardView
             app:cardCornerRadius="10dp"
@@ -254,7 +256,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv4_1"/>
+                    android:text="@string/english_cv_verbs4_1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -264,13 +266,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/seaman"/>
+                    android:text="@string/underline"/>
 
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/english_cv4_2"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/english_cv_verbs4_2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -280,7 +282,22 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/editor_in_chief"/>
+                    android:text="@string/whitewash"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english_cv_verbs4_3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/overtake"/>
 
             </GridLayout>
 
@@ -290,7 +307,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/english_tv_5"/>
+            android:text="@string/english_tv_verbs_5"/>
 
         <android.support.v7.widget.CardView
             app:cardCornerRadius="10dp"
@@ -307,7 +324,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv5_1"/>
+                    android:text="@string/english_cv_verbs5_1"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -317,13 +334,13 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/africa"/>
+                    android:text="@string/look_out"/>
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/english_cv5_2"/>
+                    android:text="@string/english_cv_verbs5_2"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -333,13 +350,28 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/the_greeks"/>
+                    android:text="@string/stand_up"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/english_cv_verbs5_3"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" - "/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pull_off"/>
 
             </GridLayout>
 
 
         </android.support.v7.widget.CardView>
-        
+
     </LinearLayout>
 
 
