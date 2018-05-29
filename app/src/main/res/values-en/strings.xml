@@ -30,7 +30,7 @@
     <string name="fruits">Fruit</string>
     <string name="animals">Animals</string>
     <string name="sports">Sport</string>
-    <string name="True">true</string>
+    <string name="True">True</string>
     <string name="False">False</string>
 
     <string name="input_translate">Enter translation</string>
@@ -44,6 +44,44 @@
     <string name="show_image">Show image</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="english">English</string>
+    <string name="kyrgyzs">Kyrgyz</string>
+    <string name="russian">Russian</string>
+    <string name="english_tv_1">Имя существительное – это знаменательная часть речи, обозначающая предмет в самом широком смысле.  Например, существительные могут обозначать:</string>
+    <string name="car">Автомобиль</string>
+    <string name="english_cv1_3">Cat</string>
+    <string name="cat">Кошка</string>
+    <string name="english_cv1_4">Human</string>
+    <string name="human">Человек</string>
+    <string name="english_cv1_5">Mountain</string>
+    <string name="mountain">Гора</string>
+    <string name="english_tv_2">Строение английских существительных По морфологическому составу существительные можно разделить на простые, производные и составные.  Простые существительные (simple nouns) состоят из одного корня:</string>
+    <string name="english_cv2_1">Home</string>
+    <string name="home">Дом</string>
+    <string name="english_cv2_2">Dog</string>
+    <string name="dog">Собака</string>
+    <string name="english_cv2_3">Sky</string>
+    <string name="sky">Небо</string>
+    <string name="english_tv_3">Производные существительные (derived nouns/derivatives) состоят из корня и одной или нескольких морфем (приставок или суффиксов):</string>
+    <string name="english_cv3_1">Friendship</string>
+    <string name="friendship">Дружба</string>
+    <string name="english_cv3_2">Richness</string>
+    <string name="richness">Богатство</string>
+    <string name="english_cv3_3">Teacher</string>
+    <string name="teacher">Учитель</string>
+    <string name="english_tv_4">Для существительных характерны такие суффиксы, как -ant/-ent, -dom, -er/-or/-ar, -hood, -ion, -ity, -ment, -ness, -ship.  Составные существительные (compound nouns) состоят по крайней мере из двух корней:</string>
+    <string name="english_cv4_1">Seaman</string>
+    <string name="seaman">Моряк</string>
+    <string name="english_cv4_2">Editor-in-chief</string>
+    <string name="editor_in_chief">Главный редактор</string>
+    <string name="english_tv_5">Классификация существительных в английском языке Существительные делятся на имена собственные и нарицательные.  Имена собственные (proper nouns) обозначают единственные в своем роде предметы или предметы, выделяемые из общего класса:</string>
+    <string name="english_cv5_1">Africa</string>
+    <string name="africa">Африка</string>
+    <string name="english_cv5_2">the Greeks</string>
+    <string name="the_greeks">Греки</string>
+    <string name="english_tv_6">Имена собственные пишутся с большой буквы (включая названия месяцев и дней недели, в отличие от русского языка). Если это сочетание нескольких слов, то все они, кроме артиклей и предлогов, тоже пишутся с большой буквы (the United States of America).  Имена нарицательные (common nouns) – это общие названия для всех однородных предметов:</string>
+    <string name="english_cv6_1">Girl</string>
+    <string name="girl">Девочка</string>
     <string-array name="languages">
         <item>Kyrgyz</item>
         <item>Russian</item>

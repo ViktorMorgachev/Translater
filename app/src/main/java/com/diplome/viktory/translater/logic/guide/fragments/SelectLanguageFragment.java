@@ -2,25 +2,25 @@ package com.diplome.viktory.translater.logic.guide.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.UserManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
-import com.diplome.viktory.translater.logic.menu.fragments.MenuFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 
 public class SelectLanguageFragment extends Fragment {
@@ -28,6 +28,7 @@ public class SelectLanguageFragment extends Fragment {
     private OnButtonClickListener mCallBackClickListener;
     private RecyclerView mRecyclerView;
     private LanguageAdapter mAdapter;
+    List<String> languageList;
 
     @Nullable
     @Override
@@ -37,8 +38,6 @@ public class SelectLanguageFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_languages_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
-
         updateUI();
 
         return view;
@@ -46,11 +45,12 @@ public class SelectLanguageFragment extends Fragment {
     }
 
     private void updateUI() {
-        List<String> languageList = new ArrayList<>();
-        languageList.add(LanguagesInteractor.KeysField.RUSSIAN);
-        languageList.add(LanguagesInteractor.KeysField.KYRGUZS);
-                languageList.add(LanguagesInteractor.KeysField.ENGLISH);
-        //languageList = Arrays.asList(getResources().getStringArray(R.array.languages));
+
+        languageList = new ArrayList<>();
+        languageList.addAll(Arrays.asList(getResources().getString(R.string.russian),
+                getResources().getString(R.string.kyrgyzs),
+                getResources().getString(R.string.english)));
+
         mAdapter = new LanguageAdapter(languageList);
         mRecyclerView.setAdapter(mAdapter);
     }
@@ -66,28 +66,30 @@ public class SelectLanguageFragment extends Fragment {
         }
     }
 
-    private class LanguageHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private class LanguageHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-       private String language;
-       private TextView mTextView;
+        private String language;
+        private TextView mTextView;
+        private CardView mCardView;
 
         public void bind(String str) {
             mTextView.setText(str);
         }
 
         public LanguageHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.item_select_language, parent, false));
-            mTextView = (TextView) itemView.findViewById(R.id.item_text);
-            mTextView.setOnClickListener(this);
+            super(inflater.inflate(R.layout.item_card_select_language, parent, false));
+            mCardView = (CardView) itemView.findViewById(R.id.cv_language);
+            mTextView = (TextView) itemView.findViewById(R.id.tv_select_language);
+            mCardView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View v) {
-           mCallBackClickListener.onButtonPressed(v);
+            mCallBackClickListener.onButtonPressed(v);
         }
     }
 
-    private class LanguageAdapter extends RecyclerView.Adapter<LanguageHolder>{
+    private class LanguageAdapter extends RecyclerView.Adapter<LanguageHolder> {
 
         List<String> mLanguagesList;
 

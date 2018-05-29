@@ -529,10 +529,10 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
 
         realm.beginTransaction();
         SimpleRealmObject animalObject = realm.createObject(SimpleRealmObject.class);
-        animalObject.setEng_name("leopard");
-        animalObject.setKyrg_name("леопард");
-        animalObject.setRus_name("леопард");
-        animalObject.setImage(R.drawable.leopard);
+        animalObject.setEng_name("cheetah");
+        animalObject.setKyrg_name("гепард");
+        animalObject.setRus_name("гепард");
+        animalObject.setImage(R.drawable.cheetah);
         realm.commitTransaction();
 
         realm.beginTransaction();
@@ -663,7 +663,7 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         closeInit.setEng_name("socks");
         closeInit.setKyrg_name("байпак");
         closeInit.setRus_name("носки");
-        closeInit.setImage(R.drawable.leopard);
+        closeInit.setImage(R.drawable.socks);
         realm.commitTransaction();
 
         realm.beginTransaction();
@@ -679,7 +679,7 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         closeInit.setEng_name("pants");
         closeInit.setKyrg_name("дамбал");
         closeInit.setRus_name("штаны");
-        closeInit.setImage(R.drawable.rabbit);
+        closeInit.setImage(R.drawable.pants);
         realm.commitTransaction();
 
         realm.beginTransaction();
@@ -687,7 +687,7 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         closeInit.setEng_name("footwear");
         closeInit.setKyrg_name("бут кийим");
         closeInit.setRus_name("обувь");
-        closeInit.setImage(R.drawable.goat);
+        closeInit.setImage(R.drawable.footwear);
         realm.commitTransaction();
 
         realm.beginTransaction();
@@ -732,7 +732,7 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
 
         realm.beginTransaction();
         closeInit = realm.createObject(SimpleRealmObject.class);
-        closeInit.setEng_name("pants");
+        closeInit.setEng_name("trousers");
         closeInit.setKyrg_name("шым");
         closeInit.setRus_name("брюки");
         closeInit.setImage(R.drawable.pants);

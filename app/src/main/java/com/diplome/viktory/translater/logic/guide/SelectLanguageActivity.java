@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,8 +39,10 @@ public class SelectLanguageActivity extends AppCompatActivity implements SelectL
     @Override
     public void onButtonPressed(View view) {
 
-        TextView textView = (TextView) view;
-        Intent intent = new Intent(SelectLanguageActivity.this, GuideActivity.class);
+        CardView cardView = (CardView) view;
+        TextView textView = (TextView) cardView.getChildAt(0);
+
+        Intent intent = new Intent(this, GuideActivity.class);
         intent.putExtra(LanguagesInteractor.KeysField.EXTRA_KEY, textView.getText().toString());
         startActivity(intent);
 

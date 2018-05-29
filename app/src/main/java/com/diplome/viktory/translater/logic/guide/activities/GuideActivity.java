@@ -89,21 +89,18 @@ public class GuideActivity extends AppCompatActivity {
 
         public TittlesStorage(String key) {
             // В зависимости от параметров, загружается либо на руском, либо на кыргызскоом, либо на английском языке
-
             // Буду разделять и проводить инициализацию карт только по нужному ключу
-            switch (key) {
-                case LanguagesInteractor.KeysField.ENGLISH:
-                    tittlesInitEnglish();
-                    layoutsInitEnglish();
-                    break;
-                case LanguagesInteractor.KeysField.KYRGUZS:
-                    tittlesInitKyrgyz();
-                    layoutsInitKyrgyz();
-                    break;
-                case LanguagesInteractor.KeysField.RUSSIAN:
-                    layoutsInitRussian();
-                    tittlesInitRussian();
-                    break;
+
+
+            if (key.equalsIgnoreCase(getResources().getString(R.string.english))) {
+                tittlesInitEnglish();
+                layoutsInitEnglish();
+            } else if (key.equalsIgnoreCase(getResources().getString(R.string.kyrgyzs))) {
+                tittlesInitKyrgyz();
+                layoutsInitKyrgyz();
+            } else {
+                layoutsInitRussian();
+                tittlesInitRussian();
             }
 
 
