@@ -27,6 +27,7 @@ import com.diplome.viktory.translater.logic.learn.interfaces.VegetablesInitializ
 import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
@@ -219,6 +220,7 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
 
     private void initilizeRealmAndCreatedFragment() {
         mRealmObjects.addAll(mRealm.where(SimpleRealmObject.class).findAll());
+        Collections.shuffle(mRealmObjects);
         countOfObject = mRealmObjects.size();
 
         if (mFragment == null || isStarted) {

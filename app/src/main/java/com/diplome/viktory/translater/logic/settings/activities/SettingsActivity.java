@@ -16,6 +16,7 @@ import com.diplome.viktory.translater.MainActivity;
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
+import com.diplome.viktory.translater.logic.menu.activities.MenuActivity;
 import com.diplome.viktory.translater.logic.settings.fragments.SettingsFragments;
 import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
@@ -111,7 +112,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
         // Надо тут будет пофиксить
         if (view.getId() == R.id.btn_back) {
             Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : onButtonPressed ");
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, MenuActivity.class));
         }
 
     }

@@ -37,10 +37,10 @@ public class ResultFragment extends Fragment {
         int result = (getArguments().getInt(KEY_FALSE_INFO) * 100) / getArguments().getInt(KEY_TRUE_INFO);
 
        if (result >= 70){
-            mImageViewResult.setImageResource(R.drawable.true_smile);
+            mImageViewResult.setImageResource(R.drawable.false_smile);
         } if(result >= 50)
             mImageViewResult.setImageResource(R.drawable.normal_smile); else
-                mImageViewResult.setImageResource(R.drawable.false_smile);
+                mImageViewResult.setImageResource(R.drawable.true_smile);
 
         return view;
     }

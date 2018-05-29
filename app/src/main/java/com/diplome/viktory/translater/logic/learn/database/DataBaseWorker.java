@@ -958,6 +958,58 @@ public class DataBaseWorker implements SportInitialize, HobbyInitialize,
         realm.commitTransaction();
 
 
+        realm.beginTransaction();
+        questionInitialize = realm.createObject(ExtendedRealmObject.class);
+        questionInitialize.setEng_answer("Rafflesia");
+        questionInitialize.setKyrg_answer("Раффлезия");
+        questionInitialize.setRus_answer("Раффлезия");
+
+        questionInitialize.setEng_question_wrong1("Borshevik");
+        questionInitialize.setEng_question_wrong2("Dahlia");
+        questionInitialize.setEng_question_wrong3("Primrose");
+
+        questionInitialize.setKyrg_question_wrong1("Борщевик");
+        questionInitialize.setKyrg_question_wrong2("багылган");
+        questionInitialize.setKyrg_question_wrong3("кайын");
+
+        questionInitialize.setRus_question_wrong1("Борщевик");
+        questionInitialize.setRus_question_wrong2("Георгин");
+        questionInitialize.setRus_question_wrong3("Примула");
+
+
+        questionInitialize.setEng_question("the biggest flower");
+        questionInitialize.setKyrg_question("ири гүл");
+        questionInitialize.setRus_question("самый большой цветок");
+        questionInitialize.setImageId(R.drawable.flower);
+        realm.commitTransaction();
+
+
+        realm.beginTransaction();
+        questionInitialize = realm.createObject(ExtendedRealmObject.class);
+        questionInitialize.setEng_answer("Hummingbird");
+        questionInitialize.setKyrg_answer("Колибри");
+        questionInitialize.setRus_answer("Колибри");
+
+        questionInitialize.setEng_question_wrong1("Sparrow");
+        questionInitialize.setEng_question_wrong2("titmouse");
+        questionInitialize.setEng_question_wrong3("Wren");
+
+        questionInitialize.setKyrg_question_wrong1("Воробей");
+        questionInitialize.setKyrg_question_wrong2("Синичка");
+        questionInitialize.setKyrg_question_wrong3("Крапивник");
+
+        questionInitialize.setRus_question_wrong1("Воробей");
+        questionInitialize.setRus_question_wrong2("Синичка");
+        questionInitialize.setRus_question_wrong3("Крапивник");
+
+
+        questionInitialize.setEng_question("The smallest bird");
+        questionInitialize.setKyrg_question("Кичинекей чымчык");
+        questionInitialize.setRus_question("Самая маленькая птица");
+        questionInitialize.setImageId(R.drawable.bird);
+        realm.commitTransaction();
+
+
 
 
     }
