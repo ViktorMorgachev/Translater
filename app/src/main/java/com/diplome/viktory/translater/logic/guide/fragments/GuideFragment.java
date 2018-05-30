@@ -6,23 +6,23 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.diplome.viktory.translater.R;
+import com.github.barteksc.pdfviewer.PDFView;
 
 public class GuideFragment extends Fragment {
 
-    static final String ARGUMENT_LAYOUT = "Necessary Layout";
+    static final String KEY_LAYOUT = "Necessary Layout";
+    static final String KEY_LINK = "Link For Document";
     private int linkForView;
+    PDFView mPDFView;
 
     // Передам позицию и ссылку на вьюшку в виде строки
-    public static GuideFragment newInstance(int position, Integer view) {
+    public static GuideFragment newInstance(String LinkForPdf) {
         // Уcё, вопросов нет, осталcя один вопрос, как сохранить view
         GuideFragment pageFragment = new GuideFragment();
         Bundle arguments = new Bundle();
-        arguments.putInt(ARGUMENT_LAYOUT, position);
-        arguments.putInt(ARGUMENT_LAYOUT, view);
+        arguments.putString(KEY_LINK, LinkForPdf);
         pageFragment.setArguments(arguments);
         return pageFragment;
     }
@@ -32,6 +32,8 @@ public class GuideFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(linkForView, null);
+        mPDFView = view.findViewById(R.id.pdfView);
+        mPDFView.fromAsset(getArguments().get(KEY_LINK) + ".pdf").load();
 
         return view;
     }
@@ -39,6 +41,6 @@ public class GuideFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        linkForView = getArguments().getInt(ARGUMENT_LAYOUT);
+        linkForView = getArguments().getInt(KEY_LAYOUT);
     }
 }
