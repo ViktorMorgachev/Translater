@@ -20,18 +20,23 @@ import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInt
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class GuideActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private PagerAdapter mPagerAdapter;
-    private List<String> mStringList;
+    private List<String> mTittlesList = new ArrayList<>();
     // будет идти документ, который он должен загрузить
-    private List<String> mViewList;
-    private TittlesStorage mTittlesStorage;
+    private List<String> mFilesList = new ArrayList<>();
+    private ContextStorage mContextStorage;
+    private Map<String, String> mContextTittlesMap;
 
     public String getKey() {
         return Key;
@@ -47,11 +52,35 @@ public class GuideActivity extends AppCompatActivity {
 
         Key = getIntent()
                 .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY);
-        mTittlesStorage = new TittlesStorage(Key);
 
-        mStringList = mTittlesStorage.getTitlesMap(Key);
+        if (Key.equalsIgnoreCase(LanguagesInteractor.KeysField.RUSSIAN)) {
+            Key = LanguagesInteractor.KeysField.RUSSIAN;
+        } else if (Key.equalsIgnoreCase(LanguagesInteractor.KeysField.ENGLISH)) {
+            Key = LanguagesInteractor.KeysField.ENGLISH;
+        } else {
+            Key = LanguagesInteractor.KeysField.KYRGUZS;
+        }
 
-        mViewList = mTittlesStorage.getLayotsMap(Key);
+
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                " : onCreate, key = " + Key);
+
+        mContextStorage = new ContextStorage(Key);
+
+
+        mContextTittlesMap = mContextStorage.getContextList();
+
+
+        for(String key : mContextTittlesMap.keySet()) {
+            mTittlesList.add(key);
+            mFilesList.add(mContextTittlesMap.get(key));
+        }
+
+
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                " : onCreate, titles.size = " + mTittlesList.size() + "\n" +
+                " files.size = " + mTittlesList.size() + "\n" + mContextTittlesMap.toString());
+
 
         mViewPager = (ViewPager) findViewById(R.id.view_pager);
         mPagerAdapter = new MyFragmentPagerAdapter(getSupportFragmentManager());
@@ -70,227 +99,185 @@ public class GuideActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // Нужно вытащить ключ и значение по индексу из карты
             Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : getItem, position = " + position);
-            return GuideFragment.newInstance(mViewList.get(position));
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : onCreate, tittles = " + mTittlesList.get(position));
+            return GuideFragment.newInstance(mFilesList.get(position));
         }
 
         @Nullable
         @Override
         public CharSequence getPageTitle(int position) {
-            return mStringList.get(position);
+            return mTittlesList.get(position);
         }
 
         @Override
         public int getCount() {
-            return mStringList.size();
+             return mTittlesList.size();
         }
     }
 
-    public class TittlesStorage {
-        // Integer для того чтобы передавать информацию во фрагмент
-        private Map<String, List<String>> mLayoutsListMap;
-        // Ключ - раздел языка (Английский, Кыргызский, Русский), а список соответственно названия разделов
-        private Map<String, List<String>> mTitleListMap;
-        private FilesFactory mFilesFactory = new FilesFactory();
+    public class ContextStorage {
+
+        SharedPreferences mSharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(GuideActivity.this);
+        // Должен хранится список Файлов
+        // Должен хнанится список заголовков
+        private List<Map<String, String>> mMapListContext = new ArrayList<>();
+        private String Key;
 
 
-        public TittlesStorage(String key) {
-            // В зависимости от параметров, загружается либо на руском, либо на кыргызскоом, либо на английском языке
-            // Буду разделять и проводить инициализацию карт только по нужному ключ
+        public ContextStorage(String key) {
+          this.Key = key;
+        }
 
-            if (key.equalsIgnoreCase(getResources().getString(R.string.english))) {
-                mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH,
-                        mFilesFactory.initFilesByKey(LanguagesInteractor.KeysField.ENGLISH));
-                tittlesInitEnglish();
-            } else if (key.equalsIgnoreCase(getResources().getString(R.string.kyrgyzs))) {
-                mLayoutsListMap.put(LanguagesInteractor.KeysField.KYRGUZS,
-                        mFilesFactory.initFilesByKey(LanguagesInteractor.KeysField.KYRGUZS));
-                tittlesInitKyrgyz();
-            } else {
-                // А обьект уже сам будет анализировать по нативному языку, какие файлы инициализировать
-                mLayoutsListMap.put(LanguagesInteractor.KeysField.RUSSIAN,
-                        mFilesFactory.initFilesByKey(LanguagesInteractor.KeysField.RUSSIAN));
-                tittlesInitRussian();
-            }
+
+        private Map<String, String> initKyrguzsOnKyrguzs() {
+
+            Map<String, String> files = new HashMap<>();
+            files.put(getResources().getString(R.string.nouns), "kurguz_nouns_rus");
+            return files;
+        }
+
+        private Map<String, String> initKyrguzsOnRussian() {
+
+
+            Map<String, String> files = new HashMap<>();
+
+            files.put(getResources().getString(R.string.nouns), "kurguz_nouns_rus");
+            return files;
 
 
         }
 
-        private void tittlesInitEnglish() {
+        private Map<String, String> initKyrguzsOnEnglish() {
 
-            mTitleListMap = new HashMap<>();
-
-            List<String> tittles = new ArrayList<>();
-
-            tittles.addAll(Arrays.asList(
-                    GuideActivity.this.getResources().getString(R.string.adjectives),
-                    GuideActivity.this.getResources().getString(R.string.nouns),
-                    GuideActivity.this.getResources().getString(R.string.pronouns),
-                    GuideActivity.this.getResources().getString(R.string.strings),
-                    GuideActivity.this.getResources().getString(R.string.verbs_times),
-                    GuideActivity.this.getResources().getString(R.string.verbs)));
-            mTitleListMap.put(LanguagesInteractor.KeysField.ENGLISH, tittles);
+            Map<String, String> files = new HashMap<>();
+            files.put(getResources().getString(R.string.nouns), "kurguz_nouns_en");
+            return files;
 
         }
 
-        private void tittlesInitRussian() {
+        private Map<String, String> initRussianOnKyrguzs() {
 
-            mTitleListMap = new HashMap<>();
-
-            List<String> tittles = new ArrayList<>();
-
-            tittles.addAll(Arrays.asList(
-                    GuideActivity.this.getResources().getString(R.string.adjectives),
-                    GuideActivity.this.getResources().getString(R.string.enumeration),
-                    GuideActivity.this.getResources().getString(R.string.nouns),
-                    GuideActivity.this.getResources().getString(R.string.pronouns),
-                    GuideActivity.this.getResources().getString(R.string.verbs)));
-            mTitleListMap.put(LanguagesInteractor.KeysField.RUSSIAN, tittles);
+            Map<String, String> files = new HashMap<>();
+            files.put(getResources().getString(R.string.adjectives), "russian_adjectives_kg");
+            files.put(getResources().getString(R.string.enumeration), "russian_enumeration_kg");
+            files.put(getResources().getString(R.string.nouns), "russian_nouns_kg");
+            files.put(getResources().getString(R.string.pronouns), "russian_pronouns_kg");
+            files.put(getResources().getString(R.string.verbs), "russian_verbs_kg");
+            return files;
 
         }
 
-        private void tittlesInitKyrgyz() {
-            mTitleListMap = new HashMap<>();
+        private Map<String, String> initRussianOnRussian() {
 
-            List<String> tittles = new ArrayList<>();
-
-            tittles.addAll(Arrays.asList(
-                    GuideActivity.this.getResources().getString(R.string.songs),
-                    GuideActivity.this.getResources().getString(R.string.adjectives),
-                    GuideActivity.this.getResources().getString(R.string.nouns),
-                    GuideActivity.this.getResources().getString(R.string.pronouns),
-                    GuideActivity.this.getResources().getString(R.string.phonetics),
-                    GuideActivity.this.getResources().getString(R.string.enumeration)));
-            mTitleListMap.put(LanguagesInteractor.KeysField.KYRGUZS, tittles);
+            Map<String, String> files = new HashMap<>();
+            files.put(getResources().getString(R.string.adjectives), "russian_adjectives_rus");
+            files.put(getResources().getString(R.string.enumeration), "russian_enumeration_rus");
+            files.put(getResources().getString(R.string.nouns), "russian_nouns_rus");
+            files.put(getResources().getString(R.string.pronouns), "russian_pronouns_rus");
+            files.put(getResources().getString(R.string.verbs), "russian_verbs_rus");
+            return files;
 
         }
 
-        private void filesInitEnglish() {
+        private Map<String, String> initRussianOnEnglish() {
 
-            mLayoutsListMap = new HashMap<>();
 
-            List<String> files = new ArrayList<>();
-
-            files.addAll(Arrays.asList("english_adjectives", "english_nouns",
-                    "english_pronouns", "english_strings", "english_verb_times",
-                    "english_verbs"));
-            mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, files);
-
+            Map<String, String> files = new HashMap<>();
+            files.put(getResources().getString(R.string.adjectives), "russian_adjectives_en");
+            files.put(getResources().getString(R.string.enumeration), "russian_enumeration_en");
+            files.put(getResources().getString(R.string.nouns), "russian_nouns_en");
+            files.put(getResources().getString(R.string.pronouns), "russian_pronouns_en");
+            files.put(getResources().getString(R.string.verbs), "russian_verbs_en");
+            return files;
         }
 
-        private void filesInitKyrgyz() {
+        private Map<String, String> initEnglishOnEnglish() {
 
-            mLayoutsListMap = new HashMap<>();
+            Map<String, String> files = new HashMap<>();
 
-            List<String> files = new ArrayList<>();
+            files.put(getResources().getString(R.string.adjectives), "english_adjectives_en");
+            files.put(getResources().getString(R.string.nouns), "english_nouns_en");
+            files.put(getResources().getString(R.string.pronouns), "english_pronouns_en");
+            files.put(getResources().getString(R.string.strings), "english_strings_en");
+            files.put(getResources().getString(R.string.verbs_times), "english_verbs_time_en");
+            files.put(getResources().getString(R.string.verbs), "english_verbs_en");
+            return files;
+        }
 
-            files.addAll(Arrays.asList("english_songs"));
-            mLayoutsListMap.put(LanguagesInteractor.KeysField.ENGLISH, files);
+        private Map<String, String> initEnglishOnKyrguzs() {
 
+            Map<String, String> files = new HashMap<>();
 
+            files.put(getResources().getString(R.string.adjectives), "english_adjectives_kg");
+            files.put(getResources().getString(R.string.nouns), "english_nouns_kg");
+            files.put(getResources().getString(R.string.pronouns), "english_pronouns_kg");
+            files.put(getResources().getString(R.string.strings), "english_strings_kg");
+            files.put(getResources().getString(R.string.verbs_times), "english_verbs_time_kg");
+            files.put(getResources().getString(R.string.verbs), "english_verbs_kg");
+            return files;
+        }
+
+        private Map<String, String> initEnglishOnRussian() {
+
+            Map<String, String> files = new HashMap<>();
+
+            files.put(getResources().getString(R.string.adjectives), "english_adjectives_rus");
+            files.put(getResources().getString(R.string.nouns), "english_nouns_rus");
+            files.put(getResources().getString(R.string.pronouns), "english_pronouns_rus");
+            files.put(getResources().getString(R.string.strings), "english_strings_rus");
+            files.put(getResources().getString(R.string.verbs_times), "english_verbs_time_rus");
+            files.put(getResources().getString(R.string.verbs), "english_verbs_rus");
+            return files;
         }
 
 
-        List<String> getTitlesMap(String key) {
-            return mTitleListMap.get(key);
-        }
+        Map<String, String> getContextList(){
 
-        List<String> getLayotsMap(String key) {
-            return mLayoutsListMap.get(key);
-        }
+            String nativeLanguage =  mSharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+                    LanguagesInteractor.KeysField.RUSSIAN);
 
-        private class FilesFactory {
+            if (nativeLanguage.equalsIgnoreCase(LanguagesInteractor.KeysField.ENGLISH)) {
 
-            SharedPreferences mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(GuideActivity.this);
-            List<String> mFilesList = new ArrayList<>();
+                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() +
+                        " : getContextList -> nativeEnglishLanguage");
 
-            public List<String> initFilesByKey(String key) {
-
-                String nativeLanguage = mSharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
-                        LanguagesInteractor.KeysField.RUSSIAN);
-
-                if (nativeLanguage.equalsIgnoreCase(LanguagesInteractor.KeysField.ENGLISH)) {
-
-                    Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() + " : initFilesByKey -> nativeEnglishLanguage");
-
-                    switch (key) {
-                        case LanguagesInteractor.KeysField.ENGLISH:
-                            mFilesList = initEnglishOnEnglish();
-                            break;
-                        case LanguagesInteractor.KeysField.KYRGUZS:
-                            mFilesList = initKyrguzsOnEnglish();
-                            break;
-                        case LanguagesInteractor.KeysField.RUSSIAN:
-                            mFilesList = initRussianOnEnglish();
-                            break;
-                    }
-                } else if (nativeLanguage.equalsIgnoreCase(LanguagesInteractor.KeysField.KYRGUZS)) {
-                    Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() + " : initFilesByKey -> nativeKyrguzsLanguage");
-
-                    switch (key) {
-                        case LanguagesInteractor.KeysField.ENGLISH:
-                            mFilesList = initEnglishOnKyrguzs();
-                            break;
-                        case LanguagesInteractor.KeysField.KYRGUZS:
-                            mFilesList = initKyrguzsOnKyrguzs();
-                            break;
-                        case LanguagesInteractor.KeysField.RUSSIAN:
-                            mFilesList = initRussianOnKyrguzs();
-                            break;
-                    }
-
-                } else {
-
-                    switch (key) {
-                        case LanguagesInteractor.KeysField.ENGLISH:
-                            mFilesList = initEnglishOnRussian();
-                            break;
-                        case LanguagesInteractor.KeysField.KYRGUZS:
-                            mFilesList = initKyrguzsOnRussian();
-                            break;
-                        case LanguagesInteractor.KeysField.RUSSIAN:
-                            mFilesList = initRussianOnRussian();
-                            break;
-                    }
-
+                switch (Key) {
+                    case LanguagesInteractor.KeysField.ENGLISH:
+                       return initEnglishOnEnglish();
+                    case LanguagesInteractor.KeysField.KYRGUZS:
+                      return initKyrguzsOnEnglish();
+                    case LanguagesInteractor.KeysField.RUSSIAN:
+                        return  initRussianOnEnglish();
+                }
+            } else if (nativeLanguage.equalsIgnoreCase(LanguagesInteractor.KeysField.KYRGUZS)) {
+                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() + " : getContextList -> nativeKyrguzsLanguage");
+                switch (Key) {
+                    case LanguagesInteractor.KeysField.ENGLISH:
+                        return initEnglishOnKyrguzs();
+                    case LanguagesInteractor.KeysField.KYRGUZS:
+                        return initKyrguzsOnKyrguzs();
+                    case LanguagesInteractor.KeysField.RUSSIAN:
+                        return initRussianOnKyrguzs();
                 }
 
-                return mFilesList;
-
+            } else {
+                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() + " : getContextList -> nativeRussianLanguage");
+                switch (Key) {
+                    case LanguagesInteractor.KeysField.ENGLISH:
+                        return initEnglishOnRussian();
+                    case LanguagesInteractor.KeysField.KYRGUZS:
+                        return initKyrguzsOnRussian();
+                    case LanguagesInteractor.KeysField.RUSSIAN:
+                        return initRussianOnRussian();
+                }
 
             }
 
-            private List<String> initEnglishOnEnglish() {
-
-                List<String> files = new ArrayList<>();
-
-                files.addAll(Arrays.asList("english_adjectives_en", "english_nouns_en",
-                        "english_pronouns_en", "english_strings_en", "english_verbs_time_en",
-                        "english_verbs_en"));
-                return files;
-            }
-
-
-            private List<String> initEnglishOnKyrguzs() {
-
-                List<String> files = new ArrayList<>();
-
-                files.addAll(Arrays.asList("english_adjectives_kg", "english_nouns_kg",
-                        "english_pronouns_kg", "english_strings_kg", "english_verbs_time_kg",
-                        "english_verbs_kg"));
-                return  files;
-            }
-
-            private List<String> initEnglishOnRussian() {
-
-                List<String> files = new ArrayList<>();
-
-                files.addAll(Arrays.asList("english_adjectives_rus", "english_nouns_rus",
-                        "english_pronouns_rus", "english_strings_rus", "english_verbs_time_rus",
-                        "english_verbs_rus"));
-
-                return files;
-            }
+            throw  new UnsupportedOperationException();
         }
+
     }
 
 }
