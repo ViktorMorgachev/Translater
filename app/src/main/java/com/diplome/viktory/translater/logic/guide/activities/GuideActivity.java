@@ -19,14 +19,9 @@ import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteracto
 import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInteractor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class GuideActivity extends AppCompatActivity {
 
@@ -53,9 +48,9 @@ public class GuideActivity extends AppCompatActivity {
         Key = getIntent()
                 .getStringExtra(LanguagesInteractor.KeysField.EXTRA_KEY);
 
-        if (Key.equalsIgnoreCase(LanguagesInteractor.KeysField.RUSSIAN)) {
+        if (Key.equalsIgnoreCase(getResources().getString(R.string.russian))) {
             Key = LanguagesInteractor.KeysField.RUSSIAN;
-        } else if (Key.equalsIgnoreCase(LanguagesInteractor.KeysField.ENGLISH)) {
+        } else if (Key.equalsIgnoreCase(getResources().getString(R.string.english))) {
             Key = LanguagesInteractor.KeysField.ENGLISH;
         } else {
             Key = LanguagesInteractor.KeysField.KYRGUZS;
@@ -71,7 +66,7 @@ public class GuideActivity extends AppCompatActivity {
         mContextTittlesMap = mContextStorage.getContextList();
 
 
-        for(String key : mContextTittlesMap.keySet()) {
+        for (String key : mContextTittlesMap.keySet()) {
             mTittlesList.add(key);
             mFilesList.add(mContextTittlesMap.get(key));
         }
@@ -112,7 +107,7 @@ public class GuideActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-             return mTittlesList.size();
+            return mTittlesList.size();
         }
     }
 
@@ -127,11 +122,14 @@ public class GuideActivity extends AppCompatActivity {
 
 
         public ContextStorage(String key) {
-          this.Key = key;
+            this.Key = key;
         }
 
 
         private Map<String, String> initKyrguzsOnKyrguzs() {
+
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initKyrguzsOnKyrguzs");
 
             Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.nouns), "kurguz_nouns_rus");
@@ -140,9 +138,10 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initKyrguzsOnRussian() {
 
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initKyrguzsOnRussian");
 
             Map<String, String> files = new HashMap<>();
-
             files.put(getResources().getString(R.string.nouns), "kurguz_nouns_rus");
             return files;
 
@@ -151,6 +150,9 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initKyrguzsOnEnglish() {
 
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initKyrguzsOnEnglish");
+
             Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.nouns), "kurguz_nouns_en");
             return files;
@@ -158,6 +160,9 @@ public class GuideActivity extends AppCompatActivity {
         }
 
         private Map<String, String> initRussianOnKyrguzs() {
+
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initRussianOnKyrguzs");
 
             Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.adjectives), "russian_adjectives_kg");
@@ -171,6 +176,9 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initRussianOnRussian() {
 
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initRussianOnRussian");
+
             Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.adjectives), "russian_adjectives_rus");
             files.put(getResources().getString(R.string.enumeration), "russian_enumeration_rus");
@@ -183,6 +191,8 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initRussianOnEnglish() {
 
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initRussianOnEnglish");
 
             Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.adjectives), "russian_adjectives_en");
@@ -195,8 +205,10 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initEnglishOnEnglish() {
 
-            Map<String, String> files = new HashMap<>();
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initEnglishOnEnglish");
 
+            Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.adjectives), "english_adjectives_en");
             files.put(getResources().getString(R.string.nouns), "english_nouns_en");
             files.put(getResources().getString(R.string.pronouns), "english_pronouns_en");
@@ -208,8 +220,10 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initEnglishOnKyrguzs() {
 
-            Map<String, String> files = new HashMap<>();
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initEnglishOnKyrguzs");
 
+            Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.adjectives), "english_adjectives_kg");
             files.put(getResources().getString(R.string.nouns), "english_nouns_kg");
             files.put(getResources().getString(R.string.pronouns), "english_pronouns_kg");
@@ -221,8 +235,10 @@ public class GuideActivity extends AppCompatActivity {
 
         private Map<String, String> initEnglishOnRussian() {
 
-            Map<String, String> files = new HashMap<>();
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
+                    " : initEnglishOnRussian");
 
+            Map<String, String> files = new HashMap<>();
             files.put(getResources().getString(R.string.adjectives), "english_adjectives_rus");
             files.put(getResources().getString(R.string.nouns), "english_nouns_rus");
             files.put(getResources().getString(R.string.pronouns), "english_pronouns_rus");
@@ -233,26 +249,28 @@ public class GuideActivity extends AppCompatActivity {
         }
 
 
-        Map<String, String> getContextList(){
+        Map<String, String> getContextList() {
 
-            String nativeLanguage =  mSharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
+            String nativeLanguage = mSharedPreferences.getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                     LanguagesInteractor.KeysField.RUSSIAN);
+
+            Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() +
+                    " : getContextList -> nativeEnglishLanguage" + nativeLanguage + "  Key:" + Key);
+
 
             if (nativeLanguage.equalsIgnoreCase(LanguagesInteractor.KeysField.ENGLISH)) {
 
-                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() +
-                        " : getContextList -> nativeEnglishLanguage");
 
                 switch (Key) {
                     case LanguagesInteractor.KeysField.ENGLISH:
-                       return initEnglishOnEnglish();
+                        return initEnglishOnEnglish();
                     case LanguagesInteractor.KeysField.KYRGUZS:
-                      return initKyrguzsOnEnglish();
+                        return initKyrguzsOnEnglish();
                     case LanguagesInteractor.KeysField.RUSSIAN:
-                        return  initRussianOnEnglish();
+                        return initRussianOnEnglish();
                 }
             } else if (nativeLanguage.equalsIgnoreCase(LanguagesInteractor.KeysField.KYRGUZS)) {
-                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() + " : getContextList -> nativeKyrguzsLanguage");
+
                 switch (Key) {
                     case LanguagesInteractor.KeysField.ENGLISH:
                         return initEnglishOnKyrguzs();
@@ -263,7 +281,6 @@ public class GuideActivity extends AppCompatActivity {
                 }
 
             } else {
-                Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getLocalClassName() + " : getContextList -> nativeRussianLanguage");
                 switch (Key) {
                     case LanguagesInteractor.KeysField.ENGLISH:
                         return initEnglishOnRussian();
@@ -275,7 +292,7 @@ public class GuideActivity extends AppCompatActivity {
 
             }
 
-            throw  new UnsupportedOperationException();
+            throw new UnsupportedOperationException();
         }
 
     }
