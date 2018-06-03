@@ -35,7 +35,7 @@ public class GuideFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.guide_fragment_layout, null);
+        View view = inflater.inflate(R.layout.guide_fragment_layout,  null);
         mPDFView = (PDFView) view.findViewById(R.id.pdfView);
         Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
                 " : onCreateView , filename = " + getArguments().getString(KEY_DOCUMENT) +
