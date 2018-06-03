@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.logic.guide.activities.GuideActivity;
+import com.diplome.viktory.translater.logic.guide.activities.GuideSectionActivity;
 import com.diplome.viktory.translater.logic.guide.fragments.SelectLanguageFragment;
 import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
 
@@ -42,7 +43,7 @@ public class SelectLanguageActivity extends AppCompatActivity implements SelectL
         CardView cardView = (CardView) view;
         TextView textView = (TextView) cardView.getChildAt(0);
 
-        Intent intent = new Intent(this, GuideActivity.class);
+        Intent intent = new Intent(this, GuideSectionActivity.class);
         intent.putExtra(LanguagesInteractor.KeysField.EXTRA_KEY, textView.getText().toString());
         startActivity(intent);
 
