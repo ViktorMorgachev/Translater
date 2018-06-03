@@ -8,33 +8,43 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.diplome.viktory.translater.R;
-import com.diplome.viktory.translater.logic.guide.interactors.LanguagesInteractor;
+import com.diplome.viktory.translater.interactors.KeysCommonInteractor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 
-public class SelectLanguageFragment extends Fragment {
+public class GuideSectionFragment extends Fragment {
 
     private OnButtonClickListener mCallBackClickListener;
     private RecyclerView mRecyclerView;
-    private LanguageAdapter mAdapter;
-    List<String> languageList;
+    private SectionAdapter mAdapter;
+    List<String> sectionsList;
+    static final String KEY_LIST = "Name of document";
+
+
+    // Передам позицию и ссылку на вьюшку в виде строки
+    public static GuideSectionFragment newInstance(ArrayList<String> listOfSections) {
+        // Уcё, вопросов нет, осталcя один вопрос, как сохранить view
+        GuideSectionFragment guideSectionFragment = new GuideSectionFragment();
+        Bundle arguments = new Bundle();
+        arguments.putStringArrayList(KEY_LIST, listOfSections);
+        guideSectionFragment.setArguments(arguments);
+        return guideSectionFragment;
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.select_language_fragment_layout, container, false);
+        View view = inflater.inflate(R.layout.select_fragment_layout, null);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_languages_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -46,13 +56,13 @@ public class SelectLanguageFragment extends Fragment {
 
     private void updateUI() {
 
-        languageList = new ArrayList<>();
-        languageList.addAll(Arrays.asList(getResources().getString(R.string.russian),
-                getResources().getString(R.string.kyrgyzs),
-                getResources().getString(R.string.english)));
 
-        mAdapter = new LanguageAdapter(languageList);
+        sectionsList = getArguments().getStringArrayList(KEY_LIST);
+        mAdapter = new SectionAdapter(sectionsList);
         mRecyclerView.setAdapter(mAdapter);
+
+        Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + ": updateUI " +
+                "\nTittles: " + sectionsList);
     }
 
     @Override
@@ -68,7 +78,7 @@ public class SelectLanguageFragment extends Fragment {
 
     private class LanguageHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private String language;
+        private String tittle;
         private TextView mTextView;
         private CardView mCardView;
 
@@ -89,7 +99,7 @@ public class SelectLanguageFragment extends Fragment {
         }
     }
 
-    private class LanguageAdapter extends RecyclerView.Adapter<LanguageHolder> {
+    private class SectionAdapter extends RecyclerView.Adapter<LanguageHolder> {
 
         List<String> mLanguagesList;
 
@@ -110,7 +120,7 @@ public class SelectLanguageFragment extends Fragment {
             return mLanguagesList.size();
         }
 
-        public LanguageAdapter(List<String> languages) {
+        public SectionAdapter(List<String> languages) {
             this.mLanguagesList = languages;
         }
     }

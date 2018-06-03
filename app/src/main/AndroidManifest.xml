@@ -37,7 +37,7 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
-        <activity android:name=".logic.guide.SelectLanguageActivity">
+        <activity android:name=".logic.guide.GuideSectionActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>

@@ -4,7 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 
-import com.diplome.viktory.translater.logic.guide.SelectLanguageActivity;
+import com.diplome.viktory.translater.logic.guide.GuideSectionActivity;
+import com.diplome.viktory.translater.logic.guide.activities.GuideActivity;
 import com.diplome.viktory.translater.logic.learn.activities.LearnActivity;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartGuideActivityListener;
 import com.diplome.viktory.translater.logic.menu.interfaces.OnStartLearnActivityListener;
@@ -26,7 +27,7 @@ public class ModuleInteractor implements
     @Override
     public void startGuideActivity(Activity activity) {
         Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + " : startGuideActivity ");
-        activity.startActivity(new Intent(activity, SelectLanguageActivity.class));
+        activity.startActivity(new Intent(activity, GuideSectionActivity.class));
     }
 
     @Override

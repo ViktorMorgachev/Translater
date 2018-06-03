@@ -20,6 +20,7 @@ public class GuideFragment extends Fragment {
     static final String KEY_TITTLE = "Name of tittle";
     static final String KEY_DOCUMENT = "Name of document";
     PDFView mPDFView;
+    private String mFile;
 
     // Передам позицию и ссылку на вьюшку в виде строки
     public static GuideFragment newInstance(String LinkForPdf) {
@@ -37,12 +38,14 @@ public class GuideFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.guide_fragment_layout,  null);
         mPDFView = (PDFView) view.findViewById(R.id.pdfView);
+        mFile = getArguments().getString(KEY_DOCUMENT);
+
         Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() +
                 " : onCreateView , filename = " + getArguments().getString(KEY_DOCUMENT) +
                 "\n Native language = " + PreferenceManager.getDefaultSharedPreferences(getContext()).getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                 LanguagesInteractor.KeysField.RUSSIAN));
 
-        mPDFView.fromAsset("russian_pronouns_en.pdf").load();
+        mPDFView.fromAsset(mFile).load();
 
         return view;
     }
