@@ -31,20 +31,25 @@ public class GuideActivity extends AppCompatActivity {
     private Fragment mFragment;
     private FragmentManager mFragmentManager = getSupportFragmentManager();
     public static String KEY_FILE = "Name of file";
-    PDFView mPDFView;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.guide_fragment_layout);
+        setContentView(R.layout.simple_fragment_container);
 
         mFile = getIntent().getStringExtra(KEY_FILE);
         Log.d(KeysCommonInteractor.KeysField.LOG_TAG, getClass().getCanonicalName() + ": onCreate " +
                 "\nFile: " + mFile);
 
-        mPDFView = (PDFView) findViewById(R.id.pdfView);
-        mPDFView.fromAsset(mFile+".pdf").load();
+
+        mFragment = mFragmentManager.findFragmentById(R.id.main_fragment_container);
+        if (mFragment == null) {
+            mFragment = GuideFragment.newInstance(mFile);
+            mFragmentManager.beginTransaction()
+                    .add(R.id.main_fragment_container, mFragment)
+                    .commit();
+        }
 
     }
 

@@ -36,7 +36,7 @@ public class GuideFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.guide_fragment_layout,  null);
+        View view = inflater.inflate(R.layout.guide_fragment_layout, null);
         mPDFView = (PDFView) view.findViewById(R.id.pdfView);
         mFile = getArguments().getString(KEY_DOCUMENT);
 
@@ -45,7 +45,7 @@ public class GuideFragment extends Fragment {
                 "\n Native language = " + PreferenceManager.getDefaultSharedPreferences(getContext()).getString(KeysSettingsInteractor.KeysField.KEY_NATIVE_LANGUAGE,
                 LanguagesInteractor.KeysField.RUSSIAN));
 
-        mPDFView.fromAsset(mFile).load();
+        mPDFView.fromAsset(mFile + ".pdf").load();
 
         return view;
     }
