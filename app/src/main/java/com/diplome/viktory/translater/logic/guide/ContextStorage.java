@@ -32,7 +32,7 @@ public class ContextStorage {
     private Map<String, String> initKyrguzsOnKyrguzs() {
 
         Map<String, String> files = new HashMap<>();
-        files.put(mContext.getResources().getString(R.string.nouns), "kurguz_nouns_rus");
+        files.put(mContext.getResources().getString(R.string.nouns), "kurguz_nouns_kg");
         return files;
     }
 
