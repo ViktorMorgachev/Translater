@@ -34,18 +34,25 @@ public class ResultFragment extends Fragment {
         mTextViewTrue.setText(getResources().getString(R.string.True) + ": " + getArguments().getInt(KEY_TRUE_INFO));
         mTextViewFalse.setText(getResources().getString(R.string.False) + ": " + getArguments().getInt(KEY_FALSE_INFO));
 
+        if (getArguments().getInt(KEY_TRUE_INFO) == 0) {
+            mImageViewResult.setImageResource(R.drawable.false_smile);
+            return view;
+        }
+
         int result = (getArguments().getInt(KEY_FALSE_INFO) * 100) / getArguments().getInt(KEY_TRUE_INFO);
 
-       if (result >= 70){
+        if (result >= 70) {
             mImageViewResult.setImageResource(R.drawable.false_smile);
-        } if(result >= 50)
-            mImageViewResult.setImageResource(R.drawable.normal_smile); else
-                mImageViewResult.setImageResource(R.drawable.true_smile);
+        }
+        if (result >= 50)
+            mImageViewResult.setImageResource(R.drawable.normal_smile);
+        else
+            mImageViewResult.setImageResource(R.drawable.true_smile);
 
         return view;
     }
 
-    public static ResultFragment newInstance(int countOfTrue , int countOfFalse) {
+    public static ResultFragment newInstance(int countOfTrue, int countOfFalse) {
         // Уcё, вопросов нет, осталcя один вопрос, как сохранить view
         ResultFragment resultFragment = new ResultFragment();
         Bundle arguments = new Bundle();
