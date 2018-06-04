@@ -33,6 +33,7 @@ public class ContextStorage {
 
         Map<String, String> files = new HashMap<>();
         files.put(mContext.getResources().getString(R.string.nouns), "kurguz_nouns_kg");
+        files.put(mContext.getResources().getString(R.string.pronouns), "kurguz_pronouns_kg");
         return files;
     }
 
@@ -42,6 +43,7 @@ public class ContextStorage {
         Map<String, String> files = new HashMap<>();
 
         files.put(mContext.getResources().getString(R.string.nouns), "kurguz_nouns_rus");
+        files.put(mContext.getResources().getString(R.string.pronouns), "kurguz_pronouns_rus");
         return files;
 
 
@@ -51,6 +53,7 @@ public class ContextStorage {
 
         Map<String, String> files = new HashMap<>();
         files.put(mContext.getResources().getString(R.string.nouns), "kurguz_nouns_en");
+        files.put(mContext.getResources().getString(R.string.pronouns), "kurguz_pronouns_en");
         return files;
 
     }

@@ -53,7 +53,7 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
                 mModuleInteractor.startSettingsActivity(this);
                 break;
             case R.id.btn_exit:
-                System.exit(0);
+                this.finish();
                 break;
         }
 
