@@ -13,7 +13,6 @@ import android.widget.Spinner;
 
 import com.diplome.viktory.translater.R;
 import com.diplome.viktory.translater.interactors.DirectionInteractor;
-import com.diplome.viktory.translater.logic.translater.activities.TranslateActivity;
 import com.diplome.viktory.translater.logic.translater.interfaces.OnRequestCreatedListener;
 import com.diplome.viktory.translater.logic.translater.data.ResultObjectContext;
 
@@ -26,7 +25,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     private Spinner spinner1, spinner2;
     private ImageView imageViewRight, imageViewLeft;
     private EditText editTextLeft, editTextRight;
-    private OnButtonClickListener mCaalBackClickListener;
+    private OnButtonClickListener mCallBackClickListener;
 
 
     private String result;
@@ -88,7 +87,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
             return;
 
 
-       mCaalBackClickListener.onButtonPressed(v,
+       mCallBackClickListener.onButtonPressed(v,
                editTextLeft.getText().toString(),
                editTextRight.getText().toString(),
                spinner1.getSelectedItemPosition(),
@@ -104,7 +103,7 @@ public class TranslateFragment extends Fragment implements View.OnClickListener,
     public void onAttach(Context context) {
         super.onAttach(context);
         try {
-            mCaalBackClickListener = (OnButtonClickListener) context;
+            mCallBackClickListener = (OnButtonClickListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnButtonClickListener");

@@ -61,6 +61,8 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
                 break;
         }
 
+        setDefaultLocale();
+
     }
 
     @Override
@@ -103,6 +105,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsFragm
         }
 
         getResources().updateConfiguration(configuration, getResources().getDisplayMetrics());
+        onRestart();
 
 
     }

@@ -55,6 +55,9 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
             case R.id.btn_exit:
                 this.finish();
                 break;
+            case R.id.btn_about:
+                mModuleInteractor.startAboutActivity(this);
+                break;
         }
 
     }

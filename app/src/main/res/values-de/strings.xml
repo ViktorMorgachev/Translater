@@ -44,6 +44,13 @@
     <string name="english">Англисча</string>
     <string name="kyrgyzs">Кыргызча</string>
     <string name="russian">Орусча</string>
+    <string name="version_app">Версия приложения: Не помню уже :)</string>
+    <string name="about_app">Приложение для всех кто хочет учить английский, русский, кыргызский</string>
+    <string name="about_app2">Если вы видите это окошко, значит приложение работает</string>
+    <string name="about_app3">PS: Закончилось кофе, можете дать ему немного?</string>
+    <string name="setCoffe">Дать кофе</string>
+    <string name="notSetCoffe">Отказать</string>
+    <string name="select_section">Выбери бөлүм</string>
     <string-array name="languages">
         <item>Кыргызча</item>
         <item>Орусча</item>

@@ -31,7 +31,11 @@
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
-
+        <activity android:name=".logic.about.activities.AboutActivity">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
         <activity android:name=".logic.settings.activities.SettingsActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"></category>
