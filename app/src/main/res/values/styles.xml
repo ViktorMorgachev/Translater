@@ -6,7 +6,7 @@
         <item name="android:stateListAnimator">@null</item>
         <item name="android:textSize">17sp</item>
         <item name="android:layout_width">160dp</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">70dp</item>
         <item name="android:translationZ">4dp</item>
     </style>
 

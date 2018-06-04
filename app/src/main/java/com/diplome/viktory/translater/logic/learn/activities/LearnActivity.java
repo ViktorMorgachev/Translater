@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TimeUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import com.diplome.viktory.translater.logic.settings.interactors.KeysSettingsInt
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import io.realm.Realm;
 
@@ -130,7 +132,14 @@ public class LearnActivity extends AppCompatActivity implements ChoiceVariantsFr
                 }
                 break;
             case R.id.iv_show_result:
-                Toast.makeText(this, mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, mRealmObjects.get(mRealmObjects.size() - 1).getNativeLanguage(getApplicationContext()), Toast.LENGTH_SHORT).show();
+
+                try {
+                    TimeUnit.MILLISECONDS.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 if (mRealmObjects.size() == 1) {
                     showResult();
                     return;

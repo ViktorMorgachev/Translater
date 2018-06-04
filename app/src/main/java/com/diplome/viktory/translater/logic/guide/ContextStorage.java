@@ -109,10 +109,10 @@ public class ContextStorage {
         Map<String, String> files = new HashMap<>();
 
         files.put(mContext.getResources().getString(R.string.adjectives), "english_adjectives_kg");
-        files.put(mContext.getResources().getString(R.string.nouns), "english_nouns_kg");
-        files.put(mContext.getResources().getString(R.string.pronouns), "english_pronouns_kg");
+        files.put(mContext.getResources().getString(R.string.nouns), "english_noun_kg");
+        files.put(mContext.getResources().getString(R.string.pronouns), "english_pronoun_kg");
         files.put(mContext.getResources().getString(R.string.strings), "english_strings_kg");
-        files.put(mContext.getResources().getString(R.string.verbs_times), "english_verbs_time_kg");
+        files.put(mContext.getResources().getString(R.string.verbs_times), "english_verbs_times_kg");
         files.put(mContext.getResources().getString(R.string.verbs), "english_verbs_kg");
         return files;
     }
