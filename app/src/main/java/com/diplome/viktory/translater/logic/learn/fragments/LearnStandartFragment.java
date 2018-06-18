@@ -111,7 +111,7 @@ public class LearnStandartFragment extends Fragment implements View.OnClickListe
 
 
             mCallBackClickListener.onButtonPressed(v,
-                    getArguments().getString(KEY_SECOND).equalsIgnoreCase(mEditText.getText().toString()));
+                    getArguments().getString(KEY_SECOND).trim().equalsIgnoreCase(mEditText.getText().toString()));
 
     }
 

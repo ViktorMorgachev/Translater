@@ -92,7 +92,7 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
 
         InternetChecker internetChecker = new InternetChecker();
         internetChecker.execute(this);
-
+        // Если присоединены к сервису и интернет есть
         try {
             if ((internetChecker.get()) && mBond) {
 
@@ -103,7 +103,7 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
 
                         if (mRequestCreater != null)
                             mRequestCreater
-                                    .makeResponse(false,
+                                    .makeResponseOnline(false,
                                             textRight,
                                             mRequestCreater.getLanguageMap().get(spiner2rightPosition),
                                             mRequestCreater.getLanguageMap().get(spiner1leftPosition), DirectionInteractor.Direction.LEFT);
@@ -112,16 +112,40 @@ public class TranslateActivity extends AppCompatActivity implements TranslateFra
                         // Пишем ахренеть какой сложный запрос
                         if (mRequestCreater != null)
                             mRequestCreater
-                                    .makeResponse(false,
+                                    .makeResponseOnline(false,
                                             textLeft,
                                             mRequestCreater.getLanguageMap().get(spiner1leftPosition),
-                                            mRequestCreater.getLanguageMap().get(spiner2rightPosition), DirectionInteractor.Direction.RIGHT);
+                                            mRequestCreater.getLanguageMap().get(spiner2rightPosition),
+                                             DirectionInteractor.Direction.RIGHT);
                         break;
                 }
 
 
             } else {
                 Toast.makeText(this, R.string.has_not_internet, Toast.LENGTH_SHORT).show();
+                switch (v.getId()) {
+                    case R.id.translate_left:
+
+                        // Пишем ахренеть какой сложный запрос
+
+                        if (mRequestCreater != null)
+                            mRequestCreater
+                                    .makeResponseOffline(false,
+                                            textRight,
+                                            mRequestCreater.getLanguageMap().get(spiner2rightPosition),
+                                            mRequestCreater.getLanguageMap().get(spiner1leftPosition), DirectionInteractor.Direction.LEFT);
+                        break;
+                    case R.id.translate_right:
+                        // Пишем ахренеть какой сложный запрос
+                        if (mRequestCreater != null)
+                            mRequestCreater
+                                    .makeResponseOffline(false,
+                                            textLeft,
+                                            mRequestCreater.getLanguageMap().get(spiner1leftPosition),
+                                            mRequestCreater.getLanguageMap().get(spiner2rightPosition),
+                                             DirectionInteractor.Direction.RIGHT);
+                        break;
+                }
             }
 
 

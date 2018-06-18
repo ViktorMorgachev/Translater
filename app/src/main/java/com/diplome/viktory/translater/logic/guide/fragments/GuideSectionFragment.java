@@ -47,16 +47,12 @@ public class GuideSectionFragment extends Fragment {
         View view = inflater.inflate(R.layout.select_fragment_layout, null);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_languages_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         updateUI();
-
         return view;
 
     }
 
     private void updateUI() {
-
-
         sectionsList = getArguments().getStringArrayList(KEY_LIST);
         mAdapter = new SectionAdapter(sectionsList);
         mRecyclerView.setAdapter(mAdapter);

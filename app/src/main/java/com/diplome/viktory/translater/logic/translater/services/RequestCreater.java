@@ -145,7 +145,7 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
     }
 
 
-    public void makeResponse(Boolean isDeterminate, String text, String lang1, String lang2, @DirectionInteractor.Direction int direction) {
+    public void makeResponseOnline(Boolean isDeterminate, String text, String lang1, String lang2, @DirectionInteractor.Direction int direction) {
 
         this.text = text;
         this.direction = direction;
@@ -164,6 +164,16 @@ public class RequestCreater extends Service implements LanguageDeterminaterListe
             getTranslatedText(mRequestMap);
         }
 
+    }
+
+     public String makeResponseOffline(Boolean isDeterminate, String text, String lang1, String lang2, @DirectionInteractor.Direction int direction) {
+
+        this.text = text;
+        this.direction = direction;
+        // Тут запрос к БД и выдача соответствующей информации, так как к Realm можно обращаться в главном потоке
+
+
+     return null;
     }
 
 

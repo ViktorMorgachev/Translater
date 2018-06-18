@@ -43,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setDefaultLocale();
     }
 
+
+    private void initWordsDatabase(){
+    }
+
     private void setDefaultLocale() {
 
 

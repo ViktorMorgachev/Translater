@@ -1,5 +1,6 @@
 package com.diplome.viktory.translater.logic.about.activities;
 
+import android.app.ActivityManager;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +17,11 @@ public class AboutActivity extends AppCompatActivity implements AboutFragment.On
     public void onButtonPressed(View view) {
 
         if(view.getId() == R.id.btn_setCoffe){
-            Toast.makeText(this, "Спасибо от него", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Спасибо от него ", Toast.LENGTH_LONG).show();
         } else
             Toast.makeText(this, "Вы обидели его ", Toast.LENGTH_LONG).show();
-
+        mDialogFragment.onDetach();
+        moveTaskToBack(false);
     }
 
     @Override

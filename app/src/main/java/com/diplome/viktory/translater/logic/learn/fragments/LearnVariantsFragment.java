@@ -162,7 +162,7 @@ public class LearnVariantsFragment extends Fragment implements View.OnClickListe
 
         Button button = (Button) v;
         // Если верно
-        if(getArguments().getString(KEY_ANSWER).equalsIgnoreCase(button.getText().toString())){
+        if(getArguments().getString(KEY_ANSWER).trim().equalsIgnoreCase(button.getText().toString())){
                mCallBackClickListener.onButtonPressed(v, true);
         } else {
             mCallBackClickListener.onButtonPressed(v, false);

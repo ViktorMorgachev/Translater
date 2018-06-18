@@ -20,6 +20,8 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
     private final ModuleInteractor mModuleInteractor = new ModuleInteractor();
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +55,7 @@ public class MenuActivity extends AppCompatActivity implements MenuFragment.OnBu
                 mModuleInteractor.startSettingsActivity(this);
                 break;
             case R.id.btn_exit:
-                this.finish();
+                System.exit(0 );
                 break;
             case R.id.btn_about:
                 mModuleInteractor.startAboutActivity(this);
